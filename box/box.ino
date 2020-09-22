@@ -237,6 +237,7 @@ public:
 
     void RunAllSensor()
     {
+        Serial.println("Reading sensor");
         _boxTemperature->FetchNewData();
         _boxHumidity->FetchNewData();
         _groundTemperature->FetchNewData();

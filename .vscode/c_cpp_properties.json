@@ -3,16 +3,12 @@
         {
             "name": "Win32",
             "includePath": [
-                "C:\\Users\\Mathieu\\Documents\\Arduino\\libraries\\OneWire",
-                "C:\\Users\\Mathieu\\Documents\\Arduino\\libraries\\DallasTemperature",
-                "C:\\Users\\Mathieu\\Documents\\Arduino\\libraries\\DHT_sensor_library",
-                "C:\\Users\\Mathieu\\Documents\\Arduino\\libraries\\Adafruit_Sensor-1.1.4",
-                "C:\\Users\\Mathieu\\Documents\\Arduino\\libraries\\BH1750",
-                "C:\\Program Files (x86)\\Arduino\\tools\\**",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\**"
+                "${workspaceFolder}/box**",
+                "C:/Program Files (x86)/Arduino/tools/**",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/**"
             ],
             "forcedInclude": [
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\Arduino.h"
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino/Arduino.h"
             ],
             "intelliSenseMode": "msvc-x64"
         }

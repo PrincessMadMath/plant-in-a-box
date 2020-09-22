@@ -1,5 +1,5 @@
 {
-    "sketch": "box\\test_code\\test_boxController\\test_boxController.ino",
+    "sketch": "box\\box.ino",
     "port": "COM5",
     "board": "arduino:avr:mega",
     "output": "../build",
