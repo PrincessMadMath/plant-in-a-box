@@ -3,7 +3,7 @@
 
 #include "DHT.h"
 
-#define DHTPIN 2     // what pin we're connected to
+#define DHTPIN 52     // what pin we're connected to
 
 // Uncomment whatever type you're using!
 //#define DHTTYPE DHT11   // DHT 11 
@@ -48,10 +48,10 @@ void loop() {
   float f = dht.readTemperature(true);
   
   // Check if any reads failed and exit early (to try again).
-  if (isnan(h) || isnan(t) || isnan(f)) {
-    Serial.println("Failed to read from DHT sensor!");
-    return;
-  }
+  // if (isnan(h) || isnan(t) || isnan(f)) {
+  //   Serial.println("Failed to read from DHT sensor!");
+  //   return;
+  // }
 
   // Compute heat index
   // Must send in temp in Fahrenheit!

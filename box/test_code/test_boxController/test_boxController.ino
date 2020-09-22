@@ -4,8 +4,8 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 // Library pour le light sensor
-#include <BH1750FVI.h> // Sensor Library
 #include <Wire.h> // I2C Library
+#include <BH1750.h> // Sensor Library
 
 /************* Config pour les sensors ****************/
 // Config pour le sensor DTH
@@ -83,7 +83,9 @@ public:
         {
           type = BOX_TEMPERATURE;
         }
-	virtual void SetupSensor(){}
+	virtual void SetupSensor(){
+    dht.begin();
+  }
 	virtual float FetchNewData()
         {
           float value = dht.readTemperature();
@@ -106,7 +108,9 @@ public:
         {
           type = BOX_HUMIDITY;
         }
-	virtual void SetupSensor(){}
+	virtual void SetupSensor(){
+    dht.begin();
+  }
 	virtual float FetchNewData()
         {
           float value =  dht.readHumidity();
@@ -183,7 +187,7 @@ public:
 
 
 /************ LightSensor **************************/
-BH1750FVI _lightSensor;
+BH1750 _lightSensor;
 
 class LightSensor : public ISensor
 {
@@ -194,13 +198,12 @@ public:
         }
 	virtual void SetupSensor()
         {
+          Wire.begin();
           _lightSensor.begin();
-          _lightSensor.SetAddress(Device_Address_L); //Address 0x5C
-          _lightSensor.SetMode(Continuous_H_resolution_Mode);
         }
 	virtual float FetchNewData()
         {
-          float value = (float)_lightSensor.GetLightIntensity();// Get Lux value
+          float value = (float)_lightSensor.readLightLevel();// Get Lux value
           if(isnan(value))
           {
             _monitor.OnSensorError(type, "Erreur de lecture pour le light_sensor");

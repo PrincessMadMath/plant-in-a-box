@@ -1,5 +1,5 @@
 {
-    "sketch": "box\\test_code\\test_BoxTempAndMoistSensor\\test_BoxTempAndMoistSensor.ino",
+    "sketch": "box\\test_code\\test_boxController\\test_boxController.ino",
     "port": "COM5",
     "board": "arduino:avr:mega",
     "output": "../build",
