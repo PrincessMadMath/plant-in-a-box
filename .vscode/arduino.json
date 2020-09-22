@@ -1,0 +1,8 @@
+{
+    "sketch": "box\\test_code\\test_BoxTempAndMoistSensor\\test_BoxTempAndMoistSensor.ino",
+    "port": "COM5",
+    "board": "arduino:avr:mega",
+    "output": "../build",
+    "debugger": "jlink",
+    "configuration": "cpu=atmega2560"
+}
