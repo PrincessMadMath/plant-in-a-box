@@ -20,37 +20,40 @@
 //Config pour ground moisture
 #define GROUND_MOISTURE_PIN 1
 
-/*********** Monitor **************************/
+/************ ISensor **************************/
 
-class Monitor
+class SensorResult
 {
 public:
-    void OnSensorUpdate(SensorType type, float value)
+    bool IsSuccess;
+    SensorType Type;
+    float Value;
+    String ErrorMessage;
+
+    SensorResult(bool isSuccess, SensorType type, float value, String errorMessage)
     {
-        Serial.print(UPDATE_SENSOR);
-        Serial.print("/");
-        Serial.print(type);
-        Serial.print("/");
-        Serial.println(value);
+        Type = type;
+        IsSuccess = isSuccess;
+        Value = value;
+        ErrorMessage = errorMessage;
     }
-    void OnSensorError(SensorType type, String messageError)
+
+    static SensorResult Success(SensorType type, float value)
     {
-        Serial.print(RAISE_ERROR);
-        Serial.print("/");
-        Serial.print(type);
-        Serial.print("/");
-        Serial.println(messageError);
+        return SensorResult(true, type, value, "");
+    }
+
+    static SensorResult Error(SensorType type, String errorMessage)
+    {
+        return SensorResult(false, type, -1, errorMessage);
     }
 };
 
-Monitor _monitor;
-
-/************ ISensor **************************/
 class ISensor
 {
 public:
     virtual void SetupSensor() = 0;
-    virtual float FetchNewData() = 0;
+    virtual SensorResult FetchNewData() = 0;
     SensorType type;
 };
 
@@ -68,18 +71,15 @@ public:
     {
         dht.begin();
     }
-    virtual float FetchNewData()
+    virtual SensorResult FetchNewData()
     {
         float value = dht.readTemperature();
         if (isnan(value))
         {
-            _monitor.OnSensorError(type, "Erreur de lecture pour le capteur DHT");
+            return SensorResult::Error(type, "Erreur de lecture pour le capteur DHT");
         }
-        else
-        {
-            _monitor.OnSensorUpdate(type, value);
-        }
-        return value;
+
+        return SensorResult::Success(type, value);
     }
 };
 
@@ -94,18 +94,15 @@ public:
     {
         dht.begin();
     }
-    virtual float FetchNewData()
+    virtual SensorResult FetchNewData()
     {
         float value = dht.readHumidity();
         if (isnan(value))
         {
-            _monitor.OnSensorError(type, "Erreur de lecture avec le capteur DHT");
+            return SensorResult::Error(type, "Erreur de lecture pour le capteur DHT");
         }
-        else
-        {
-            _monitor.OnSensorUpdate(type, value);
-        }
-        return value;
+
+        return SensorResult::Success(type, value);
     }
 };
 
@@ -126,19 +123,16 @@ public:
     {
         groundTemperatureSensor.begin();
     }
-    virtual float FetchNewData()
+    virtual SensorResult FetchNewData()
     {
         groundTemperatureSensor.requestTemperatures();
         float value = groundTemperatureSensor.getTempCByIndex(0); // Why "byIndex"? You can have more than one IC on the same bus. 0 refers to the first IC on the wire
         if (isnan(value))
         {
-            _monitor.OnSensorError(type, "Erreur de lecture pour le ground_temperature sensor");
+            return SensorResult::Error(type, "Erreur de lecture pour le ground_temperature sensor");
         }
-        else
-        {
-            _monitor.OnSensorUpdate(type, value);
-        }
-        return value;
+
+        return SensorResult::Success(type, value);
     }
 };
 
@@ -153,18 +147,15 @@ public:
     virtual void SetupSensor()
     {
     }
-    virtual float FetchNewData()
+    virtual SensorResult FetchNewData()
     {
         float value = (float)analogRead(GROUND_MOISTURE_PIN);
         if (isnan(value))
         {
-            _monitor.OnSensorError(type, "Erreur de lecture pour le ground_moisture sensor");
+            return SensorResult::Error(type, "Erreur de lecture pour le ground_moisture sensor");
         }
-        else
-        {
-            _monitor.OnSensorUpdate(type, value);
-        }
-        return value;
+
+        return SensorResult::Success(type, value);
     }
 };
 
@@ -183,17 +174,14 @@ public:
         Wire.begin();
         _lightSensor.begin();
     }
-    virtual float FetchNewData()
+    virtual SensorResult FetchNewData()
     {
         float value = (float)_lightSensor.readLightLevel(); // Get Lux value
         if (isnan(value))
         {
-            _monitor.OnSensorError(type, "Erreur de lecture pour le light_sensor");
+            return SensorResult::Error(type, "Erreur de lecture pour le light_sensor sensor");
         }
-        else
-        {
-            _monitor.OnSensorUpdate(type, value);
-        }
-        return value;
+
+        return SensorResult::Success(type, value);
     }
 };

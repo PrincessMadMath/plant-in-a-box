@@ -4,44 +4,49 @@
 #include "sensors.h"
 
 /************ SensorManager **************************/
+
+ISensor *sensors[5] = {new BoxTemperature_DTH(), new BoxHumidity_DTH(), new GroundTemperature(), new GroundMoisture(), new LightSensor()};
+
 class SensorManager
 {
 
 public:
     SensorManager()
     {
-        _boxTemperature = new BoxTemperature_DTH();
-        _boxHumidity = new BoxHumidity_DTH();
-        _groundTemperature = new GroundTemperature();
-        _groundMoisture = new GroundMoisture();
-        _lightSensor = new LightSensor();
     }
 
     void Initialize()
     {
-        _boxTemperature->SetupSensor();
-        _boxHumidity->SetupSensor();
-        _groundMoisture->SetupSensor();
-        _groundTemperature->SetupSensor();
-        _lightSensor->SetupSensor();
+        for (byte i = 0; i < 5; i = i + 1)
+        {
+            sensors[i]->SetupSensor();
+        }
     }
 
     void RunAllSensor()
     {
         Serial.println("Reading sensor");
-        _boxTemperature->FetchNewData();
-        _boxHumidity->FetchNewData();
-        _groundTemperature->FetchNewData();
-        _groundMoisture->FetchNewData();
-        _lightSensor->FetchNewData();
+        for (byte i = 0; i < 5; i = i + 1)
+        {
+            SensorResult result = sensors[i]->FetchNewData();
+            if (result.IsSuccess)
+            {
+                Serial.print(UPDATE_SENSOR);
+                Serial.print("/");
+                Serial.print(result.Type);
+                Serial.print("/");
+                Serial.println(result.Value);
+            }
+            else
+            {
+                Serial.print(RAISE_ERROR);
+                Serial.print("/");
+                Serial.print(result.Type);
+                Serial.print("/");
+                Serial.println(result.ErrorMessage);
+            }
+        }
     }
-
-private:
-    ISensor *_boxTemperature;
-    ISensor *_boxHumidity;
-    ISensor *_groundMoisture;
-    ISensor *_groundTemperature;
-    ISensor *_lightSensor;
 };
 
 /************ BoxController **************************/
