@@ -19,9 +19,9 @@
 //Config pour ground moisture
 #define GROUND_MOISTURE_PIN 1
 
-enum ActionType
+enum QueryType
 {
-    UPDATE_SENSOR = 0,
+    SENSOR_UPDATED = 0,
     RAISE_ERROR = 1
 };
 
@@ -41,7 +41,7 @@ class Monitor
 public:
     void OnSensorUpdate(SensorType type, float value)
     {
-        Serial.print(UPDATE_SENSOR);
+        Serial.print(SENSOR_UPDATED);
         Serial.print("/");
         Serial.print(type);
         Serial.print("/");

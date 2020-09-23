@@ -2,7 +2,7 @@
 
 Watch me Felix!
 
-# Setup Arduino code (/box)
+# Arduino code (/box)
 
 ## Setup
 
@@ -13,3 +13,15 @@ Watch me Felix!
 ## Notes
 
 -   Using workaround to use multiple .ino files => renaming extension to .h
+
+# Python code
+
+## Setup
+
+1. Activate "Virtual Environment": `.venv\scripts\activate`
+2. Install requirement `pip install -r requirements.txt`
+3. Leave virtual environment: `deactivate`
+
+## Contributing
+
+-   If adding new dependencies don't forget to update requirements: `pip freeze > requirements.txt`

@@ -1,4 +1,5 @@
 {
   "arduino.defaultBaudRate": 9600,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "python.pythonPath": "c:\\Dev\\plant-in-a-box\\.venv\\Scripts\\python.exe"
 }

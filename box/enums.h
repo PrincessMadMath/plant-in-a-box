@@ -1,7 +1,15 @@
-enum ActionType
+enum CommandType
 {
-    UPDATE_SENSOR = 0,
-    RAISE_ERROR = 1
+    POKE = 0,
+    GET_SENSORS = 1,
+    UPDATE_CONTROLLER = 2,
+};
+
+enum QueryType
+{
+    ERROR = 0,
+    SENSOR_UPDATED = 1,
+    CONTROLLER_UPDATED = 2
 };
 
 enum SensorType
@@ -11,4 +19,11 @@ enum SensorType
     GROUND_TEMPERATURE = 2,
     GROUND_MOISTURE = 3,
     LIGHT_SENSOR = 4
+};
+
+enum ControllerType
+{
+    LED_LAMP = 1,
+    WATER_PUMP = 2,
+    HEAT_LAMP = 3,
 };

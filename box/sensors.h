@@ -65,7 +65,7 @@ class BoxTemperature_DTH : public ISensor
 public:
     BoxTemperature_DTH()
     {
-        type = BOX_TEMPERATURE;
+        type = SensorType::BOX_TEMPERATURE;
     }
     virtual void SetupSensor()
     {
@@ -88,7 +88,7 @@ class BoxHumidity_DTH : public ISensor
 public:
     BoxHumidity_DTH()
     {
-        type = BOX_HUMIDITY;
+        type = SensorType::BOX_HUMIDITY;
     }
     virtual void SetupSensor()
     {
@@ -117,7 +117,7 @@ class GroundTemperature : public ISensor
 public:
     GroundTemperature()
     {
-        type = GROUND_TEMPERATURE;
+        type = SensorType::GROUND_TEMPERATURE;
     }
     virtual void SetupSensor()
     {
@@ -142,7 +142,7 @@ class GroundMoisture : public ISensor
 public:
     GroundMoisture()
     {
-        type = GROUND_MOISTURE;
+        type = SensorType::GROUND_MOISTURE;
     }
     virtual void SetupSensor()
     {
@@ -167,7 +167,7 @@ class LightSensor : public ISensor
 public:
     LightSensor()
     {
-        type = LIGHT_SENSOR;
+        type = SensorType::LIGHT_SENSOR;
     }
     virtual void SetupSensor()
     {
