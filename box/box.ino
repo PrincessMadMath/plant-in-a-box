@@ -2,10 +2,13 @@
 /********* Others stuff *********/
 #include "enums.h"
 #include "sensors.h"
+#include "controllers.h"
 
 /************ SensorManager **************************/
 
 ISensor *sensors[5] = {new BoxTemperature_DTH(), new BoxHumidity_DTH(), new GroundTemperature(), new GroundMoisture(), new LightSensor()};
+
+Controller ledLamp(44);
 
 class SensorManager
 {
@@ -60,6 +63,8 @@ public:
     void Initialize()
     {
         m_sensorManager->Initialize();
+
+        ledLamp.Setup();
     }
 
     void GetSensors()
@@ -67,13 +72,31 @@ public:
         m_sensorManager->RunAllSensor();
     }
 
-    void UpdateController(ControllerType controllerType, int value)
+    void UpdateController(ControllerType type, ControllerValue value)
     {
-        Serial.print(QueryType::CONTROLLER_UPDATED);
-        Serial.print("/");
-        Serial.print(controllerType);
-        Serial.print("/");
-        Serial.println(value);
+        if (type == ControllerType::LED_LAMP)
+        {
+            if (value == ControllerValue::ON)
+            {
+                Serial.println("Tunrning on led lamp.");
+                ledLamp.TurnOn();
+                Serial.println("Led lamp turned on.");
+            }
+            else
+            {
+                Serial.println("Tunrning off led lamp.");
+                ledLamp.TurnOff();
+                Serial.println("Led lamp turned off.");
+            }
+        }
+    }
+
+    void GetController(ControllerType type)
+    {
+        if (type == ControllerType::LED_LAMP)
+        {
+            Serial.println(ledLamp.IsTurnOn());
+        }
     }
 
 private:
@@ -131,7 +154,12 @@ void loop()
         {
             String controllerTypeStr = getValue(data, '/', 1);
             String value = getValue(data, '/', 2);
-            boxController.UpdateController(static_cast<ControllerType>(controllerTypeStr.toInt()), value.toInt());
+            boxController.UpdateController(static_cast<ControllerType>(controllerTypeStr.toInt()), static_cast<ControllerValue>(value.toInt()));
+        }
+        else if (commandType == CommandType::GET_CONTROLLER)
+        {
+            String controllerTypeStr = getValue(data, '/', 1);
+            boxController.GetController(static_cast<ControllerType>(controllerTypeStr.toInt()));
         }
 
         Serial.println("ack");

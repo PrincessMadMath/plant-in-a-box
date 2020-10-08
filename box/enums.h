@@ -3,6 +3,7 @@ enum CommandType
     POKE = 0,
     GET_SENSORS = 1,
     UPDATE_CONTROLLER = 2,
+    GET_CONTROLLER = 3,
 };
 
 enum QueryType
@@ -26,4 +27,10 @@ enum ControllerType
     LED_LAMP = 1,
     WATER_PUMP = 2,
     HEAT_LAMP = 3,
+};
+
+enum ControllerValue
+{
+    OFF = 0,
+    ON = 1,
 };
