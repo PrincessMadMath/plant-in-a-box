@@ -6,7 +6,7 @@ ser = serial.Serial('COM5', 9600)
 time.sleep(2)
 
 def sendCommand(cmd):
-    send_string = cmd + "\n"
+    send_string = str(cmd) + "\n"
     
     # Send the string. Make sure you encode it before you send it to the Arduino.
     ser.write(send_string.encode('utf-8'))
@@ -29,3 +29,4 @@ def sendCommand(cmd):
                 lines.append(line)
     
     return lines
+    

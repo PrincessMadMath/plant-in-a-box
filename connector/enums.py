@@ -3,8 +3,8 @@ from enum import Enum
 class CommandType(Enum):
     POKE = 0
     GET_SENSORS = 1
-    UPDATE_CONTROLLER = 2,
-    GET_CONTROLLER = 3,
+    UPDATE_CONTROLLER = 2
+    GET_CONTROLLER = 3
 
 class QueryType(Enum):
     ERROR = 0

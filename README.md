@@ -18,7 +18,8 @@ Possibles commands:
 
 -   Poke: "0"
 -   Get sensors values: "1"
--   Turn on or off a controller: "2/controller_value/(0,1)
+-   Turn on or off a controller: "2/controller_value/(0,1)"
+-   Get controller state: "3/controller_value"
 
 Look into enums.h for more information.
 
