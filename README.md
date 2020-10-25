@@ -31,10 +31,23 @@ Look into enums.h for more information.
 
 ## Setup
 
-1. Activate "Virtual Environment": `.venv\scripts\activate`
+(need to create virtual environment before)
+
+1. Activate "Virtual Environment": `.venv\scripts\activate` or on Linux `source env/bin/activate`
 2. Install requirement `pip install -r requirements.txt`
 3. Leave virtual environment: `deactivate`
+
+## Run the code
+
+-   Start code: `python3 ./connector/main.py`
 
 ## Contributing
 
 -   If adding new dependencies don't forget to update requirements: `pip freeze > requirements.txt`
+
+# Raspberry Pi
+
+## How connect to by ssh
+
+-   Connect: `ssh pi@raspberrypi`
+-   Password: raspberry

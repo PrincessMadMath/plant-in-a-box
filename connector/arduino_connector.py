@@ -1,8 +1,20 @@
+import platform
 import serial
 import time
 
 # set up the serial line
-ser = serial.Serial('COM5', 9600)
+ser = {}
+
+platform = platform.system()
+print("Detecting platform {}".format(platform))
+
+if(platform == "Windows"):
+    print("Connecting to COM5")
+    ser = serial.Serial('COM5', 9600)
+else: 
+    ser = serial.Serial('/dev/ttyACM0', 9600)
+    print("Connecting to /dev/ttyACM0")
+
 time.sleep(2)
 
 def sendCommand(cmd):
