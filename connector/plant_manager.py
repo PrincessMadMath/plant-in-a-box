@@ -3,6 +3,8 @@ from plant_connector import *
 from plant_connector import *
 from datetime import datetime
 
+enoughWaterTreshold = 150
+
 def mainLoop():
     while True:
         try:
@@ -27,7 +29,7 @@ def mainLoop():
             (_, waterValue) = sensors[SensorType.WATER_SENSOR.value]
             (_, groundMoisture) = sensors[SensorType.GROUND_MOISTURE.value]
 
-            isWaterLeft = float(waterValue) > 150
+            isWaterLeft = float(waterValue) > enoughWaterTreshold
             isWaterNeeded = float(groundMoisture) > 500
 
             if (isWaterNeeded and isWaterLeft):
@@ -56,6 +58,63 @@ def mainLoop():
             print("Loop Ended")
 
             time.sleep(0.5)
+
+        except KeyboardInterrupt:
+            print("Keyboard Interrupt")
+            break
+        except Exception as e:
+            print(e)
+
+def assitedLoop():
+    while True:
+        try:
+            now = datetime.now()
+            print("**************************************************************")
+            print("Starting loop: {}".format(now.strftime("%c")))
+            print("Commands:")
+            print("-- 1: Get Sensors")
+            print("-- 2: Get Controllers")
+            print("-- 3: Turn on light")
+            print("-- 4: Turn off light")
+            print("-- 5: Turn on water for 5s")
+
+            command = input("Enter command to send to arduino:\n")
+
+            if command == "1":
+                print("Getting sensors value.")
+                sensors = getSensorsValues()
+                printSensorsUpdate(sensors)
+            elif command == "2":
+                print("Getting controllers value.")
+                controllers = getControllersState()
+                printControllersState(controllers)
+            elif command == "3":
+                print("Turning on light.")
+                to = turnOnController(ControllerType.LED_LAMP.value)
+                print(to)
+            elif command == "4":
+                print("Turning off light.")
+                to = turnOffController(ControllerType.LED_LAMP.value)
+                print(to)
+            elif command == "5":
+                print("Validate water level.")
+                sensors = getSensorsValues()
+                (_, waterValue) = sensors[SensorType.WATER_SENSOR.value]
+                isWaterLeft = float(waterValue) > enoughWaterTreshold
+
+                if isWaterLeft is True: 
+                    print("Watering plant.")
+                    to = turnOnController(ControllerType.WATER_PUMP.value)
+                    print(to)
+
+                    print("Waiting 5s...")
+                    time.sleep(0.5)
+
+                    to = turnOffController(ControllerType.WATER_PUMP.value)
+                    print(to)
+                    print("Stop watering plant.")
+                else: 
+                    print("Not enough water.")
 
         except KeyboardInterrupt:
             print("Keyboard Interrupt")
