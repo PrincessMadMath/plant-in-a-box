@@ -39,7 +39,8 @@ Look into enums.h for more information.
 
 ## Run the code
 
--   Start code: `python3 ./connector/main.py`
+-   Start code (manual): `python3 ./connector/main.py`
+-   Start code (auto): `python3 ./connector/main.py auto`
 
 ## Contributing
 

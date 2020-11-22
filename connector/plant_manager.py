@@ -1,11 +1,13 @@
 
 from plant_connector import *
+from plant_connector import *
 from datetime import datetime
 
 def mainLoop():
     while True:
         try:
             now = datetime.now()
+            print("**************************************************************")
             print("Starting loop: {}".format(now.strftime("%c")))
             sensors = getSensorsValues()
             printSensorsUpdate(sensors)
@@ -54,6 +56,30 @@ def mainLoop():
             print("Loop Ended")
 
             time.sleep(0.5)
+
+        except KeyboardInterrupt:
+            print("Keyboard Interrupt")
+            break
+        except Exception as e:
+            print(e)
+
+def manualLoop():
+    while True:
+        try:
+            print("**************************************************************")
+            now = datetime.now()
+            print("Starting loop: {}".format(now.strftime("%c")))
+            command = input("Enter command to send to arduino:\n")
+
+            if command == "1":
+                sensors = getSensorsValues()
+                printSensorsUpdate(sensors)
+            else:
+                responses = sendCommand(command)
+                for line in responses:
+                    print(line)
+
+            
 
         except KeyboardInterrupt:
             print("Keyboard Interrupt")
