@@ -15,7 +15,7 @@ if programRole == "auto":
     mainLoop()
 if programRole == "assisted":
     print("Starting program in assisted mode")
-    mainLoop()
+    assitedLoop()
 else: 
     print("Starting program in manual mode")
     manualLoop()
