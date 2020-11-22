@@ -37,6 +37,7 @@ def parseSensorUpdate(line):
 def getControllersState():
     controllersState = {}
     controllersState[ControllerType.LED_LAMP.value] = getControllerState(ControllerType.LED_LAMP.value)
+    controllersState[ControllerType.WATER_PUMP.value] = getControllerState(ControllerType.WATER_PUMP.value)
     
     return controllersState
 

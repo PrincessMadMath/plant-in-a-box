@@ -171,6 +171,7 @@ def printControllersState(controllers):
     print("---------- Controllers State ----------")
 
     formatControllerUpdate(controllers, ControllerType.LED_LAMP)
+    formatControllerUpdate(controllers, ControllerType.WATER_PUMP)
 
 
 def formatControllerUpdate(controllersUpdate, controllerType):
