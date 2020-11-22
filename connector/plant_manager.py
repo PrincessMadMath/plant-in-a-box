@@ -22,6 +22,32 @@ def mainLoop():
                 to = turnOffController(ControllerType.LED_LAMP.value)
                 print(to)
 
+            (_, waterValue) = sensors[SensorType.WATER_SENSOR.value]
+            (_, groundMoisture) = sensors[SensorType.GROUND_MOISTURE.value]
+
+            isWaterLeft = float(waterValue) > 250
+            isWaterNeeded = float(groundMoisture) > 500
+
+            if (isWaterNeeded and isWaterLeft):
+                print("*****Watering plants!")
+                to = turnOnController(ControllerType.WATER_PUMP.value)
+                print(to)
+
+            elif (isWaterNeeded and isWaterLeft is False):
+                print("*****No more water, Plan need it!")
+                to = turnOffController(ControllerType.WATER_PUMP.value)
+                print(to)
+
+            elif (isWaterNeeded is False):
+                print("*****Plan doesn't need water")
+                to = turnOffController(ControllerType.WATER_PUMP.value)
+                print(to)
+
+            else:
+                print("*****Unknown condition, turning off water")
+                to = turnOffController(ControllerType.WATER_PUMP.value)
+                print(to)
+
             controllers = getControllersState()
             printControllersState(controllers)
 
@@ -44,6 +70,7 @@ def printSensorsUpdate(sensors):
     formatSentorUpdate(sensors, SensorType.GROUND_TEMPERATURE, "°C")
     formatSentorUpdate(sensors, SensorType.GROUND_MOISTURE, "?")
     formatSentorUpdate(sensors, SensorType.LIGHT_SENSOR, "lux")
+    formatSentorUpdate(sensors, SensorType.WATER_SENSOR, "?")
 
 def formatSentorUpdate(sensorsUpdate, sensorType, unitText):
     (isSuccess, value) = sensorsUpdate[sensorType.value]

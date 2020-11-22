@@ -19,7 +19,8 @@ enum SensorType
     BOX_HUMIDITY = 1,
     GROUND_TEMPERATURE = 2,
     GROUND_MOISTURE = 3,
-    LIGHT_SENSOR = 4
+    LIGHT_SENSOR = 4,
+    WATER_SENSOR = 5
 };
 
 enum ControllerType

@@ -17,6 +17,7 @@ class SensorType(Enum):
     GROUND_TEMPERATURE = 2
     GROUND_MOISTURE = 3
     LIGHT_SENSOR = 4
+    WATER_SENSOR = 5
 
 class ControllerType(Enum):
     LED_LAMP = 1

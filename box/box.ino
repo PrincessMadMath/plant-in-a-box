@@ -6,9 +6,12 @@
 
 /************ SensorManager **************************/
 
-ISensor *sensors[5] = {new BoxTemperature_DTH(), new BoxHumidity_DTH(), new GroundTemperature(), new GroundMoisture(), new LightSensor()};
+#define SENSOR_COUNT 6
+
+ISensor *sensors[SENSOR_COUNT] = {new BoxTemperature_DTH(), new BoxHumidity_DTH(), new GroundTemperature(), new GroundMoisture(), new LightSensor(), new WaterSensor()};
 
 Controller ledLamp(44);
+Controller waterPump(40);
 
 class SensorManager
 {
@@ -28,7 +31,7 @@ public:
 
     void RunAllSensor()
     {
-        for (byte i = 0; i < 5; i = i + 1)
+        for (byte i = 0; i < SENSOR_COUNT; i = i + 1)
         {
             SensorResult result = sensors[i]->FetchNewData();
             if (result.IsSuccess)
@@ -65,6 +68,8 @@ public:
         m_sensorManager->Initialize();
 
         ledLamp.Setup();
+        waterPump.Setup();
+        waterPump.TurnOn();
     }
 
     void GetSensors()
@@ -89,6 +94,23 @@ public:
                 Serial.println("Led lamp turned off.");
             }
         }
+
+        if (type == ControllerType::WATER_PUMP)
+        {
+            // TODO Rename to Hight & Low
+            if (value == ControllerValue::ON)
+            {
+                Serial.println("Tunrning on water pump.");
+                waterPump.TurnOff();
+                Serial.println("Water pump turned on.");
+            }
+            else
+            {
+                Serial.println("Tunrning off water pump.");
+                waterPump.TurnOn();
+                Serial.println("Water pump turned off.");
+            }
+        }
     }
 
     void GetController(ControllerType type)
@@ -96,6 +118,10 @@ public:
         if (type == ControllerType::LED_LAMP)
         {
             Serial.println(ledLamp.IsTurnOn());
+        }
+        if (type == ControllerType::WATER_PUMP)
+        {
+            Serial.println(waterPump.IsTurnOn());
         }
     }
 

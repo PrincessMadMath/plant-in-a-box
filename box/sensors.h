@@ -20,6 +20,9 @@
 //Config pour ground moisture
 #define GROUND_MOISTURE_PIN 1
 
+//Config pour water sensor
+#define WATER_SENSOR_PIN 2
+
 /************ ISensor **************************/
 
 class SensorResult
@@ -180,6 +183,29 @@ public:
         if (isnan(value))
         {
             return SensorResult::Error(type, "Erreur de lecture pour le light_sensor sensor");
+        }
+
+        return SensorResult::Success(type, value);
+    }
+};
+
+/************ WaterSensor **************************/
+class WaterSensor : public ISensor
+{
+public:
+    WaterSensor()
+    {
+        type = SensorType::WATER_SENSOR;
+    }
+    virtual void SetupSensor()
+    {
+    }
+    virtual SensorResult FetchNewData()
+    {
+        float value = (float)analogRead(WATER_SENSOR_PIN);
+        if (isnan(value))
+        {
+            return SensorResult::Error(type, "Erreur de lecture pour le water_sensor sensor");
         }
 
         return SensorResult::Success(type, value);
