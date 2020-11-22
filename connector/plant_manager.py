@@ -27,7 +27,7 @@ def mainLoop():
             (_, waterValue) = sensors[SensorType.WATER_SENSOR.value]
             (_, groundMoisture) = sensors[SensorType.GROUND_MOISTURE.value]
 
-            isWaterLeft = float(waterValue) > 250
+            isWaterLeft = float(waterValue) > 150
             isWaterNeeded = float(groundMoisture) > 500
 
             if (isWaterNeeded and isWaterLeft):
