@@ -76,7 +76,7 @@ def assitedLoop():
             print("-- 2: Get Controllers")
             print("-- 3: Turn on light")
             print("-- 4: Turn off light")
-            print("-- 5: Turn on water for 5s")
+            print("-- 5: Turn on water for 3s")
 
             command = input("Enter command to send to arduino:\n")
 
@@ -107,8 +107,8 @@ def assitedLoop():
                     to = turnOnController(ControllerType.WATER_PUMP.value)
                     print(to)
 
-                    print("Waiting 5s...")
-                    time.sleep(0.5)
+                    print("Waiting 3s...")
+                    time.sleep(3)
 
                     to = turnOffController(ControllerType.WATER_PUMP.value)
                     print(to)
