@@ -41,6 +41,7 @@ Look into enums.h for more information.
 
 -   Start code (manual): `python3 ./connector/main.py`
 -   Start code (auto): `python3 ./connector/main.py auto`
+-   Start code (assisted): `python3 ./connector/main.py assited`
 
 ## Contributing
 
@@ -52,3 +53,9 @@ Look into enums.h for more information.
 
 -   Connect: `ssh pi@raspberrypi`
 -   Password: raspberry
+
+### How setup detach process
+
+If you just start the program on the pi, it will stopped the loop as soon as you disconnect frow the ssh.
+
+-   As recommended here use tmux (https://askubuntu.com/questions/8653/how-to-keep-processes-running-after-ending-ssh-session)

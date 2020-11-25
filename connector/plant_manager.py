@@ -16,7 +16,7 @@ def mainLoop():
 
             print("---------- Controlling the environment ----------")
 
-            if ((now.hour > 7) and (now.hour < 19)):
+            if ((now.hour > 7) and (now.hour < 22)):
                 print("Daytime: Turning on light")
                 to = turnOnController(ControllerType.LED_LAMP.value)
                 print(to)
