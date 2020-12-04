@@ -1,4 +1,5 @@
-from enum import Enum 
+from enum import Enum
+
 
 class CommandType(Enum):
     POKE = 0
@@ -6,10 +7,12 @@ class CommandType(Enum):
     UPDATE_CONTROLLER = 2
     GET_CONTROLLER = 3
 
+
 class QueryType(Enum):
     ERROR = 0
     SENSOR_UPDATED = 1
     CONTROLLER_UPDATED = 2
+
 
 class SensorType(Enum):
     BOX_TEMPERATURE = 0
@@ -19,10 +22,12 @@ class SensorType(Enum):
     LIGHT_SENSOR = 4
     WATER_SENSOR = 5
 
+
 class ControllerType(Enum):
     LED_LAMP = 1
     WATER_PUMP = 2
     HEAT_LAMP = 3
+
 
 class ControllerValue(Enum):
     OFF = 0

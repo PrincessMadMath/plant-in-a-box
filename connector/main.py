@@ -1,24 +1,23 @@
 import sys
-from enums import *
-from arduino_connector import *
-from plant_manager import *
+
+from plant_manager.role_auto import auto_loop
+from plant_manager.role_assisted import assited_loop
+from plant_manager.role_manual import manual_loop
 
 args = sys.argv[1:]
 
-
-
-# By default it's manual, other options is "auto" and "assisted"
-programRole = sys.argv[1] if len(args) == 1 else "manual" 
+# Options are
+## auto
+## assisted
+## manual
+programRole = sys.argv[1] if len(args) == 1 else "manual"
 
 if programRole == "auto":
     print("Starting program in automatic mode")
-    mainLoop()
+    auto_loop()
 if programRole == "assisted":
     print("Starting program in assisted mode")
-    assitedLoop()
-else: 
+    assited_loop()
+else:
     print("Starting program in manual mode")
-    manualLoop()
-
-# Finally
-ser.close()
+    manual_loop()
