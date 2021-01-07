@@ -1,8 +1,14 @@
+import time
 from datetime import datetime
 
-from plant_connector.plant_commands import *
-from plant_connector.enums import *
-from utils import *
+from plant_connector.plant_commands import (
+    get_sensors_values,
+    turn_on_controller,
+    turn_off_controller,
+    get_controllers_state,
+)
+from plant_connector.enums import SensorType, ControllerType
+from plant_manager.utils import print_sensors_update, print_controllers_state
 
 enoughWaterTreshold = 150
 
@@ -55,7 +61,7 @@ def auto_loop():
                 print(to)
 
             controllers = get_controllers_state()
-            print_controllers_State(controllers)
+            print_controllers_state(controllers)
 
             print("Loop Ended")
 

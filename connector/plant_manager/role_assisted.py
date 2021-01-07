@@ -1,9 +1,15 @@
 import time
 from datetime import datetime
 
-from plant_connector.plant_commands import *
-from plant_connector.enums import *
-from utils import *
+from plant_connector.plant_commands import (
+    get_sensors_values,
+    get_controllers_state,
+    turn_on_controller,
+    turn_off_controller,
+    print_controllers_state,
+)
+from plant_connector.enums import ControllerType, SensorType
+from plant_manager.utils import print_sensors_update
 
 enoughWaterTreshold = 150
 
@@ -30,7 +36,7 @@ def assited_loop():
             elif command == "2":
                 print("Getting controllers value.")
                 controllers = get_controllers_state()
-                print_controllers_State(controllers)
+                print_controllers_state(controllers)
             elif command == "3":
                 print("Turning on light.")
                 to = turn_on_controller(ControllerType.LED_LAMP.value)

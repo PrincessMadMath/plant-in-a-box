@@ -1,4 +1,4 @@
-from plant_connector.enums import *
+from plant_connector.enums import SensorType, ControllerType
 
 
 def print_sensors_update(sensors):
@@ -23,10 +23,10 @@ def format_sentor_update(sensorsUpdate, sensorType, unitText):
         print("Error while getting {}, because {}".format(sensorType.name, value))
 
 
-def print_controllers_State(controllers):
+def print_controllers_state(controllers):
     print("---------- Controllers State ----------")
 
-    format_controller_update(controllers, controllerType.LED_LAMP)
+    format_controller_update(controllers, ControllerType.LED_LAMP)
     format_controller_update(controllers, ControllerType.WATER_PUMP)
 
 

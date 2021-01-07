@@ -1,5 +1,10 @@
-from arduino_connector import *
-from enums import *
+from plant_connector.arduino_connector import send_command
+from plant_connector.enums import (
+    CommandType,
+    QueryType,
+    ControllerType,
+    ControllerValue,
+)
 
 
 def poke(controllerType):
