@@ -3,6 +3,7 @@ import serial
 import time
 
 ser = {}
+a = 2
 
 # set up the serial line
 def initialize():
@@ -16,10 +17,13 @@ def initialize():
         ser = serial.Serial("/dev/ttyACM0", 9600)
         print("Connecting to /dev/ttyACM0")
 
+    a = 3
+
     time.sleep(2)
 
 
 def send_command(cmd):
+    print(a)
     send_string = str(cmd) + "\n"
 
     # Send the string. Make sure you encode it before you send it to the Arduino.
