@@ -2,8 +2,8 @@ import platform
 import serial
 import time
 
-ser = {}
-a = 2
+global ser = {}
+global a = 2
 
 # set up the serial line
 def initialize():
