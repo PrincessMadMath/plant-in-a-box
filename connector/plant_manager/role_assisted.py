@@ -6,10 +6,9 @@ from plant_connector.plant_commands import (
     get_controllers_state,
     turn_on_controller,
     turn_off_controller,
-    print_controllers_state,
 )
 from plant_connector.enums import ControllerType, SensorType
-from plant_manager.utils import print_sensors_update
+from plant_manager.utils import print_sensors_update, print_controllers_state
 
 enoughWaterTreshold = 150
 
