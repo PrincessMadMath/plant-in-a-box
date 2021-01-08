@@ -11,6 +11,7 @@ from plant_connector.arduino_connector import initialize
 ## manual
 def run(programRole):
     initialize()
+    send_command()
     if programRole == "auto":
         print("Starting program in automatic mode")
         auto_loop()
