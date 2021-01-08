@@ -1,4 +1,4 @@
-from plant_connector.arduino_connector import send_command
+from plant_connector.arduino_connector import arduino_connector
 from plant_connector.enums import (
     CommandType,
     QueryType,
@@ -8,12 +8,12 @@ from plant_connector.enums import (
 
 
 def poke(controllerType):
-    responses = send_command("{}".format(CommandType.POKE.value))
+    responses = arduino_connector.send_command("{}".format(CommandType.POKE.value))
     return responses
 
 
 def get_sensors_values():
-    responses = send_command(CommandType.GET_SENSORS.value)
+    responses = arduino_connector.send_command(CommandType.GET_SENSORS.value)
 
     sensorUpates = {}
     for line in responses:
@@ -54,7 +54,7 @@ def get_controllers_state():
 
 
 def get_controller_state(controllerType):
-    response = send_command(
+    response = arduino_connector.send_command(
         "{}/{}".format(CommandType.GET_CONTROLLER.value, controllerType)
     )
 
@@ -62,7 +62,7 @@ def get_controller_state(controllerType):
 
 
 def turn_on_controller(controllerType):
-    response = send_command(
+    response = arduino_connector.send_command(
         "{}/{}/{}".format(
             CommandType.UPDATE_CONTROLLER.value,
             controllerType,
@@ -73,7 +73,7 @@ def turn_on_controller(controllerType):
 
 
 def turn_off_controller(controllerType):
-    response = send_command(
+    response = arduino_connector.send_command(
         "{}/{}/{}".format(
             CommandType.UPDATE_CONTROLLER.value,
             controllerType,

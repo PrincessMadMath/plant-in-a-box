@@ -1,7 +1,7 @@
 import time
 
 from plant_connector.plant_commands import get_sensors_values
-from plant_connector.arduino_connector import send_command
+from plant_connector.arduino_connector import arduino_connector
 from plant_connector.enums import *
 from datetime import datetime
 from plant_manager.utils import print_sensors_update
@@ -21,7 +21,7 @@ def manual_loop():
                 sensors = get_sensors_values()
                 print_sensors_update(sensors)
             else:
-                responses = send_command(command)
+                responses = arduino_connector.send_command(command)
                 for line in responses:
                     print(line)
 
