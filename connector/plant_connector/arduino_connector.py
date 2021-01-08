@@ -2,11 +2,13 @@ import platform
 import serial
 import time
 
-global ser
-global a
+
+ser = {}
 
 # set up the serial line
 def initialize():
+    global ser
+
     os = platform.system()
     print("Detecting platform {}".format(platform))
 
@@ -23,6 +25,8 @@ def initialize():
 
 
 def send_command(cmd):
+    global ser
+
     print(a)
     send_string = str(cmd) + "\n"
 
