@@ -31,7 +31,7 @@ Look into enums.h for more information.
 
 ## Setup
 
-(need to create virtual environment before) (`py -3 -m venv .venv` / `python3 -m venv .venv`)
+(need to create virtual environment before) (`py -3 -m venv .venv` / `python3 -m venv ./env`)
 
 1. Activate "Virtual Environment": `.venv\scripts\activate` or on Linux `source env/bin/activate`
 2. Install requirement `pip install -r requirements.txt`

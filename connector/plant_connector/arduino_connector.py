@@ -6,10 +6,10 @@ ser = {}
 
 # set up the serial line
 def initialize():
-    platform = platform.system()
+    os = platform.system()
     print("Detecting platform {}".format(platform))
 
-    if platform == "Windows":
+    if os == "Windows":
         print("Connecting to COM5")
         ser = serial.Serial("COM5", 9600)
     else:

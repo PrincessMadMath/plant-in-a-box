@@ -3,17 +3,14 @@ import sys
 from plant_manager.role_auto import auto_loop
 from plant_manager.role_assisted import assited_loop
 from plant_manager.role_manual import manual_loop
-
-args = sys.argv[1:]
+from plant_connector.arduino_connector import initialize
 
 # Options are
 ## auto
 ## assisted
 ## manual
-programRole = sys.argv[1] if len(args) == 1 else "manual"
-
-
 def run(programRole):
+    initialize()
     if programRole == "auto":
         print("Starting program in automatic mode")
         auto_loop()
