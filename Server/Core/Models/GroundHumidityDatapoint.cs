@@ -1,14 +1,9 @@
 using System;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 
-namespace Api.Entities
+namespace Core.Models
 {
-    public class GroundHumidityDatapointDocument
+    public class GroundHumidityDatapoint
     {
-        [BsonId]
-        public ObjectId Id { get; set; }
-
         public Guid DataPointId { get; set; }
         
         public Guid BoxId { get; set; }

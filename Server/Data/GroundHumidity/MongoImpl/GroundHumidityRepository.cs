@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Entities;
+using Core.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace Api.Entities
+namespace Data.GroundHumidity.MongoImpl
 {
     public class GroundHumidityRepository: IGroundHumidityRepository
     {
@@ -16,7 +18,7 @@ namespace Api.Entities
             this._mongoContext = new GroundHumidityMongoContext(settings);
         }
         
-        public async IAsyncEnumerable<GroundHumidityDatapointDocument> GetAllBoxDatapoint(Guid boxId)
+        public async IAsyncEnumerable<GroundHumidityDatapoint> GetAllBoxDatapoint(Guid boxId)
         {
             var filter = Builders<GroundHumidityDatapointDocument>.Filter.Eq(x => x.BoxId, boxId);
             using (var cursor = await this._mongoContext.GroundHumidityDocuments.FindAsync(filter))
@@ -25,29 +27,29 @@ namespace Api.Entities
                 {
                     foreach (var document in cursor.Current)
                     {
-                        yield return document;
+                        yield return document.ToModel();
                     }
                 }
             }
         }
 
-        public async Task<GroundHumidityDatapointDocument> GetDatapoint(Guid datapointId)
+        public async Task<GroundHumidityDatapoint> GetDatapoint(Guid datapointId)
         {
             var filter = Builders<GroundHumidityDatapointDocument>.Filter.Eq(x => x.DataPointId, datapointId);
             using (var cursor = await this._mongoContext.GroundHumidityDocuments.FindAsync(filter))
             {
                 while (await cursor.MoveNextAsync())
                 {
-                    return cursor.Current.FirstOrDefault();
+                    return cursor.Current.FirstOrDefault()?.ToModel();
                 }
             }
 
             return null;
         }
 
-        public Task AddGroundHumidity(GroundHumidityDatapointDocument datapointDocument)
+        public Task AddGroundHumidity(GroundHumidityDatapoint datapointDocument)
         {
-            return this._mongoContext.GroundHumidityDocuments.InsertOneAsync(datapointDocument);
+            return this._mongoContext.GroundHumidityDocuments.InsertOneAsync(datapointDocument.ToDocument());
         }
 
         public Task UpdateDatePointValue(Guid datapointId, float value)

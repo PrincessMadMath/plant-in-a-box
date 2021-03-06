@@ -1,7 +1,8 @@
+using Api.Entities;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace Api.Entities
+namespace Data.GroundHumidity.MongoImpl
 {
     public class GroundHumidityMongoContext
     {

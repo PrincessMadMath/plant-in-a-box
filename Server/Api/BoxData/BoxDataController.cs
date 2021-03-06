@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Api.Entities;
+using Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.BoxData
@@ -10,72 +8,39 @@ namespace Api.BoxData
     [Route("box-data")]
     public class BoxDataController : ControllerBase
     {
-        private readonly IGroundHumidityRepository _groundHumidityRepository;
+        private readonly IGroundHumidityService _groundHumidityService;
 
-        public BoxDataController(IGroundHumidityRepository groundHumidityRepository)
+        public BoxDataController(IGroundHumidityService groundHumidityService)
         {
-            _groundHumidityRepository = groundHumidityRepository;
+            _groundHumidityService = groundHumidityService;
         }
         
         [HttpPost("populate-ground-humidity")]
-        public async Task<IActionResult> SeedGroundHumidity()
+        public async Task<IActionResult> SeedGroundHumidity(Guid boxId)
         {
-            var boxId = Guid.Parse("f509aaa7-3dde-43be-a178-94eb27556969");
-            await this._groundHumidityRepository.AddGroundHumidity(new()
-            {
-                BoxId = boxId,
-                DataPointId = Guid.NewGuid(),
-                Humidity = 10.0f,
-                Date = DateTimeOffset.Parse("2020-10-01")
-            });
- 
-            await this._groundHumidityRepository.AddGroundHumidity(new()
-            {
-                BoxId = boxId,
-                DataPointId = Guid.NewGuid(),
-                Humidity = 15.0f,
-                Date = DateTimeOffset.Parse("2020-10-02")
-            });
+            var result = await this._groundHumidityService.Seed(boxId);
 
-            await this._groundHumidityRepository.AddGroundHumidity(new()
+            if (!result.IsSuccess)
             {
-                BoxId = boxId,
-                DataPointId = Guid.NewGuid(),
-                Humidity = 20.0f,
-                Date = DateTimeOffset.Parse("2020-10-03")
-            });
-            
-            await this._groundHumidityRepository.AddGroundHumidity(new()
-            {
-                BoxId = boxId,
-                DataPointId = Guid.NewGuid(),
-                Humidity = 30.0f,
-                Date = DateTimeOffset.Parse("2020-10-04")
-            });
-
-            
-            await this._groundHumidityRepository.AddGroundHumidity(new()
-            {
-                BoxId = boxId,
-                DataPointId = Guid.NewGuid(),
-                Humidity = 40.0f,
-                Date = DateTimeOffset.Parse("2020-10-05")
-            });
+                return this.BadRequest(result.FailureReason);
+            }
 
             return this.Ok();
-
         }
         
         // GET
         [HttpGet("ground-humidity")]
-        public async Task<IActionResult> GetGroundHumidity()
+        public async Task<IActionResult> GetGroundHumidity(Guid boxId)
         {
-            var datapoint = await this._groundHumidityRepository.GetAllBoxDatapoint(Guid.Parse("f509aaa7-3dde-43be-a178-94eb27556969")).ToListAsync();
-            return Ok(
-                new
-                {
-                    Values = datapoint
-                });
+            var datapointsRequest = await this._groundHumidityService.GetData(boxId);
+            
+            if (!datapointsRequest.IsSuccess)
+            {
+                return this.BadRequest(datapointsRequest.FailureReason);
+            }
+
+            return this.Ok(datapointsRequest.Result);
+
         }
     }
 }
