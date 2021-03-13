@@ -9,7 +9,7 @@ namespace Api.BoxData
         [HttpGet("")]
         public async Task<OkObjectResult> Index()
         {
-            return this.Ok("Welcome to PIB.");
+            return this.Ok("Welcome to PIB. v2");
         }
     }
 }
