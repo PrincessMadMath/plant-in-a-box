@@ -8,6 +8,7 @@
 2. Install requirement `pip install -r requirements.txt`
 3. Leave virtual environment: `deactivate`
 
+
 ## Run the code
 
 Inside the raspberry folder:
@@ -17,6 +18,7 @@ Inside the raspberry folder:
 
 ## Contributing
 
+-   To install new library: `pip install xyx`
 -   If adding new dependencies don't forget to update requirements: `pip freeze > requirements.txt`
 
 # Raspberry Pi

@@ -63,6 +63,13 @@ namespace Business.Services
             return OperationResult.Success();
         }
 
+        public async Task<OperationResult> Add(GroundHumidityDatapoint datapoint)
+        {
+            await this._repository.AddGroundHumidity(datapoint);
+
+            return OperationResult.Success();
+        }
+
         public async Task<RequestResult<List<GroundHumidityDatapoint>>> GetData(Guid boxId)
         {
             var datapoints = await this._repository.GetAllBoxDatapoint(boxId).ToListAsync();

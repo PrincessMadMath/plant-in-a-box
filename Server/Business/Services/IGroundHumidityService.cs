@@ -10,6 +10,8 @@ namespace Business.Services
     {
         Task<OperationResult> Seed(Guid boxId);
         
+        Task<OperationResult> Add(GroundHumidityDatapoint datapoint);
+        
         Task<RequestResult<List<GroundHumidityDatapoint>>> GetData(Guid boxId);
     }
 }

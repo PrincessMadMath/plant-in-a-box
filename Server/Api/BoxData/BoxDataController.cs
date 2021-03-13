@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Business.Services;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.BoxData
@@ -28,6 +29,19 @@ namespace Api.BoxData
             return this.Ok();
         }
         
+        [HttpPost("ground-humidity")]
+        public async Task<IActionResult> GetGroundHumidity([FromBody] GroundHumidityDatapoint datapoint)
+        {
+            var result = await this._groundHumidityService.Add(datapoint);
+
+            if (!result.IsSuccess)
+            {
+                return this.BadRequest(result.FailureReason);
+            }
+
+            return this.Ok();
+        }
+        
         // GET
         [HttpGet("ground-humidity")]
         public async Task<IActionResult> GetGroundHumidity(Guid boxId)
@@ -40,7 +54,6 @@ namespace Api.BoxData
             }
 
             return this.Ok(datapointsRequest.Result);
-
         }
     }
 }
