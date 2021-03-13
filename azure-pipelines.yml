@@ -30,7 +30,7 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    workingDirectory: src/backend
+    workingDirectory: Server
 
 - task: PublishBuildArtifacts@1
   inputs:
