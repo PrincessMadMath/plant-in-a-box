@@ -18,12 +18,14 @@ steps:
   displayName: 'Install .NET Core SDK'
   inputs:
     version: '5.0.x'
-    includePreviewVersions: true # Required for preview versions
+    includePreviewVersions: true
     
 - task: DotNetCoreCLI@2
+  displayName: Restore
   inputs:
     command: 'restore'
     projects: 'Server/**/*.csproj'
+    includeNuGetOrg: true
     
 - task: DotNetCoreCLI@2
   displayName: Build
