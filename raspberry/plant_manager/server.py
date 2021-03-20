@@ -3,18 +3,25 @@ import uuid
 from plant_connector.enums import SensorType, ControllerType
 from datetime import datetime
 
+# server = "https://localhost:5001"
+server = "https://pib-server.azurewebsites.net"
+
 def send_datapoint(sensors):
     print("---------- Sending Update ----------")
 
 
-    # (isSuccess, value) = sensorsUpdate[SensorType.GROUND_MOISTURE]
+    (isSuccess, value) = sensors[SensorType.GROUND_MOISTURE]
+
+    if isSuccess is False:
+        print("Unable to get moisture value.")
+        return
+
     now = datetime.now()
-    # endpoint = "https://192.168.50.70:5001/box-data/ground-humidity"
-    endpoint = "https://httpbin.org/post"
+    endpoint = server + "/box-data/ground-humidity"
     data = {
         "dataPointId": str(uuid.uuid4()) ,
         "boxId": "1a6acc00-29d7-4ab1-a621-04f02be46106",
-        "humidity": 10,
+        "humidity": value,
         "date": now.isoformat()
     }
 

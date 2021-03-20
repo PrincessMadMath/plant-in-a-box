@@ -1,5 +1,5 @@
 import time
-from datetime import datetime
+from datetime import datetime, timedelta 
 
 from plant_connector.plant_commands import (
     get_sensors_values,
@@ -9,11 +9,14 @@ from plant_connector.plant_commands import (
 )
 from plant_connector.enums import SensorType, ControllerType
 from plant_manager.utils import print_sensors_update, print_controllers_state
+from plant_manager.server import send_datapoint
 
 enoughWaterTreshold = 150
 
 
 def auto_loop():
+    last_send = None
+
     while True:
         try:
             now = datetime.now()
@@ -62,6 +65,14 @@ def auto_loop():
 
             controllers = get_controllers_state()
             print_controllers_state(controllers)
+
+            now = datetime.now()
+
+            if last_send is None or now > last_send + timedelta(minutes=30):
+                print("---------- Sending data ----------")
+                send_datapoint(sensors)
+                last_send = now
+
 
             print("Loop Ended")
 
