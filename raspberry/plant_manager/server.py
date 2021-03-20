@@ -19,7 +19,7 @@ def send_datapoint(sensors):
     data = {
         "dataPointId": str(uuid.uuid4()) ,
         "boxId": "00000000-0000-0000-0000-000000000000",
-        "humidity": 10,
+        "humidity": value,
         "date": now.isoformat()
     }
 
@@ -29,5 +29,3 @@ def send_datapoint(sensors):
         verify=False)
 
     print("Status code: ", response.status_code)
-    print("Printing Entire Post Request")
-    print(response.json())
