@@ -68,8 +68,7 @@ def auto_loop():
 
             now = datetime.now()
 
-            if last_send is None or now > last_send + timedelta(minutes=30):
-                print("---------- Sending data ----------")
+            if last_send is None or now < last_send + timedelta(minutes=0):
                 send_datapoint(sensors)
                 last_send = now
 
@@ -82,4 +81,5 @@ def auto_loop():
             print("Keyboard Interrupt")
             break
         except Exception as e:
+            print("Exception")
             print(e)
