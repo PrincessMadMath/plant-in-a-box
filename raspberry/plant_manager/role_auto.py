@@ -68,7 +68,7 @@ def auto_loop():
 
             now = datetime.now()
 
-            if last_send is None or now < last_send + timedelta(minutes=0):
+            if last_send is None or now > last_send + timedelta(minutes=60):
                 send_datapoint(sensors)
                 last_send = now
 

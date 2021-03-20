@@ -5,6 +5,7 @@ from datetime import datetime
 
 # server = "https://localhost:5001"
 server = "https://pib-server.azurewebsites.net"
+boxId = "88b2f49e-1226-4964-9aa9-9b1f8442fd36"
 
 def send_datapoint(sensors):
     print("---------- Sending Update ----------")
@@ -18,7 +19,7 @@ def send_datapoint(sensors):
     endpoint = server + "/box-data/ground-humidity"
     data = {
         "dataPointId": str(uuid.uuid4()) ,
-        "boxId": "00000000-0000-0000-0000-000000000000",
+        "boxId": boxId,
         "humidity": value,
         "date": now.isoformat()
     }
