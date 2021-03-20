@@ -9,9 +9,7 @@ server = "https://pib-server.azurewebsites.net"
 def send_datapoint(sensors):
     print("---------- Sending Update ----------")
 
-
-    (isSuccess, value) = sensors[SensorType.GROUND_MOISTURE]
-
+    (isSuccess, value) = sensors[SensorType.GROUND_MOISTURE.value]
     if isSuccess is False:
         print("Unable to get moisture value.")
         return
@@ -20,8 +18,8 @@ def send_datapoint(sensors):
     endpoint = server + "/box-data/ground-humidity"
     data = {
         "dataPointId": str(uuid.uuid4()) ,
-        "boxId": "1a6acc00-29d7-4ab1-a621-04f02be46106",
-        "humidity": value,
+        "boxId": "00000000-0000-0000-0000-000000000000",
+        "humidity": 10,
         "date": now.isoformat()
     }
 
