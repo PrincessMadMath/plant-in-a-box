@@ -25,3 +25,8 @@ Front-end
 How use date formatting in Nivo
 - https://github.com/d3/d3-scale
 - https://momentjs.com/docs/#/displaying/unix-timestamp-milliseconds/
+
+
+Documenation about .net 5
+
+- Complete exemple: https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-5.0&tabs=visual-studio 
