@@ -1,11 +1,9 @@
-export const getGroundHumidity = (): Promise<GroundHumidityData[]> => {
+export const getGroundHumidity = (boxId: string): Promise<GroundHumidityData[]> => {
 
-    return fetch(`/box-data/ground-humidity`,{
+    return fetch(`/box-data/ground-humidity?boxId=${boxId}`,{
             method: 'GET'
         }).then(response=>{
             return response.json();
-        }).then(response => {
-            return response.values;
         }).catch(err=>console.log(err))
 };
 

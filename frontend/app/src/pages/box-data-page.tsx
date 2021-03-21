@@ -7,7 +7,8 @@ export const BoxDataPage = () => {
     const [groundHumidityData, setGroundHumidityData] = useState<GroundHumidityData[]>([]);
 
     useEffect(() => {
-        getGroundHumidity().then(x => {
+        getGroundHumidity("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then(x => {
+            debugger;
             setGroundHumidityData(x);
         });
     }, []);
