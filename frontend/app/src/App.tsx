@@ -4,10 +4,6 @@ import { BoxDataPage } from './pages/box-data-page';
 
 function App() {
 
-    fetch("/test")
-        .then(data => console.log(data))
-        .catch(error => console.log(error));
-
   return (
     <div className="App">
         <BoxDataPage />

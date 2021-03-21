@@ -12,7 +12,12 @@ namespace Api.Setup
     {
         public static IServiceCollection ConfigureCors(this IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(o => o.AddPolicy("AllowAll", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
 
             return services;
         }
