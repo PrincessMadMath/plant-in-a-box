@@ -21,3 +21,5 @@ You can use .env file to specify setting.
 By default:
 * start will use .env
 * build will use .env.production
+
+(seems to be baked since static files)

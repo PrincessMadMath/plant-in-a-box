@@ -12,6 +12,11 @@ Where keep connection string
 - Make it a secret: (https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows)
 - Use with rider: https://medium.com/datadigest/user-secrets-in-asp-net-core-with-jetbrains-rider-26c381177391
 
+Use dev vs prod
+- appsettings.json vs appsettings.Development.json
+- Can also use settings of Azure Web App
+- Possible to use Azure Keyvault to centralize
+
 
 3. Python to local machine
 
