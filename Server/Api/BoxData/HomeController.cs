@@ -7,7 +7,7 @@ namespace Api.BoxData
     public class HomeController : ControllerBase
     {
         [HttpGet("")]
-        public async Task<OkObjectResult> Index()
+        public OkObjectResult Index()
         {
             return this.Ok("Welcome to PIB. v2");
         }

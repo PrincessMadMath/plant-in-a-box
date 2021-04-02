@@ -41,4 +41,19 @@ Building a pipeline:
 Zero to Hero (App Service)
 https://azure.github.io/AppService/tags/#zero-to-hero
 
-5. Linting
+5. Linting 
+
+Good recap: https://medium.com/@michaelparkerdev/linting-c-in-2019-stylecop-sonar-resharper-and-roslyn-73e88af57ebd
+Default: https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/rulesets/StyleCopAnalyzersDefault.ruleset 
+
+sa: style analysis
+ca: code analysis (roselyn analyzer)
+
+
+Editor config n'est pas utilisé durant le CI? (https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options)
+
+Quand utilser règle stylecop vs editorconfig?
+
+6. How configure Rider?
+
+Conflict with rule (this.)... how fix for all teams

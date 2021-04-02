@@ -6,14 +6,15 @@ namespace Data.GroundHumidity.MongoImpl
 {
     public class GroundHumidityMongoContext
     {
-        private readonly IMongoDatabase _database = null;
+        private readonly IMongoDatabase database;
 
         public GroundHumidityMongoContext(IOptions<MongoSettings> settings)
         {
             var client = new MongoClient(settings.Value.ConnectionString);
-            _database = client.GetDatabase(settings.Value.Database);
+            this.database = client.GetDatabase(settings.Value.Database);
         }
 
-        public IMongoCollection<GroundHumidityDatapointDocument> GroundHumidityDocuments => this._database.GetCollection<GroundHumidityDatapointDocument>("GroundHumidity");
+        public IMongoCollection<GroundHumidityDatapointDocument> GroundHumidityDocuments =>
+            this.database.GetCollection<GroundHumidityDatapointDocument>("GroundHumidity");
     }
 }

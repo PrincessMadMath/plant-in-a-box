@@ -6,11 +6,11 @@ namespace Core.Common
     {
         public OperationResult(bool isSuccess, string failureReason, Exception? exception)
         {
-            IsSuccess = isSuccess;
-            FailureReason = failureReason;
-            Exception = exception;
+            this.IsSuccess = isSuccess;
+            this.FailureReason = failureReason;
+            this.Exception = exception;
         }
-        
+
         public bool IsSuccess { get; }
 
         public string FailureReason { get; }
@@ -19,17 +19,17 @@ namespace Core.Common
 
         public static OperationResult Success()
         {
-            return new OperationResult(true, string.Empty, null);
+            return new(true, string.Empty, null);
         }
 
         public static OperationResult Failure(string failureReason)
         {
-            return new OperationResult(false, failureReason, null);
+            return new(false, failureReason, null);
         }
-        
+
         public static OperationResult Failure(string failureReason, Exception exception)
         {
-            return new OperationResult(false, failureReason, exception);
+            return new(false, failureReason, exception);
         }
     }
 }

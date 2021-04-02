@@ -9,26 +9,24 @@ using MongoDB.Driver;
 
 namespace Data.GroundHumidity.MongoImpl
 {
-    public class GroundHumidityRepository: IGroundHumidityRepository
+    public class GroundHumidityRepository : IGroundHumidityRepository
     {
-        private readonly GroundHumidityMongoContext _mongoContext = null;
+        private readonly GroundHumidityMongoContext mongoContext;
 
         public GroundHumidityRepository(IOptions<MongoSettings> settings)
         {
-            this._mongoContext = new GroundHumidityMongoContext(settings);
+            this.mongoContext = new GroundHumidityMongoContext(settings);
         }
-        
+
         public async IAsyncEnumerable<GroundHumidityDatapoint> GetAllBoxDatapoint(Guid boxId)
         {
             var filter = Builders<GroundHumidityDatapointDocument>.Filter.Eq(x => x.BoxId, boxId);
-            using (var cursor = await this._mongoContext.GroundHumidityDocuments.FindAsync(filter))
+            using var cursor = await this.mongoContext.GroundHumidityDocuments.FindAsync(filter);
+            while (await cursor.MoveNextAsync())
             {
-                while (await cursor.MoveNextAsync())
+                foreach (var document in cursor.Current)
                 {
-                    foreach (var document in cursor.Current)
-                    {
-                        yield return document.ToModel();
-                    }
+                    yield return document.ToModel();
                 }
             }
         }
@@ -36,7 +34,7 @@ namespace Data.GroundHumidity.MongoImpl
         public async Task<GroundHumidityDatapoint> GetDatapoint(Guid datapointId)
         {
             var filter = Builders<GroundHumidityDatapointDocument>.Filter.Eq(x => x.DataPointId, datapointId);
-            using (var cursor = await this._mongoContext.GroundHumidityDocuments.FindAsync(filter))
+            using (var cursor = await this.mongoContext.GroundHumidityDocuments.FindAsync(filter))
             {
                 while (await cursor.MoveNextAsync())
                 {
@@ -49,7 +47,7 @@ namespace Data.GroundHumidity.MongoImpl
 
         public Task AddGroundHumidity(GroundHumidityDatapoint datapointDocument)
         {
-            return this._mongoContext.GroundHumidityDocuments.InsertOneAsync(datapointDocument.ToDocument());
+            return this.mongoContext.GroundHumidityDocuments.InsertOneAsync(datapointDocument.ToDocument());
         }
 
         public Task UpdateDatePointValue(Guid datapointId, float value)
@@ -57,8 +55,7 @@ namespace Data.GroundHumidity.MongoImpl
             var filter = Builders<GroundHumidityDatapointDocument>.Filter.Eq(x => x.DataPointId, datapointId);
             var update = Builders<GroundHumidityDatapointDocument>.Update.Set(x => x.Humidity, value);
 
-            return this._mongoContext.GroundHumidityDocuments.UpdateOneAsync(filter, update);
-
+            return this.mongoContext.GroundHumidityDocuments.UpdateOneAsync(filter, update);
         }
     }
 }

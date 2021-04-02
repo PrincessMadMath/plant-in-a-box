@@ -9,17 +9,17 @@ namespace Api.BoxData
     [Route("box-data")]
     public class BoxDataController : ControllerBase
     {
-        private readonly IGroundHumidityService _groundHumidityService;
+        private readonly IGroundHumidityService groundHumidityService;
 
         public BoxDataController(IGroundHumidityService groundHumidityService)
         {
-            _groundHumidityService = groundHumidityService;
+            this.groundHumidityService = groundHumidityService;
         }
-        
+
         [HttpPost("populate-ground-humidity")]
         public async Task<IActionResult> SeedGroundHumidity(Guid boxId)
         {
-            var result = await this._groundHumidityService.Seed(boxId);
+            var result = await this.groundHumidityService.Seed(boxId);
 
             if (!result.IsSuccess)
             {
@@ -28,11 +28,11 @@ namespace Api.BoxData
 
             return this.Ok();
         }
-        
+
         [HttpPost("ground-humidity")]
         public async Task<IActionResult> GetGroundHumidity([FromBody] GroundHumidityDatapoint datapoint)
         {
-            var result = await this._groundHumidityService.Add(datapoint);
+            var result = await this.groundHumidityService.Add(datapoint);
 
             if (!result.IsSuccess)
             {
@@ -41,13 +41,13 @@ namespace Api.BoxData
 
             return this.Ok();
         }
-        
+
         // GET
         [HttpGet("ground-humidity")]
         public async Task<IActionResult> GetGroundHumidity(Guid boxId)
         {
-            var datapointsRequest = await this._groundHumidityService.GetData(boxId);
-            
+            var datapointsRequest = await this.groundHumidityService.GetData(boxId);
+
             if (!datapointsRequest.IsSuccess)
             {
                 return this.BadRequest(datapointsRequest.FailureReason);

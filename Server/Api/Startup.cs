@@ -1,4 +1,3 @@
-using Api.Entities;
 using Api.Setup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +13,7 @@ namespace Api
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -22,27 +21,27 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddConfig(Configuration)
+            services.AddConfig(this.Configuration)
                 .InjectDependencies();
 
             services.ConfigureCors();
-            
+
             services.AddControllers();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Api", Version = "v1"}); });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" }); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline (middleware).
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("AllowAll");
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
             }
-            
+
             app.UseHttpsRedirection();
 
             // Middleware that find the best endpoint for the request

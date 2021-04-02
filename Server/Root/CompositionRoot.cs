@@ -3,7 +3,6 @@ using Data.GroundHumidity;
 using Data.GroundHumidity.MongoImpl;
 using Microsoft.Extensions.DependencyInjection;
 
-
 namespace Root
 {
     public static class CompositionRoot
