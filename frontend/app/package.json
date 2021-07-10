@@ -4,6 +4,9 @@
   "private": true,
   "proxy": "https://pib-server.azurewebsites.net",
   "dependencies": {
+    "@chakra-ui/react": "^1.6.3",
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
     "@nivo/core": "^0.67.0",
     "@nivo/line": "^0.67.0",
     "@testing-library/jest-dom": "^5.11.9",
@@ -14,6 +17,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "dotenv": "^8.2.0",
+    "framer-motion": "^4.1.17",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -25,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.tsx' --write"
   },
   "eslintConfig": {
     "extends": [
@@ -44,5 +49,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2"
   }
 }

@@ -52,8 +52,8 @@ ca: code analysis (roselyn analyzer)
 
 Editor config n'est pas utilisé durant le CI? (https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options)
 
-Quand utilser règle stylecop vs editorconfig?
+Quand utilser règle stylecop vs editorconfig? 
 
 6. How configure Rider?
 
-Conflict with rule (this.)... how fix for all teams
+Conflict with rule (this.)... how fix for all teams (.idea but normally ignore (TODO))

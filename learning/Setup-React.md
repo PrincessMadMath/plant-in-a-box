@@ -10,6 +10,12 @@ How handle CORS
 
 3. Linting
 
+* Setup ESLint with TS (https://khalilstemmler.com/blogs/typescript/eslint-for-typescript/)
+* Setup ESLint + Prettier (https://khalilstemmler.com/blogs/tooling/prettier/)
+
+Si ne montre pas erreur dans VS code: s'assurer de donner permission (https://dev.to/tillsanders/eslint-not-working-in-vscode-help-build-a-troubleshooting-checklist-fdc)
+
+
 4. Settings by environment
 
 https://create-react-app.dev/docs/adding-custom-environment-variables
