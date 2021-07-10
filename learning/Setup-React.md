@@ -29,3 +29,8 @@ By default:
 * build will use .env.production
 
 (seems to be baked since static files)
+
+5. Update package
+
+`npx npm-check-updates -u` pour mettre latest version dans package.json
+`npm install` pour appliquer changement
