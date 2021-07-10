@@ -7,6 +7,8 @@ import { OverviewPage } from "Overview/OverviewPage";
 import { Box, ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./theme";
 
+import Routes from "./Routes";
+
 dotenv.config();
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
                 />
                 <Box mx="6">
                     {/* <SensorDetailsPage sensorId={"88b2f49e-1226-4964-9aa9-9b1f8442fd36"}/> */}
-                    <OverviewPage />
+                    <Routes />
                 </Box>
             </ChakraProvider>
         </>

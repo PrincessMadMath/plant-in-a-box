@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import {
     ActuatorsOverview,
     getActuatorsOverviewTest,
@@ -21,6 +23,8 @@ import {
 export const OverviewPage = () => {
     const [sensors, setSensors] = useState<SensorsOverview[]>([]);
     const [actuators, setActuators] = useState<ActuatorsOverview[]>([]);
+
+    const history = useHistory();
 
     useEffect(() => {
         getSensorsOverviewTest("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then(
@@ -60,7 +64,11 @@ export const OverviewPage = () => {
                     </Thead>
                     <Tbody>
                         {sensors.map((x) => (
-                            <Tr>
+                            <Tr
+                                onClick={() => {
+                                    history.push("/sensor");
+                                }}
+                            >
                                 <Td>{x.boxName}</Td>
                                 <Td>{x.type}</Td>
                                 <Td isNumeric>{x.value}</Td>
