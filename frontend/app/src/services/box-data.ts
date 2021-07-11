@@ -38,6 +38,7 @@ export const getSensorOverviewTest = (
 ): Promise<SensorsOverview> => {
     return new Promise((resolve, reject) => {
         resolve({
+            name: "MTL_MINT_SOIL_1",
             type: "Soil moisture",
             value: "20%",
             state: "Healthy",
@@ -54,6 +55,7 @@ export const getSensorsOverviewTest = (
     return new Promise((resolve, reject) => {
         resolve([
             {
+                name: "MTL_MINT_SOIL_1",
                 type: "Soil moisture",
                 value: "20%",
                 state: "Healthy",
@@ -62,6 +64,7 @@ export const getSensorsOverviewTest = (
                 boxName: "Mint Box",
             },
             {
+                name: "MTL_MINT_TEMP_1",
                 type: "Temperature",
                 value: "20°C",
                 state: "Healthy",
@@ -70,6 +73,7 @@ export const getSensorsOverviewTest = (
                 boxName: "Mint Box",
             },
             {
+                name: "MTL_MINT_HUM_1",
                 type: "Humidity",
                 value: "20%",
                 state: "Healthy",
@@ -112,6 +116,7 @@ export interface GroundHumidityData {
 }
 
 export interface SensorsOverview {
+    name: string;
     type: string;
     value: string;
     state: string;
