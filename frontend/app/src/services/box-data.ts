@@ -22,12 +22,24 @@ export const getGroundHumidityTest = (
                 humidity: 10,
             },
             {
+                date: "2020-10-10T10:00:00",
+                humidity: 14,
+            },
+            {
                 date: "2020-10-11T00:00:00",
                 humidity: 12,
             },
             {
+                date: "2020-10-11T10:00:00",
+                humidity: 13,
+            },
+            {
                 date: "2020-10-12T00:00:00",
-                humidity: 14,
+                humidity: 8,
+            },
+            {
+                date: "2020-10-12T10:00:00",
+                humidity: 9,
             },
         ]);
     });

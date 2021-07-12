@@ -6,7 +6,7 @@ import {
     GroundHumidityData,
     SensorsOverview,
 } from "../services/box-data";
-import { ResponsiveLine } from "@nivo/line";
+import { PointTooltipProps, ResponsiveLine } from "@nivo/line";
 import moment from "moment";
 import {
     Box,
@@ -14,9 +14,7 @@ import {
     Heading,
     SimpleGrid,
     Spinner,
-    VStack,
     Text,
-    Container,
     Grid,
 } from "@chakra-ui/react";
 
@@ -112,59 +110,99 @@ export const SensorDetailsPage = ({ sensorId }: SensorDetailsPageProps) => {
                 </SimpleGrid>
             </Box>
             <div>
-                <GroundHumidityGraph values={groundHumidityData} />
+                <GroundHumidityGraph
+                    id="ground-humidity"
+                    data={groundHumidityData.map((d) => ({
+                        x: new Date(d.date),
+                        y: d.humidity,
+                    }))}
+                />
             </div>
         </Box>
     );
 };
 
 interface GroundHumidityGraphProps {
-    values: GroundHumidityData[];
+    id: string;
+    data: DatePoint[];
 }
 
-const GroundHumidityGraph = ({ values }: GroundHumidityGraphProps) => {
-    const formattedData = values.map((value) => {
-        return {
-            x: moment(value.date).format("YYYY-MM-D-H:m"),
-            y: value.humidity,
-        };
-    });
-    const data = [
+interface DatePoint {
+    x: Date;
+    y: number;
+}
+
+const GroundHumidityGraph = ({ id, data }: GroundHumidityGraphProps) => {
+    debugger;
+    const nivoData = [
         {
-            id: "ground-humidity",
-            color: "hsl(43, 70%, 50%)",
-            data: formattedData,
+            id,
+            data,
         },
     ];
 
-    return (
-        <div style={{ height: 300 }}>
-            <ResponsiveLine
-                data={data}
-                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-                xScale={{
-                    type: "time",
-                    format: "%Y-%m-%d-%H:%M",
+    const customTooltip = ({ point }: PointTooltipProps) => {
+        return (
+            <p
+                style={{
+                    background: "rgba(69,77,93,.9)",
+                    borderRadius: 4,
+                    padding: 8,
                 }}
-                xFormat="time:%Y-%m-%d-%H:%M"
+            >
+                Time: <b>{point.data.xFormatted}</b>
+                <br />
+                Count: <b>{point.data.yFormatted}</b>
+            </p>
+        );
+    };
+
+    return (
+        <div style={{ height: 300, background: "white" }}>
+            <h3>Nivo Stacked Area Chart</h3>
+            <ResponsiveLine
+                data={nivoData}
+                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                xFormat={(d) => moment(d).format()}
+                xScale={{ type: "time", format: "native" }}
                 yScale={{
                     type: "linear",
-                    stacked: false,
+                    min: 0,
+                }}
+                curve="natural"
+                axisBottom={{
+                    format: "%Y-%m-%d ",
+                    tickValues: "every day",
+                    legend: "time",
+                    legendOffset: 36,
+                    legendPosition: "middle",
                 }}
                 axisLeft={{
-                    legend: "Humidity",
-                    legendOffset: 12,
+                    legend: "count",
+                    legendOffset: -40,
+                    legendPosition: "middle",
                 }}
-                axisBottom={{
-                    format: "%b %d %H:%M",
-                    legend: "time scale",
-                    legendOffset: -12,
-                    tickValues: "every 2 months",
-                }}
-                curve="monotoneX"
-                pointSize={16}
-                enablePointLabel={true}
+                tooltip={customTooltip}
+                colors={{ scheme: "purpleRed_green" }}
+                lineWidth={1}
+                pointSize={4}
+                enableArea={true}
                 useMesh={true}
+                legends={[
+                    {
+                        anchor: "bottom-right",
+                        direction: "column",
+                        justify: false,
+                        translateX: 100,
+                        translateY: 0,
+                        itemsSpacing: 0,
+                        itemDirection: "left-to-right",
+                        itemWidth: 80,
+                        itemHeight: 20,
+                        itemOpacity: 0.75,
+                        symbolSize: 8,
+                    },
+                ]}
             />
         </div>
     );
