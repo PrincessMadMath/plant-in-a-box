@@ -18,6 +18,10 @@ export const getGroundHumidityTest = (
     return new Promise((resolve, reject) => {
         resolve([
             {
+                date: "2020-04-10T00:00:00",
+                humidity: 10,
+            },
+            {
                 date: "2020-10-10T00:00:00",
                 humidity: 10,
             },
