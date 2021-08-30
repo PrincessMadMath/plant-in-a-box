@@ -4,7 +4,7 @@ import {
     getSensorOverviewTest,
     GroundHumidityData,
     SensorsOverview,
-} from "../services/box-data";
+} from "../../shared/services/box-data";
 import {
     Box,
     Center,
@@ -14,7 +14,7 @@ import {
     Text,
     Grid,
 } from "@chakra-ui/react";
-import { DatedSeriesGraph } from "Components/Graph/SeriesGraph";
+import { DatedSeriesGraph } from "shared/components/Graph/SeriesGraph";
 
 interface SensorDetailsPageProps {
     sensorId: string;

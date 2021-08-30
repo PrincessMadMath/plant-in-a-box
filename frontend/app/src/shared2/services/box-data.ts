@@ -1,4 +1,4 @@
-import { config } from "./../core/config";
+import { config } from "../core/config";
 
 export const getGroundHumidity = (
     boxId: string

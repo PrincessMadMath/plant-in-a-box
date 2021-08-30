@@ -6,8 +6,8 @@ import {
     Redirect,
 } from "react-router-dom";
 
-import { OverviewPage } from "Overview/OverviewPage";
-import { SensorDetailsPage } from "SensorDetails/SensorDetailsPage";
+import { OverviewPage } from "pages/overview/OverviewPage";
+import { SensorDetailsPage } from "pages/sensorDetails/SensorDetailsPage";
 
 const Routes = () => (
     <Router>

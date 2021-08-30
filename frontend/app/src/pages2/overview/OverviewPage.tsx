@@ -6,7 +6,7 @@ import {
     getActuatorsOverviewTest,
     getSensorsOverviewTest,
     SensorsOverview,
-} from "../services/box-data";
+} from "../../shared/services/box-data
 
 import {
     Box,
