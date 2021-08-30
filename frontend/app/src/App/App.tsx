@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 
 import dotenv from "dotenv";
-import { OverviewPage } from "Overview/OverviewPage";
 
 import { Box, ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./theme";
