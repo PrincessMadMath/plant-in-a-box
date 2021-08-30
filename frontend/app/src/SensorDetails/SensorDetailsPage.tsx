@@ -1,18 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-    getGroundHumidity,
     getGroundHumidityTest,
     getSensorOverviewTest,
     GroundHumidityData,
     SensorsOverview,
 } from "../services/box-data";
-import {
-    PointTooltipProps,
-    ResponsiveLine,
-    Serie,
-    AxisProps,
-} from "@nivo/line";
-import moment from "moment";
 import {
     Box,
     Center,
@@ -22,6 +14,7 @@ import {
     Text,
     Grid,
 } from "@chakra-ui/react";
+import { DatedSeriesGraph } from "Components/Graph/SeriesGraph";
 
 interface SensorDetailsPageProps {
     sensorId: string;
@@ -114,236 +107,23 @@ export const SensorDetailsPage = ({ sensorId }: SensorDetailsPageProps) => {
                     </Grid>
                 </SimpleGrid>
             </Box>
-            <div>
-                <GroundHumidityGraph
-                    id="ground-humidity"
-                    data={groundHumidityData.map((d) => ({
-                        x: new Date(d.date),
-                        y: d.humidity,
-                    }))}
+            <Box>
+                <DatedSeriesGraph
+                    name="ground-humidity"
+                    getValues={(minDate, maxDate) => {
+                        return groundHumidityData
+                            .map((d) => ({
+                                date: new Date(d.date),
+                                value: d.humidity,
+                            }))
+                            .filter(
+                                (x) =>
+                                    true ||
+                                    (x.date >= minDate && x.date <= maxDate)
+                            );
+                    }}
                 />
-            </div>
+            </Box>
         </Box>
     );
 };
-
-interface GroundHumidityGraphProps {
-    id: string;
-    data: DatePoint[];
-}
-
-interface DatePoint {
-    x: Date;
-    y: number;
-}
-
-const GroundHumidityGraph = ({ id, data }: GroundHumidityGraphProps) => {
-    debugger;
-    const nivoData = [
-        {
-            id,
-            data,
-        },
-    ];
-
-    const customTooltip = ({ point }: PointTooltipProps) => {
-        return (
-            <p
-                style={{
-                    background: "rgba(69,77,93,.9)",
-                    borderRadius: 4,
-                    padding: 8,
-                }}
-            >
-                Time: <b>{point.data.xFormatted}</b>
-                <br />
-                Count: <b>{point.data.yFormatted}</b>
-            </p>
-        );
-    };
-
-    return (
-        <div style={{ height: 300, background: "white" }}>
-            <h3>Nivo Stacked Area Chart</h3>
-            <ResponsiveLine
-                data={nivoData}
-                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-                xFormat={(d) => moment(d).format()}
-                xScale={{ type: "time", format: "native" }}
-                yScale={{
-                    type: "linear",
-                    min: 0,
-                }}
-                curve="monotoneX"
-                axisBottom={{
-                    format: "%Y-%m-%d ",
-                    tickValues: "every day",
-                    legend: "time",
-                    legendOffset: 36,
-                    legendPosition: "middle",
-                }}
-                axisLeft={{
-                    legend: "count",
-                    legendOffset: -40,
-                    legendPosition: "middle",
-                }}
-                tooltip={customTooltip}
-                colors={{ scheme: "purpleRed_green" }}
-                lineWidth={1}
-                pointSize={4}
-                enableArea={true}
-                useMesh={true}
-                legends={[
-                    {
-                        anchor: "bottom-right",
-                        direction: "column",
-                        justify: false,
-                        translateX: 100,
-                        translateY: 0,
-                        itemsSpacing: 0,
-                        itemDirection: "left-to-right",
-                        itemWidth: 80,
-                        itemHeight: 20,
-                        itemOpacity: 0.75,
-                        symbolSize: 8,
-                    },
-                ]}
-            />
-        </div>
-    );
-};
-
-interface SeriesGraphProps {
-    name: string;
-    data: DataPoint[];
-}
-
-interface DataPoint {
-    date: Date;
-    value: number;
-}
-
-const SeriesGraph = ({ name, data }: SeriesGraphProps) => {
-    const [series, setSeries] = useState<Serie[]>([]);
-    const [minY, setMinY] = useState(0);
-    const [maxY, setMaxY] = useState(0);
-
-    useEffect(() => {
-        setSeries([
-            {
-                id: name,
-                data: data
-                    .sort(
-                        (r1, r2) =>
-                            r1.date.getUTCMilliseconds() -
-                            r2.date.getUTCMilliseconds()
-                    )
-                    .map((reading) => {
-                        return {
-                            x: reading.date,
-                            y: reading.value,
-                        };
-                    }),
-            },
-        ]);
-
-        let yValues = data.map((d) => d.value);
-        let minValue = Math.min(...yValues);
-        let maxValue = Math.max(...yValues);
-        setMinY(minValue - getStandardDeviation(yValues));
-        setMaxY(maxValue + getStandardDeviation(yValues));
-    }, [name, data]);
-
-    const yScale = useCallback(() => {
-        return {
-            type: "linear",
-            min: minY,
-            max: maxY,
-        };
-    }, [minY, maxY]);
-
-    const xScale = {
-        type: "time",
-        precision: "minute",
-        format: "%s",
-    };
-
-    const axisBottom: AxisProps = {
-        format: "%Y-%m-%d %H:%M",
-        tickValues: 5,
-    };
-
-    const customTooltip = ({ point }: PointTooltipProps) => {
-        return (
-            <p
-                style={{
-                    background: "rgba(69,77,93,.9)",
-                    borderRadius: 4,
-                    padding: 8,
-                }}
-            >
-                Time: <b>{point.data.xFormatted}</b>
-                <br />
-                Count: <b>{point.data.yFormatted}</b>
-            </p>
-        );
-    };
-
-    return (
-        <div style={{ height: 300, background: "white" }}>
-            <h3>Nivo Stacked Area Chart</h3>
-            <ResponsiveLine
-                data={series}
-                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-                xFormat={(d) => moment(d).format()}
-                xScale={{ type: "time", format: "native" }}
-                yScale={{
-                    type: "linear",
-                    min: 0,
-                }}
-                curve="monotoneX"
-                axisBottom={{
-                    format: "%Y-%m-%d %H:%M",
-                    tickValues: 5,
-                    legend: "time",
-                    legendOffset: 36,
-                    legendPosition: "middle",
-                }}
-                axisLeft={{
-                    legend: "count",
-                    legendOffset: -40,
-                    legendPosition: "middle",
-                }}
-                tooltip={customTooltip}
-                colors={{ scheme: "purpleRed_green" }}
-                lineWidth={1}
-                pointSize={4}
-                enableArea={true}
-                useMesh={true}
-                legends={[
-                    {
-                        anchor: "bottom-right",
-                        direction: "column",
-                        justify: false,
-                        translateX: 100,
-                        translateY: 0,
-                        itemsSpacing: 0,
-                        itemDirection: "left-to-right",
-                        itemWidth: 80,
-                        itemHeight: 20,
-                        itemOpacity: 0.75,
-                        symbolSize: 8,
-                    },
-                ]}
-            />
-        </div>
-    );
-};
-
-function getStandardDeviation(array: number[]) {
-    const n = array.length;
-    const mean = array.reduce((a, b) => a + b) / n;
-    return Math.sqrt(
-        array.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n
-    );
-}
