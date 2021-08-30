@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import {
-    ActuatorsOverview,
-    getActuatorsOverviewTest,
-    getSensorsOverviewTest,
-    SensorsOverview,
-} from "shared/services/box-data";
+    Actuator,
+    ActuatorStatus,
+    getActuatorsList,
+    getSensorsList,
+    Sensor,
+} from "shared/api";
 
 import {
     Box,
@@ -21,24 +22,20 @@ import {
 } from "@chakra-ui/react";
 
 export const OverviewPage = () => {
-    const [sensors, setSensors] = useState<SensorsOverview[]>([]);
-    const [actuators, setActuators] = useState<ActuatorsOverview[]>([]);
+    const [sensors, setSensors] = useState<Sensor[]>([]);
+    const [actuators, setActuators] = useState<Actuator[]>([]);
 
     const history = useHistory();
 
     useEffect(() => {
-        getSensorsOverviewTest("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then(
-            (x) => {
-                console.log(x);
-                setSensors(x);
-            }
-        );
+        getSensorsList().then((x) => {
+            console.log(x);
+            setSensors(x);
+        });
 
-        getActuatorsOverviewTest("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then(
-            (x) => {
-                setActuators(x);
-            }
-        );
+        getActuatorsList().then((x) => {
+            setActuators(x);
+        });
     }, []);
 
     return (
@@ -56,7 +53,7 @@ export const OverviewPage = () => {
                             <Th>Box Name</Th>
                             <Th>Types</Th>
                             <Th isNumeric>Value</Th>
-                            <Th>State</Th>
+                            <Th>Status</Th>
                             <Th>Last Update</Th>
                             <Th>Location</Th>
                             <Th>Plant Box Name</Th>
@@ -71,9 +68,9 @@ export const OverviewPage = () => {
                             >
                                 <Td>{x.boxName}</Td>
                                 <Td>{x.type}</Td>
-                                <Td isNumeric>{x.value}</Td>
-                                <Td>{x.state}</Td>
-                                <Td>{x.lastUpdate}</Td>
+                                <Td isNumeric>{x.lastData.value}</Td>
+                                <Td>{x.status}</Td>
+                                <Td>{x.lastData.date}</Td>
                                 <Td>{x.location}</Td>
                                 <Td>{x.boxName}</Td>
                             </Tr>
@@ -90,8 +87,8 @@ export const OverviewPage = () => {
                         <Tr>
                             <Th>Box Name</Th>
                             <Th>Types</Th>
-                            <Th isNumeric>Value</Th>
                             <Th>State</Th>
+                            <Th>Status</Th>
                             <Th>Last Update</Th>
                             <Th>Location</Th>
                             <Th>Plant Box Name</Th>
@@ -102,8 +99,12 @@ export const OverviewPage = () => {
                             <Tr>
                                 <Td>{x.boxName}</Td>
                                 <Td>{x.type}</Td>
-                                <Td isNumeric>{x.value}</Td>
                                 <Td>{x.state}</Td>
+                                <Td>
+                                    {x.status === ActuatorStatus.Degraded
+                                        ? x.errorMessage
+                                        : x.status}
+                                </Td>
                                 <Td>{x.lastUpdate}</Td>
                                 <Td>{x.location}</Td>
                                 <Td>{x.boxName}</Td>

@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-    getGroundHumidityTest,
-    getSensorOverviewTest,
-    GroundHumidityData,
-    SensorsOverview,
-} from "shared/services/box-data";
+import { getSensor, getSensorHistory, Sensor, SensorData } from "shared/api";
 import {
     Box,
     Center,
@@ -21,26 +16,22 @@ interface SensorDetailsPageProps {
 }
 
 export const SensorDetailsPage = ({ sensorId }: SensorDetailsPageProps) => {
-    const [sensor, setSensor] = useState<SensorsOverview | null>(null);
+    const [sensor, setSensor] = useState<Sensor | null>(null);
 
-    const [groundHumidityData, setGroundHumidityData] = useState<
-        GroundHumidityData[]
-    >([]);
+    const [groundHumidityData, setGroundHumidityData] = useState<SensorData[]>(
+        []
+    );
 
     useEffect(() => {
-        getSensorOverviewTest("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then(
-            (x) => {
-                setSensor(x);
-            }
-        );
+        getSensor("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then((x) => {
+            setSensor(x);
+        });
     }, []);
 
     useEffect(() => {
-        getGroundHumidityTest("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then(
-            (x) => {
-                setGroundHumidityData(x);
-            }
-        );
+        getSensorHistory("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then((x) => {
+            setGroundHumidityData(x);
+        });
     }, []);
 
     if (sensor === null) {
@@ -95,15 +86,15 @@ export const SensorDetailsPage = ({ sensorId }: SensorDetailsPageProps) => {
                         <Text fontSize="md" fontWeight="bold">
                             Value:
                         </Text>
-                        <Text fontSize="md">{sensor.value}</Text>
+                        <Text fontSize="md">{sensor.lastData.value}</Text>
                         <Text fontSize="md" fontWeight="bold">
                             Last Update:
                         </Text>
-                        <Text fontSize="md">{sensor.lastUpdate}</Text>
+                        <Text fontSize="md">{sensor.lastData.date}</Text>
                         <Text fontSize="md" fontWeight="bold">
                             State:
                         </Text>
-                        <Text fontSize="md">{sensor.state}</Text>
+                        <Text fontSize="md">{sensor.status}</Text>
                     </Grid>
                 </SimpleGrid>
             </Box>
@@ -114,7 +105,7 @@ export const SensorDetailsPage = ({ sensorId }: SensorDetailsPageProps) => {
                         return groundHumidityData
                             .map((d) => ({
                                 date: new Date(d.date),
-                                value: d.humidity,
+                                value: d.value,
                             }))
                             .filter(
                                 (x) =>
