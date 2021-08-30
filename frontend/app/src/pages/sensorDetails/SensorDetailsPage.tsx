@@ -4,7 +4,7 @@ import {
     getSensorOverviewTest,
     GroundHumidityData,
     SensorsOverview,
-} from "../../shared/services/box-data";
+} from "shared/services/box-data";
 import {
     Box,
     Center,
