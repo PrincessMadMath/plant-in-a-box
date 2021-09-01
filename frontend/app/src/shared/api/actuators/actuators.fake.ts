@@ -3,6 +3,7 @@ import { ActuatorState, ActuatorStatus, ActuatorType } from "./models";
 export const fakeActuatorsList = [
     {
         id: "9dcdce7e-7420-4f63-a9fd-f005fd62b5bd",
+        name: "Growt light 1",
         type: ActuatorType.GrowthLight,
         state: ActuatorState.On,
         status: ActuatorStatus.Healthy,
@@ -12,6 +13,7 @@ export const fakeActuatorsList = [
     },
     {
         id: "dd8ff917-6ede-4df9-9769-18219d5e69181",
+        name: "Sprinkler 1",
         type: ActuatorType.Sprinkler,
         state: ActuatorState.Off,
         status: ActuatorStatus.Degraded,

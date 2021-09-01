@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
-import {
-    Actuator,
-    ActuatorStatus,
-    getActuatorsList,
-    getSensorsList,
-    Sensor,
-} from "shared/api";
+import { ActuatorStatus } from "shared/api";
 
 import {
     Box,
     Center,
     Heading,
+    Spinner,
     Table,
     Tbody,
     Td,
@@ -21,22 +16,25 @@ import {
     Tr,
 } from "@chakra-ui/react";
 
-export const OverviewPage = () => {
-    const [sensors, setSensors] = useState<Sensor[]>([]);
-    const [actuators, setActuators] = useState<Actuator[]>([]);
+import { useGetActuators, useGetSensors } from "./hooks";
 
+export const OverviewPage = () => {
     const history = useHistory();
 
-    useEffect(() => {
-        getSensorsList().then((x) => {
-            console.log(x);
-            setSensors(x);
-        });
+    const { isLoading: isSensorsLoading, data: sensors } = useGetSensors();
 
-        getActuatorsList().then((x) => {
-            setActuators(x);
-        });
-    }, []);
+    const { isLoading: isActuatorsLoading, data: actuators } =
+        useGetActuators();
+
+    if (isSensorsLoading || isActuatorsLoading) {
+        return (
+            <Box>
+                <Center>
+                    <Spinner />
+                </Center>
+            </Box>
+        );
+    }
 
     return (
         <Box mt="8">
@@ -60,10 +58,10 @@ export const OverviewPage = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {sensors.map((x) => (
+                        {sensors?.map((x) => (
                             <Tr
                                 onClick={() => {
-                                    history.push("/sensor");
+                                    history.push(`/sensor/${x.id}`);
                                 }}
                             >
                                 <Td>{x.boxName}</Td>
@@ -95,8 +93,12 @@ export const OverviewPage = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {actuators.map((x) => (
-                            <Tr>
+                        {actuators?.map((x) => (
+                            <Tr
+                                onClick={() => {
+                                    history.push(`/actuator/${x.id}`);
+                                }}
+                            >
                                 <Td>{x.boxName}</Td>
                                 <Td>{x.type}</Td>
                                 <Td>{x.state}</Td>

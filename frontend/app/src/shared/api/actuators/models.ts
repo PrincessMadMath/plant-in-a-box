@@ -1,5 +1,6 @@
 export interface Actuator {
     id: string;
+    name: string;
     type: ActuatorType;
     state: ActuatorState;
     status: ActuatorStatus;

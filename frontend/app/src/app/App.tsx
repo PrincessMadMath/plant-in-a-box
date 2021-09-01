@@ -7,6 +7,11 @@ import theme from "./theme";
 
 import Routes from "./Routes";
 
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const queryClient = new QueryClient();
+
 dotenv.config();
 
 function App() {
@@ -16,10 +21,13 @@ function App() {
                 <ColorModeScript
                     initialColorMode={theme.config.initialColorMode}
                 />
-                <Box mx="6">
-                    {/* <SensorDetailsPage sensorId={"88b2f49e-1226-4964-9aa9-9b1f8442fd36"}/> */}
-                    <Routes />
-                </Box>
+                <QueryClientProvider client={queryClient}>
+                    <Box mx="6">
+                        {/* <SensorDetailsPage sensorId={"88b2f49e-1226-4964-9aa9-9b1f8442fd36"}/> */}
+                        <Routes />
+                    </Box>
+                    <ReactQueryDevtools initialIsOpen={false} />
+                </QueryClientProvider>
             </ChakraProvider>
         </>
     );

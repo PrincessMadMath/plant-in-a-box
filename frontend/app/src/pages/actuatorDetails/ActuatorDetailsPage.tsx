@@ -8,22 +8,19 @@ import {
     Text,
     Grid,
 } from "@chakra-ui/react";
-import { DatedSeriesGraph } from "shared/components/Graph/SeriesGraph";
-import { useGetHistory, useGetSensor } from "./hooks";
+import { useGetActuator } from "./hooks";
 import { useParams } from "react-router-dom";
 
-interface SensorDetailsPageProps {
-    sensorId: string;
+interface ActuatorDetailsPageProps {
+    actuatorId: string;
 }
 
-export const SensorDetailsPage = () => {
-    let { sensorId } = useParams<SensorDetailsPageProps>();
-    const { isLoading: isSensorLoading, data: sensor } = useGetSensor(sensorId);
+export const ActuatorDetailsPage = () => {
+    let { actuatorId } = useParams<ActuatorDetailsPageProps>();
+    const { isLoading: isActuatorLoading, data: actuator } =
+        useGetActuator(actuatorId);
 
-    const { isLoading: isHistoryLoading, data: sensorHistory } =
-        useGetHistory(sensorId);
-
-    if (isSensorLoading || isHistoryLoading) {
+    if (isActuatorLoading) {
         return (
             <Box>
                 <Center>
@@ -36,7 +33,7 @@ export const SensorDetailsPage = () => {
     return (
         <Box mt="8">
             <Center>
-                <Heading as="h1">{sensor!.name} Details</Heading>
+                <Heading as="h1">{actuator!.name} Details</Heading>
             </Center>
             <Heading as="h2">Details</Heading>
             <Box bg="gray.500" p="6" mt="3" w="2xl">
@@ -51,19 +48,19 @@ export const SensorDetailsPage = () => {
                         <Text fontSize="md" fontWeight="bold">
                             Name:
                         </Text>
-                        <Text fontSize="md">{sensor!.name}</Text>
+                        <Text fontSize="md">{actuator!.id}</Text>
                         <Text fontSize="md" fontWeight="bold">
                             Type:
                         </Text>
-                        <Text fontSize="md">{sensor!.type}</Text>
+                        <Text fontSize="md">{actuator!.type}</Text>
                         <Text fontSize="md" fontWeight="bold">
                             Location:
                         </Text>
-                        <Text fontSize="md">{sensor!.location}</Text>
+                        <Text fontSize="md">{actuator!.location}</Text>
                         <Text fontSize="md" fontWeight="bold">
                             Plant Box:
                         </Text>
-                        <Text fontSize="md">{sensor!.boxName}</Text>
+                        <Text fontSize="md">{actuator!.boxName}</Text>
                     </Grid>
                     <Grid
                         templateColumns="max-content 1fr"
@@ -73,36 +70,15 @@ export const SensorDetailsPage = () => {
                         alignItems="center"
                     >
                         <Text fontSize="md" fontWeight="bold">
-                            Value:
-                        </Text>
-                        <Text fontSize="md">{sensor!.lastData.value}</Text>
-                        <Text fontSize="md" fontWeight="bold">
-                            Last Update:
-                        </Text>
-                        <Text fontSize="md">{sensor!.lastData.date}</Text>
-                        <Text fontSize="md" fontWeight="bold">
                             State:
                         </Text>
-                        <Text fontSize="md">{sensor!.status}</Text>
+                        <Text fontSize="md">{actuator!.state}</Text>
+                        <Text fontSize="md" fontWeight="bold">
+                            Status:
+                        </Text>
+                        <Text fontSize="md">{actuator!.status}</Text>
                     </Grid>
                 </SimpleGrid>
-            </Box>
-            <Box>
-                <DatedSeriesGraph
-                    name="ground-humidity"
-                    getValues={(minDate, maxDate) => {
-                        return sensorHistory!
-                            .map((d) => ({
-                                date: new Date(d.date),
-                                value: d.value,
-                            }))
-                            .filter(
-                                (x) =>
-                                    true ||
-                                    (x.date >= minDate && x.date <= maxDate)
-                            );
-                    }}
-                />
             </Box>
         </Box>
     );
