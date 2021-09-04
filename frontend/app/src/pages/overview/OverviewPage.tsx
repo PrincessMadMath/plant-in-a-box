@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
-import {
-    ActuatorsOverview,
-    getActuatorsOverviewTest,
-    getSensorsOverviewTest,
-    SensorsOverview,
-} from "../services/box-data";
+import { ActuatorStatus } from "shared/api";
 
 import {
     Box,
     Center,
     Heading,
+    Spinner,
     Table,
     Tbody,
     Td,
@@ -20,26 +16,25 @@ import {
     Tr,
 } from "@chakra-ui/react";
 
-export const OverviewPage = () => {
-    const [sensors, setSensors] = useState<SensorsOverview[]>([]);
-    const [actuators, setActuators] = useState<ActuatorsOverview[]>([]);
+import { useGetActuators, useGetSensors } from "./hooks";
 
+export const OverviewPage = () => {
     const history = useHistory();
 
-    useEffect(() => {
-        getSensorsOverviewTest("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then(
-            (x) => {
-                console.log(x);
-                setSensors(x);
-            }
-        );
+    const { isLoading: isSensorsLoading, data: sensors } = useGetSensors();
 
-        getActuatorsOverviewTest("88b2f49e-1226-4964-9aa9-9b1f8442fd36").then(
-            (x) => {
-                setActuators(x);
-            }
+    const { isLoading: isActuatorsLoading, data: actuators } =
+        useGetActuators();
+
+    if (isSensorsLoading || isActuatorsLoading) {
+        return (
+            <Box>
+                <Center>
+                    <Spinner />
+                </Center>
+            </Box>
         );
-    }, []);
+    }
 
     return (
         <Box mt="8">
@@ -56,24 +51,24 @@ export const OverviewPage = () => {
                             <Th>Box Name</Th>
                             <Th>Types</Th>
                             <Th isNumeric>Value</Th>
-                            <Th>State</Th>
+                            <Th>Status</Th>
                             <Th>Last Update</Th>
                             <Th>Location</Th>
                             <Th>Plant Box Name</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {sensors.map((x) => (
+                        {sensors?.map((x) => (
                             <Tr
                                 onClick={() => {
-                                    history.push("/sensor");
+                                    history.push(`/sensor/${x.id}`);
                                 }}
                             >
                                 <Td>{x.boxName}</Td>
                                 <Td>{x.type}</Td>
-                                <Td isNumeric>{x.value}</Td>
-                                <Td>{x.state}</Td>
-                                <Td>{x.lastUpdate}</Td>
+                                <Td isNumeric>{x.lastData.value}</Td>
+                                <Td>{x.status}</Td>
+                                <Td>{x.lastData.date}</Td>
                                 <Td>{x.location}</Td>
                                 <Td>{x.boxName}</Td>
                             </Tr>
@@ -90,20 +85,28 @@ export const OverviewPage = () => {
                         <Tr>
                             <Th>Box Name</Th>
                             <Th>Types</Th>
-                            <Th isNumeric>Value</Th>
                             <Th>State</Th>
+                            <Th>Status</Th>
                             <Th>Last Update</Th>
                             <Th>Location</Th>
                             <Th>Plant Box Name</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {actuators.map((x) => (
-                            <Tr>
+                        {actuators?.map((x) => (
+                            <Tr
+                                onClick={() => {
+                                    history.push(`/actuator/${x.id}`);
+                                }}
+                            >
                                 <Td>{x.boxName}</Td>
                                 <Td>{x.type}</Td>
-                                <Td isNumeric>{x.value}</Td>
                                 <Td>{x.state}</Td>
+                                <Td>
+                                    {x.status === ActuatorStatus.Degraded
+                                        ? x.errorMessage
+                                        : x.status}
+                                </Td>
                                 <Td>{x.lastUpdate}</Td>
                                 <Td>{x.location}</Td>
                                 <Td>{x.boxName}</Td>
