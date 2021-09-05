@@ -34,3 +34,5 @@ By default:
 
 `npx npm-check-updates -u` pour mettre latest version dans package.json
 `npm install` pour appliquer changement
+
+How package work: https://medium.com/coinmonks/everything-you-wanted-to-know-about-package-lock-json-b81911aa8ab8

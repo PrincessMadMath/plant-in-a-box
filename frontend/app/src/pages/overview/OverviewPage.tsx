@@ -3,8 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import { ActuatorStatus } from "shared/api";
 
-import { Box, Center, Heading, Spinner,
-    Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Center, Heading, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 
 import { useGetActuators, useGetSensors } from "./hooks";
 
