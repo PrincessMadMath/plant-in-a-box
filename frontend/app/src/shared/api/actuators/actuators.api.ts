@@ -7,8 +7,5 @@ export const getActuatorsList = (): Promise<Actuator[]> => {
 };
 
 export const getActuator = (actuatorId: string): Promise<Actuator> => {
-    return getJson<Actuator>(
-        `actuators/${actuatorId}`,
-        fakeActuatorsList.find((x) => x.id === actuatorId)!
-    );
+    return getJson<Actuator>(`actuators/${actuatorId}`, fakeActuatorsList.find((x) => x.id === actuatorId)!);
 };

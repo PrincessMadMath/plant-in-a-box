@@ -1,15 +1,7 @@
 import React from "react";
-import {
-    Box,
-    Center,
-    Heading,
-    SimpleGrid,
-    Spinner,
-    Text,
-    Grid,
-} from "@chakra-ui/react";
-import { useGetActuator } from "./hooks";
+import { Box, Center, Heading, SimpleGrid, Spinner, Text, Grid } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import { useGetActuator } from "./hooks";
 
 interface ActuatorDetailsPageProps {
     actuatorId: string;
@@ -17,8 +9,7 @@ interface ActuatorDetailsPageProps {
 
 export const ActuatorDetailsPage = () => {
     let { actuatorId } = useParams<ActuatorDetailsPageProps>();
-    const { isLoading: isActuatorLoading, data: actuator } =
-        useGetActuator(actuatorId);
+    const { isLoading: isActuatorLoading, data: actuator } = useGetActuator(actuatorId);
 
     if (isActuatorLoading) {
         return (

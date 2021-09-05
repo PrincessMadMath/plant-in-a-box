@@ -18,11 +18,7 @@ interface DatedSeriesGraphProps {
     getValues: (minDate: Date, maxDate: Date) => DataPoint[];
 }
 
-export const DatedSeriesGraph = ({
-    name,
-    getValues,
-    defaultPreset = DatePreset.LastDay,
-}: DatedSeriesGraphProps) => {
+export const DatedSeriesGraph = ({ name, getValues, defaultPreset = DatePreset.LastDay }: DatedSeriesGraphProps) => {
     const [preset, setPreset] = useState(defaultPreset);
     const [values, setValues] = useState<DataPoint[]>([]);
 
@@ -32,9 +28,7 @@ export const DatedSeriesGraph = ({
         setValues(newValues);
     }, [preset, getValues]);
 
-    const handlePresetChange = (
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) => {
+    const handlePresetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         debugger;
         setPreset(event.currentTarget.value as DatePreset);
     };
@@ -48,11 +42,7 @@ export const DatedSeriesGraph = ({
                 <option value={DatePreset.LastMonth}>Last Month</option>
                 <option value={DatePreset.LastYear}>Last Year</option>
             </Select>
-            {values.length === 0 ? (
-                <div>No data</div>
-            ) : (
-                <SeriesGraph name={name} data={values} />
-            )}
+            {values.length === 0 ? <div>No data</div> : <SeriesGraph name={name} data={values} />}
         </Box>
     );
 };
@@ -102,11 +92,7 @@ const SeriesGraph = ({ name, data }: SeriesGraphProps) => {
             {
                 id: name,
                 data: data
-                    .sort(
-                        (r1, r2) =>
-                            r1.date.getUTCMilliseconds() -
-                            r2.date.getUTCMilliseconds()
-                    )
+                    .sort((r1, r2) => r1.date.getUTCMilliseconds() - r2.date.getUTCMilliseconds())
                     .map((reading) => {
                         return {
                             x: reading.date,
@@ -192,7 +178,5 @@ const SeriesGraph = ({ name, data }: SeriesGraphProps) => {
 function getStandardDeviation(array: number[]) {
     const n = array.length;
     const mean = array.reduce((a, b) => a + b) / n;
-    return Math.sqrt(
-        array.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n
-    );
+    return Math.sqrt(array.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n);
 }

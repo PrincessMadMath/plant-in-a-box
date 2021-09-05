@@ -37,5 +37,9 @@ https://www.robinwieruch.de/react-folder-structure
 * Excellent exemple qui montre différentes options + étapes pour grandir avec le temps
 
 
+https://github.com/alan2207/bulletproof-react
+* Up to date + details structure with all the bell and whistle (linting + test) and a documentation to explains all
+
+
 https://stackoverflow.com/questions/55221433/is-there-an-official-style-guide-or-naming-convention-for-react-based-projects
 

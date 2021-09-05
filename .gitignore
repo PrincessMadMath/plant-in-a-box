@@ -139,3 +139,4 @@ cython_debug/
 Server/Api/obj/
 Server/Api/bin/
 Server/.idea/
+frontend/app/.idea/
