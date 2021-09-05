@@ -3,18 +3,8 @@ import { useHistory } from "react-router-dom";
 
 import { ActuatorStatus } from "shared/api";
 
-import {
-    Box,
-    Center,
-    Heading,
-    Spinner,
-    Table,
-    Tbody,
-    Td,
-    Th,
-    Thead,
-    Tr,
-} from "@chakra-ui/react";
+import { Box, Center, Heading, Spinner,
+    Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 
 import { useGetActuators, useGetSensors } from "./hooks";
 
@@ -23,8 +13,7 @@ export const OverviewPage = () => {
 
     const { isLoading: isSensorsLoading, data: sensors } = useGetSensors();
 
-    const { isLoading: isActuatorsLoading, data: actuators } =
-        useGetActuators();
+    const { isLoading: isActuatorsLoading, data: actuators } = useGetActuators();
 
     if (isSensorsLoading || isActuatorsLoading) {
         return (
@@ -102,11 +91,7 @@ export const OverviewPage = () => {
                                 <Td>{x.boxName}</Td>
                                 <Td>{x.type}</Td>
                                 <Td>{x.state}</Td>
-                                <Td>
-                                    {x.status === ActuatorStatus.Degraded
-                                        ? x.errorMessage
-                                        : x.status}
-                                </Td>
+                                <Td>{x.status === ActuatorStatus.Degraded ? x.errorMessage : x.status}</Td>
                                 <Td>{x.lastUpdate}</Td>
                                 <Td>{x.location}</Td>
                                 <Td>{x.boxName}</Td>

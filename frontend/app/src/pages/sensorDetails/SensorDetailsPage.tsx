@@ -1,13 +1,5 @@
 import React from "react";
-import {
-    Box,
-    Center,
-    Heading,
-    SimpleGrid,
-    Spinner,
-    Text,
-    Grid,
-} from "@chakra-ui/react";
+import { Box, Center, Heading, SimpleGrid, Spinner, Text, Grid } from "@chakra-ui/react";
 import { DatedSeriesGraph } from "shared/components/Graph/SeriesGraph";
 import { useGetHistory, useGetSensor } from "./hooks";
 import { useParams } from "react-router-dom";
@@ -20,8 +12,7 @@ export const SensorDetailsPage = () => {
     let { sensorId } = useParams<SensorDetailsPageProps>();
     const { isLoading: isSensorLoading, data: sensor } = useGetSensor(sensorId);
 
-    const { isLoading: isHistoryLoading, data: sensorHistory } =
-        useGetHistory(sensorId);
+    const { isLoading: isHistoryLoading, data: sensorHistory } = useGetHistory(sensorId);
 
     if (isSensorLoading || isHistoryLoading) {
         return (
@@ -96,11 +87,7 @@ export const SensorDetailsPage = () => {
                                 date: new Date(d.date),
                                 value: d.value,
                             }))
-                            .filter(
-                                (x) =>
-                                    true ||
-                                    (x.date >= minDate && x.date <= maxDate)
-                            );
+                            .filter((x) => true || (x.date >= minDate && x.date <= maxDate));
                     }}
                 />
             </Box>

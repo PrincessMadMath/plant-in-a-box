@@ -7,15 +7,9 @@ export const getSensorsList = (): Promise<Sensor[]> => {
 };
 
 export const getSensor = (sensorId: string): Promise<Sensor> => {
-    return getJson<Sensor>(
-        `sensors/${sensorId}`,
-        fakeSensorsList.find((x) => x.id === sensorId)!
-    );
+    return getJson<Sensor>(`sensors/${sensorId}`, fakeSensorsList.find((x) => x.id === sensorId)!);
 };
 
 export const getSensorHistory = (sensorId: string): Promise<SensorData[]> => {
-    return getJson<SensorData[]>(
-        `sensors/${sensorId}/history`,
-        fakeSoilMoistureHistory
-    );
+    return getJson<SensorData[]>(`sensors/${sensorId}/history`, fakeSoilMoistureHistory);
 };
