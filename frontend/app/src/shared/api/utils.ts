@@ -1,13 +1,20 @@
 import { config } from "shared/config/config";
 
-export function getJson<T>(url: string, fakeData: T): Promise<T> {
+export async function getJson<T>(url: string, fakeData: T): Promise<T> {
     if (config.api.useFakeData) {
-        return new Promise((resolve, reject) => resolve(fakeData));
+        return fakeData;
     }
 
-    return fetch(`${config.api.url}/${url}`, {
+    const response = await fetch(`${config.api.url}/${url}`, {
         method: "GET",
-    }).then((response) => {
-        return response.json();
     });
+
+    if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+    }
+
+    const data = await response.json();
+
+    return data;
 }
