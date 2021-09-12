@@ -10,6 +10,8 @@ import Routes from "./Routes";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
+import "react-datepicker/dist/react-datepicker.css";
+
 const queryClient = new QueryClient();
 
 dotenv.config();

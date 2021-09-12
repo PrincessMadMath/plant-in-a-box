@@ -6,8 +6,6 @@ export interface Actuator {
     status: ActuatorStatus;
     errorMessage?: string;
     lastUpdate: string;
-    location: string;
-    boxName: string;
 }
 
 export enum ActuatorType {
@@ -26,4 +24,9 @@ export enum ActuatorState {
     Unknown = "UNKNOWN",
     Off = "OFF",
     On = "ON",
+}
+
+export enum ActuatorMode {
+    Manual = "MANUAL",
+    Automatic = "AUTOMATIC",
 }
