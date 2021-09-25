@@ -9,5 +9,5 @@ export function useGetActuator(actuatorId: string) {
 }
 
 export function useGetLogs(actuatorId: string) {
-    return useQuery<DeviceLog[], any>(["sensor", "logs", actuatorId], () => getActuatorLogs(actuatorId));
+    return useQuery<DeviceLog[], any>(["actuator", "logs", actuatorId], () => getActuatorLogs(actuatorId));
 }

@@ -1,4 +1,4 @@
-import { ActuatorState, ActuatorStatus, ActuatorType } from "./models";
+import { ActuatorMode, ActuatorState, ActuatorStatus, ActuatorType } from "./models";
 import { LogLevel } from "shared/api/device";
 import dayjs from "dayjs";
 
@@ -54,3 +54,14 @@ export const fakeActuatorLogs = [
         message: "Sensor connected",
     },
 ];
+
+export const growthLightConfig = {
+    mode: ActuatorMode.Automatic,
+    manualSettings: {
+        isOn: false,
+    },
+    automaticSettings: {
+        sunriseTime: "8:00:00",
+        sunsetTime: "22:00:00",
+    },
+};

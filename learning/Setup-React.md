@@ -36,3 +36,4 @@ By default:
 `npm install` pour appliquer changement
 
 How package work: https://medium.com/coinmonks/everything-you-wanted-to-know-about-package-lock-json-b81911aa8ab8
+

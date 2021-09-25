@@ -8,6 +8,21 @@ export interface Actuator {
     lastUpdate: string;
 }
 
+export interface GrowthLightConfig {
+    mode: ActuatorMode;
+    manualSettings: GrowthLightManualSettings;
+    automaticSettings: GrowthLightAutomaticSettings;
+}
+
+export interface GrowthLightManualSettings {
+    isOn: boolean;
+}
+
+export interface GrowthLightAutomaticSettings {
+    sunriseTime: string;
+    sunsetTime: string;
+}
+
 export enum ActuatorType {
     GrowthLight = "GROWTH_LIGHT",
     Sprinkler = "SPRINKLER",
