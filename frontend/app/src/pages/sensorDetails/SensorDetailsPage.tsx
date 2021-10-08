@@ -1,8 +1,11 @@
 import React from "react";
-import { Box, Center, Heading, SimpleGrid, Spinner, Text, Grid } from "@chakra-ui/react";
-import { DatedSeriesGraph } from "shared/components/Graph/SeriesGraph";
-import { useGetHistory, useGetSensor } from "./hooks";
+import { Box, Center, Heading, Spinner, Grid, Stat, StatLabel, StatNumber, StatHelpText } from "@chakra-ui/react";
+import { useGetHistory, useGetLogs, useGetSensor } from "./hooks";
 import { useParams } from "react-router-dom";
+import { SensorInfo } from "pages/sensorDetails/SensorInfo";
+import { SensorHistory } from "pages/sensorDetails/SensorHistory";
+import { DeviceLogs } from "shared/components/deviceLogs";
+import { formatFrom } from "shared/utils";
 
 interface SensorDetailsPageProps {
     sensorId: string;
@@ -10,11 +13,12 @@ interface SensorDetailsPageProps {
 
 export const SensorDetailsPage = () => {
     let { sensorId } = useParams<SensorDetailsPageProps>();
+
     const { isLoading: isSensorLoading, data: sensor } = useGetSensor(sensorId);
-
     const { isLoading: isHistoryLoading, data: sensorHistory } = useGetHistory(sensorId);
+    const { isLoading: isLogsLoading, data: sensorLogs } = useGetLogs(sensorId);
 
-    if (isSensorLoading || isHistoryLoading) {
+    if (isSensorLoading || isHistoryLoading || isLogsLoading) {
         return (
             <Box>
                 <Center>
@@ -29,67 +33,31 @@ export const SensorDetailsPage = () => {
             <Center>
                 <Heading as="h1">{sensor!.name} Details</Heading>
             </Center>
-            <Heading as="h2">Details</Heading>
-            <Box bg="gray.500" p="6" mt="3" w="2xl">
-                <SimpleGrid columns={2}>
-                    <Grid
-                        templateColumns="max-content 1fr"
-                        columnGap={6}
-                        rowGap={2}
-                        alignContent="start"
-                        alignItems="center"
-                    >
-                        <Text fontSize="md" fontWeight="bold">
-                            Name:
-                        </Text>
-                        <Text fontSize="md">{sensor!.name}</Text>
-                        <Text fontSize="md" fontWeight="bold">
-                            Type:
-                        </Text>
-                        <Text fontSize="md">{sensor!.type}</Text>
-                        <Text fontSize="md" fontWeight="bold">
-                            Location:
-                        </Text>
-                        <Text fontSize="md">{sensor!.location}</Text>
-                        <Text fontSize="md" fontWeight="bold">
-                            Plant Box:
-                        </Text>
-                        <Text fontSize="md">{sensor!.boxName}</Text>
-                    </Grid>
-                    <Grid
-                        templateColumns="max-content 1fr"
-                        columnGap={6}
-                        rowGap={2}
-                        alignContent="start"
-                        alignItems="center"
-                    >
-                        <Text fontSize="md" fontWeight="bold">
-                            Value:
-                        </Text>
-                        <Text fontSize="md">{sensor!.lastData.value}</Text>
-                        <Text fontSize="md" fontWeight="bold">
-                            Last Update:
-                        </Text>
-                        <Text fontSize="md">{sensor!.lastData.date}</Text>
-                        <Text fontSize="md" fontWeight="bold">
-                            State:
-                        </Text>
-                        <Text fontSize="md">{sensor!.status}</Text>
-                    </Grid>
-                </SimpleGrid>
+            <Box mt="6">
+                <Heading as="h2" size="lg" mb={3}>
+                    Details
+                </Heading>
+                <Grid templateColumns={"max-content 1fr"} gap={6}>
+                    <Box>
+                        <Stat display="flex" justifyContent="center">
+                            <StatLabel>Current Value</StatLabel>
+                            <StatNumber>{sensor!.lastData.value}</StatNumber>
+                            <StatHelpText>{formatFrom(sensor!.lastData.date)}</StatHelpText>
+                        </Stat>
+                        <Box mt="3">
+                            <SensorInfo sensor={sensor!} />
+                        </Box>
+                    </Box>
+                    <Box>
+                        <SensorHistory sensorHistory={sensorHistory!} />
+                    </Box>
+                </Grid>
             </Box>
-            <Box>
-                <DatedSeriesGraph
-                    name="ground-humidity"
-                    getValues={(minDate, maxDate) => {
-                        return sensorHistory!
-                            .map((d) => ({
-                                date: new Date(d.date),
-                                value: d.value,
-                            }))
-                            .filter((x) => true || (x.date >= minDate && x.date <= maxDate));
-                    }}
-                />
+            <Box mt={12}>
+                <Heading as="h2" size="lg" mb={4}>
+                    Logs
+                </Heading>
+                <DeviceLogs sensorLogs={sensorLogs!} />
             </Box>
         </Box>
     );
