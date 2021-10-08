@@ -6,8 +6,21 @@ export interface Actuator {
     status: ActuatorStatus;
     errorMessage?: string;
     lastUpdate: string;
-    location: string;
-    boxName: string;
+}
+
+export interface GrowthLightConfig {
+    mode: ActuatorMode;
+    manualSettings: GrowthLightManualSettings;
+    automaticSettings: GrowthLightAutomaticSettings;
+}
+
+export interface GrowthLightManualSettings {
+    isOn: boolean;
+}
+
+export interface GrowthLightAutomaticSettings {
+    sunriseTime: string;
+    sunsetTime: string;
 }
 
 export enum ActuatorType {
@@ -26,4 +39,9 @@ export enum ActuatorState {
     Unknown = "UNKNOWN",
     Off = "OFF",
     On = "ON",
+}
+
+export enum ActuatorMode {
+    Manual = "MANUAL",
+    Automatic = "AUTOMATIC",
 }

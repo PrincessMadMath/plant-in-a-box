@@ -1,18 +1,3 @@
-export interface Sensor {
-    id: string;
-    name: string;
-    type: SensorType;
-    status: SensorStatus;
-    lastData: SensorData;
-    location: string;
-    boxName: string;
-}
-
-export interface SensorData {
-    date: string;
-    value: number;
-}
-
 export enum SensorType {
     SoilMoisture = "SOIL_MOISTURE",
     SoilTemperature = "SOIL_TEMPERATURE",
@@ -24,8 +9,21 @@ export enum SensorStatus {
     Active = "ACTIVE",
 }
 
+export interface Sensor {
+    id: string;
+    name: string;
+    type: SensorType;
+    status: SensorStatus;
+    lastData: SensorData;
+}
+
+export interface SensorData {
+    date: string;
+    value: number;
+}
+
 export enum DataUnitType {
     Percentage = "PERCENTAGE",
-    Celcius = "CELCIUS",
+    Celsius = "CELSIUS",
     Number = "NUMBER",
 }

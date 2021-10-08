@@ -12,13 +12,13 @@ enum DatePreset {
     LastYear = "LastYear",
 }
 
-interface DatedSeriesGraphProps {
+interface TimeSeriesGraphProps {
     name: string;
     defaultPreset?: DatePreset;
     getValues: (minDate: Date, maxDate: Date) => DataPoint[];
 }
 
-export const DatedSeriesGraph = ({ name, getValues, defaultPreset = DatePreset.LastDay }: DatedSeriesGraphProps) => {
+export const TimeSeriesGraph = ({ name, getValues, defaultPreset = DatePreset.LastDay }: TimeSeriesGraphProps) => {
     const [preset, setPreset] = useState(defaultPreset);
     const [values, setValues] = useState<DataPoint[]>([]);
 
@@ -29,7 +29,6 @@ export const DatedSeriesGraph = ({ name, getValues, defaultPreset = DatePreset.L
     }, [preset, getValues]);
 
     const handlePresetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        debugger;
         setPreset(event.currentTarget.value as DatePreset);
     };
 

@@ -6,6 +6,7 @@ import { ActuatorStatus } from "shared/api";
 import { Box, Center, Heading, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 
 import { useGetActuators, useGetSensors } from "./hooks";
+import { formatFrom } from "shared/utils";
 
 export const OverviewPage = () => {
     const history = useHistory();
@@ -36,13 +37,11 @@ export const OverviewPage = () => {
                 <Table variant="simple" mt="4">
                     <Thead>
                         <Tr>
-                            <Th>Box Name</Th>
+                            <Th>Name</Th>
                             <Th>Types</Th>
                             <Th isNumeric>Value</Th>
                             <Th>Status</Th>
                             <Th>Last Update</Th>
-                            <Th>Location</Th>
-                            <Th>Plant Box Name</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -52,13 +51,11 @@ export const OverviewPage = () => {
                                     history.push(`/sensor/${x.id}`);
                                 }}
                             >
-                                <Td>{x.boxName}</Td>
+                                <Td>{x.name}</Td>
                                 <Td>{x.type}</Td>
                                 <Td isNumeric>{x.lastData.value}</Td>
                                 <Td>{x.status}</Td>
-                                <Td>{x.lastData.date}</Td>
-                                <Td>{x.location}</Td>
-                                <Td>{x.boxName}</Td>
+                                <Td>{formatFrom(x.lastData.date)}</Td>
                             </Tr>
                         ))}
                     </Tbody>
@@ -76,8 +73,6 @@ export const OverviewPage = () => {
                             <Th>State</Th>
                             <Th>Status</Th>
                             <Th>Last Update</Th>
-                            <Th>Location</Th>
-                            <Th>Plant Box Name</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -87,13 +82,11 @@ export const OverviewPage = () => {
                                     history.push(`/actuator/${x.id}`);
                                 }}
                             >
-                                <Td>{x.boxName}</Td>
+                                <Td>{x.name}</Td>
                                 <Td>{x.type}</Td>
                                 <Td>{x.state}</Td>
                                 <Td>{x.status === ActuatorStatus.Degraded ? x.errorMessage : x.status}</Td>
-                                <Td>{x.lastUpdate}</Td>
-                                <Td>{x.location}</Td>
-                                <Td>{x.boxName}</Td>
+                                <Td>{formatFrom(x.lastUpdate)}</Td>
                             </Tr>
                         ))}
                     </Tbody>

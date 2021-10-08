@@ -1,4 +1,6 @@
 import { SensorStatus, SensorType } from "./models";
+import { LogLevel } from "shared/api/device";
+import dayjs from "dayjs";
 
 export const fakeSensorsList = [
     {
@@ -8,10 +10,8 @@ export const fakeSensorsList = [
         status: SensorStatus.Active,
         lastData: {
             value: 750,
-            date: "30 mins ago",
+            date: dayjs().subtract(20, "minute").toISOString(),
         },
-        location: "Montreal House",
-        boxName: "Mint Box",
     },
     {
         id: "26f06c6c-049e-40ea-b768-dff4086b8713",
@@ -20,10 +20,8 @@ export const fakeSensorsList = [
         status: SensorStatus.Active,
         lastData: {
             value: 22,
-            date: "30 mins ago",
+            date: dayjs().subtract(40, "minute").toISOString(),
         },
-        location: "Montreal House",
-        boxName: "Mint Box",
     },
     {
         id: "93c7d3dd-8738-4e5c-afef-52b3eae20569",
@@ -32,36 +30,47 @@ export const fakeSensorsList = [
         status: SensorStatus.Active,
         lastData: {
             value: 0.2,
-            date: "30 mins ago",
+            date: dayjs().subtract(2, "minute").toISOString(),
         },
-        location: "Montreal House",
-        boxName: "Mint Box",
     },
 ];
 
-export const fakeSoilMoistureHistory = [
+export const fakeSoilMoistureHistory = Array.from({ length: 200 }, (_, index) => {
+    return {
+        date: dayjs().subtract(index, "hour").toISOString(),
+        value: Math.random() * 20,
+    };
+});
+
+export const fakeSensorLogs = [
     {
-        date: "2020-10-10T00:00:00",
-        value: 10,
+        date: dayjs().subtract(1, "minute").toISOString(),
+        level: LogLevel.Info,
+        message: "Data lost",
     },
     {
-        date: "2020-10-10T10:00:00",
-        value: 14,
+        date: dayjs().subtract(1, "hour").toISOString(),
+        level: LogLevel.Verbose,
+        message: "Data received",
     },
     {
-        date: "2020-10-11T00:00:00",
-        value: 12,
+        date: dayjs().subtract(2, "hour").toISOString(),
+        level: LogLevel.Error,
+        message: "Connection error detected",
     },
     {
-        date: "2020-10-11T10:00:00",
-        value: 13,
+        date: dayjs().subtract(4, "hour").toISOString(),
+        level: LogLevel.Verbose,
+        message: "Data received",
     },
     {
-        date: "2020-10-12T00:00:00",
-        value: 8,
+        date: dayjs().subtract(2, "day").toISOString(),
+        level: LogLevel.Verbose,
+        message: "Data received",
     },
     {
-        date: "2020-10-12T10:00:00",
-        value: 9,
+        date: dayjs().subtract(1, "week").toISOString(),
+        level: LogLevel.Warning,
+        message: "Actuator connected",
     },
 ];
