@@ -1,36 +1,60 @@
 # plant-in-a-box
 
-Watch me Felix!
+[![Issues][issues-shield]][issues-url]
 
-# Arduino code (/arduino)
+<br />
+<div align="center">
+  <a href="https://github.com/PrincessMadMath/plant-in-a-box">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-(TODO: move inside arduino folder)
+  <h3 align="center">Best-README-Template</h3>
 
-## Setup
+  <p align="center">
+    Plant in a Box!
+    <br />
+    <br />
+    <a href="https://example.com/">View Demo</a>
+    ·
+    <a href="https://github.com/PrincessMadMath/plant-in-a-box/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/PrincessMadMath/plant-in-a-box/issues">Request Feature</a>
+  </p>
+</div>
 
--   Using VS Code - Arduino Extension is recommended for compiling and uploading the project
--   All dependencies to external library (excepting those core of Arduino) are included in /librairie)
--   To resolve Arduino library update the file ".vscode/c_cpp_properties.json"
+## About The Project
 
-## Communicate with the Arduino (with serial)
+This is a project about automatic indoor home plant growth. It will help keep plants alive with minimal human intervention and alert humans when intervention is required before it is too late for the plant.
 
-You can send command to the Arduino and one it have completed answering you it will return "ack" which indicate it is ready to receive a new command.
+### Built With
 
-Possibles commands:
+-   [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-5.0)
+-   [React.js](https://reactjs.org/)
+-   [Arduino](https://www.arduino.cc/)
+-   [Python](https://www.python.org/)
 
--   Poke: "0"
--   Get sensors values: "1"
--   Turn on or off a controller: "2/controller_value/(0,1)"
--   Get controller state: "3/controller_value"
+## Getting Started
 
-Look into enums.h for more information.
+There is 3 part to the application.
 
-## Notes
+-   IOT-Module to collect data from sensors and control actuators
+-   Module to bridge the IOT-Module with the Web-App
+-   The wep app.
 
--   Using workaround to use multiple .ino files => renaming extension to .h
+### Arduino
 
-## Contributing
+We use an arduino as the IOT controller to communicate with the sensors and actuators.
 
--   If adding new dependencies don't forget to update requirements: `pip freeze > requirements.txt`
+For more information [Readme Arduino](arduino/README.md)
 
+### Raspberry Pie
 
+We use an raspberry pie to communicate with the arduino and sync the data with the web application.
+
+For more information [Readme Raspberry](raspberry/README.md)
+
+### Web Application
+
+The web app allow to manage all devices.
+
+For more information [Readme Web App](frontend/README.md)
