@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: frontend/app
+        working-directory: ./frontend/app
 
     strategy:
       matrix:
