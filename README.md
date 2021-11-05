@@ -1,11 +1,9 @@
-# plant-in-a-box
-
-[![Issues][issues-shield]][issues-url]
+# Plant In A Box (PIB)
 
 <br />
 <div align="center">
   <a href="https://github.com/PrincessMadMath/plant-in-a-box">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">Best-README-Template</h3>
