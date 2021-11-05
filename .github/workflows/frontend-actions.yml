@@ -6,11 +6,12 @@ on:
   pull_request:
     branches: [master]
 
+defaults:
+  run:
+    working-directory: ./frontend/app
+
 jobs:
-  defaults:
-    run:
-      working-directory: ./frontend/app
-  build:
+  CI:
     runs-on: ubuntu-latest
 
     strategy:
