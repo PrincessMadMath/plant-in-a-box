@@ -20,7 +20,7 @@
   </p>
 </div>
 
-![Frontend-CI](https://github.com/PrincessMadMath/plant-in-a-box/workflows/CI-Frontend/badge.svg)
+[![CI-Frontend](https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/frontend-actions.yml/badge.svg)](https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/frontend-actions.yml)
 
 ## About The Project
 
