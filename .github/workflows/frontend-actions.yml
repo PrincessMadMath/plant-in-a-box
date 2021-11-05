@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./plant-in-a-box/frontend/app
+        working-directory: ./frontend/app
 
     strategy:
       matrix:
@@ -27,11 +27,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - name: Install dependencies
-        working-directory: ./frontend/app
         run: npm ci
       - name: Build
-        working-directory: ./frontend/app
         run: npm run build
       - name: Lint
-        working-directory: ./frontend/app
         run: npm lint
