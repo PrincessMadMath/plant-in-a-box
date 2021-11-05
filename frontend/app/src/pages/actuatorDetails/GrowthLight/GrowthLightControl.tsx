@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Box, Center, FormControl, FormLabel, Grid, Radio, RadioGroup, Spinner, Switch, Text } from "@chakra-ui/react";
 import { Actuator, ActuatorMode } from "shared/api/actuators";

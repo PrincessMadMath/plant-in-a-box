@@ -1,7 +1,7 @@
 import React from "react";
 
 import { SensorData } from "shared/api/sensors";
-import { TimeSeriesGraph } from "shared/components/Graph";
+import { TimeSeriesGraph } from "shared/components/graph";
 
 interface SensorHistoryProps {
     sensorHistory: SensorData[];
