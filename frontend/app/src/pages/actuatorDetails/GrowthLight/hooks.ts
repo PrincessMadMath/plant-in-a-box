@@ -1,8 +1,7 @@
-import { getGrowthLightConfig, GrowthLightConfig } from "shared/api";
+import { getGrowthLightConfig } from "shared/api";
 
-import { useMutation, useQuery, UseQueryOptions } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import {
-    ActuatorMode,
     ActuatorMutation,
     GrowthLightAutomaticSettings,
     GrowthLightManualSettings,
