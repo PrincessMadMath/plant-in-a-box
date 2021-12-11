@@ -20,6 +20,8 @@
   </p>
 </div>
 
+[![CI-Frontend](https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/frontend-actions.yml/badge.svg)](https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/frontend-actions.yml)
+
 ## About The Project
 
 This is a project about automatic indoor home plant growth. It will help keep plants alive with minimal human intervention and alert humans when intervention is required before it is too late for the plant.
