@@ -32,6 +32,7 @@ export const GrowthLightControl = ({ actuator }: GrowthLightControlProps) => {
 
     const actuatorManualSettingsMutation = useSetGrowthLightManualSettings({
         onSuccess: () => {
+            debugger;
             invalidateGrowthLightConfig(queryClient, actuator.id);
         },
     });
@@ -57,7 +58,7 @@ export const GrowthLightControl = ({ actuator }: GrowthLightControlProps) => {
             actuatorId: actuator.id,
             data: {
                 sunriseTime: printDuration(dateToTimeOnly(newSunRise)),
-                sunsetTime: growthLightConfigQuery.data!.automaticSettings.sunsetTime,
+                sunsetTime: growthLightConfigQuery.data!.automatedSettings.sunsetTime,
             },
         });
     };
@@ -66,7 +67,7 @@ export const GrowthLightControl = ({ actuator }: GrowthLightControlProps) => {
         actuatorAutomaticSettingsMutation.mutate({
             actuatorId: actuator.id,
             data: {
-                sunriseTime: growthLightConfigQuery.data!.automaticSettings.sunriseTime,
+                sunriseTime: growthLightConfigQuery.data!.automatedSettings.sunriseTime,
                 sunsetTime: printDuration(dateToTimeOnly(newSunset)),
             },
         });
@@ -94,8 +95,8 @@ export const GrowthLightControl = ({ actuator }: GrowthLightControlProps) => {
 
     const config = growthLightConfigQuery.data;
 
-    const sunriseDate = timeOnlyToDate(config.automaticSettings.sunriseTime);
-    const sunsetDate = timeOnlyToDate(config.automaticSettings.sunsetTime);
+    const sunriseDate = timeOnlyToDate(config.automatedSettings.sunriseTime);
+    const sunsetDate = timeOnlyToDate(config.automatedSettings.sunsetTime);
 
     return (
         <Box>
@@ -115,7 +116,7 @@ export const GrowthLightControl = ({ actuator }: GrowthLightControlProps) => {
                         />
                     </FormControl>
                 </Box>
-                <Radio value={ActuatorMode.Automatic} size="lg" mt={6}>
+                <Radio value={ActuatorMode.Automated} size="lg" mt={6}>
                     Automatic ({durationBetween(sunriseDate.toString(), sunsetDate.toString())} of sunshine)
                 </Radio>
                 <Box ml={10} mt={3}>

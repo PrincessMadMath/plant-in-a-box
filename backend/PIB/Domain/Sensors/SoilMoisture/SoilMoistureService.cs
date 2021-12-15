@@ -27,7 +27,7 @@ public class SoilMoistureService
         throw new ArgumentException("Sensor does not exist.");
     }
     
-    public IReadOnlyList<SoilMoistureSensor> GetSensors(Guid sensorId)
+    public IReadOnlyList<SoilMoistureSensor> GetSensors()
     {
         return this._sensors.Values.ToList();
     }

@@ -1,12 +1,16 @@
-namespace Domain.Actuators.Light;
+using Domain.Actuators.Light;
+
+namespace Domain.Actuators.GrowthLight;
 
 public class GrowthLightActuator : IActuator
 {
-    public GrowthLightActuator(Guid id, string name, ActuatorStatus status)
+    public GrowthLightActuator(Guid id, string name, ActuatorStatus status, GrowthLightState state, GrowthLightConfig config)
     {
         Id = id;
         Name = name;
         Status = status;
+        State = state;
+        Config = config;
     }
 
     public Guid Id { get; }

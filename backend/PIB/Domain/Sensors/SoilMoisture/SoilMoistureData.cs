@@ -1,6 +1,6 @@
 namespace Domain.Sensors.SoilMoisture;
 
-public class SoilMoistureData
+public class SoilMoistureData: ISensorData
 {
     public float Value { get; set; }
     

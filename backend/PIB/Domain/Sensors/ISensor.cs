@@ -9,4 +9,6 @@ public interface ISensor
     public SensorType Type { get; }
     
     public SensorStatus Status { get; }
+
+    public ISensorData LastData { get; }
 }
