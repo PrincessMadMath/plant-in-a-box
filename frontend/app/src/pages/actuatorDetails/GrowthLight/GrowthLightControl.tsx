@@ -32,7 +32,6 @@ export const GrowthLightControl = ({ actuator }: GrowthLightControlProps) => {
 
     const actuatorManualSettingsMutation = useSetGrowthLightManualSettings({
         onSuccess: () => {
-            debugger;
             invalidateGrowthLightConfig(queryClient, actuator.id);
         },
     });

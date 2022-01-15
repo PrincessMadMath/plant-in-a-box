@@ -1,6 +1,7 @@
 using Domain.Actuators;
 using Domain.Actuators.GrowthLight;
 using Domain.Actuators.Light;
+using Domain.Device;
 
 namespace PlasticPlant.Faker;
 
@@ -16,7 +17,8 @@ public static class Seeds
             new GrowthLightConfig(GrowthLightSettingMode.Automated,
                 new GrowthLightAutomatedSettings(TimeSpan.FromHours(8),
                     TimeSpan.FromHours(18)),
-                new GrowthLightManualSettings(true))
+                new GrowthLightManualSettings(true)),
+            GenerateLogs()
         ),
         new GrowthLightActuator(
             Guid.NewGuid(),
@@ -26,7 +28,8 @@ public static class Seeds
             new GrowthLightConfig(GrowthLightSettingMode.Manual,
                 new GrowthLightAutomatedSettings(TimeSpan.FromHours(8),
                     TimeSpan.FromHours(18)),
-                new GrowthLightManualSettings(true))
+                new GrowthLightManualSettings(true)),
+            GenerateLogs()
         ),
         new GrowthLightActuator(
             Guid.NewGuid(),
@@ -36,7 +39,8 @@ public static class Seeds
             new GrowthLightConfig(GrowthLightSettingMode.Manual,
                 new GrowthLightAutomatedSettings(TimeSpan.FromHours(8),
                     TimeSpan.FromHours(18)),
-                new GrowthLightManualSettings(true))
+                new GrowthLightManualSettings(true)),
+            GenerateLogs()
         ),
         new GrowthLightActuator(
             Guid.NewGuid(),
@@ -46,7 +50,51 @@ public static class Seeds
             new GrowthLightConfig(GrowthLightSettingMode.Manual,
                 new GrowthLightAutomatedSettings(TimeSpan.FromHours(8),
                     TimeSpan.FromHours(18)),
-                new GrowthLightManualSettings(true))
+                new GrowthLightManualSettings(true)),
+            GenerateLogs()
         ),
     };
+
+    private static IReadOnlyCollection<DeviceLog> GenerateLogs()
+    {
+        return new List<DeviceLog>()
+        {
+            new DeviceLog()
+            {
+                Date = DateTimeOffset.UtcNow.AddMinutes(-1),
+                Level = DeviceLog.LogLevel.Info,
+                Message = "Data lost",
+            },
+            new DeviceLog()
+            {
+                Date = DateTimeOffset.UtcNow.AddHours(-1),
+                Level = DeviceLog.LogLevel.Verbose,
+                Message = "Data received",
+            },
+            new DeviceLog()
+            {
+                Date = DateTimeOffset.UtcNow.AddHours(-2),
+                Level = DeviceLog.LogLevel.Error,
+                Message = "Connection error detected",
+            },
+            new DeviceLog()
+            {
+                Date = DateTimeOffset.UtcNow.AddHours(-4),
+                Level = DeviceLog.LogLevel.Verbose,
+                Message = "Data received",
+            },
+            new DeviceLog()
+            {
+                Date = DateTimeOffset.UtcNow.AddDays(-1),
+                Level = DeviceLog.LogLevel.Verbose,
+                Message = "Data received",
+            },
+            new DeviceLog()
+            {
+                Date = DateTimeOffset.UtcNow.AddDays(-7),
+                Level = DeviceLog.LogLevel.Warning,
+                Message = "Sensor connected",
+            },
+        };
+    }
 }

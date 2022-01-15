@@ -1,16 +1,18 @@
 using Domain.Actuators.Light;
+using Domain.Device;
 
 namespace Domain.Actuators.GrowthLight;
 
 public class GrowthLightActuator : IActuator
 {
-    public GrowthLightActuator(Guid id, string name, ActuatorStatus status, GrowthLightState state, GrowthLightConfig config)
+    public GrowthLightActuator(Guid id, string name, ActuatorStatus status, GrowthLightState state, GrowthLightConfig config, IReadOnlyCollection<DeviceLog> logs)
     {
         Id = id;
         Name = name;
         Status = status;
         State = state;
         Config = config;
+        Logs = logs;
     }
 
     public Guid Id { get; }
@@ -19,12 +21,13 @@ public class GrowthLightActuator : IActuator
 
     public ActuatorType Type => ActuatorType.GrowthLight;
 
-    public GrowthLightState State { get; set; }
+    public GrowthLightState State { get; }
     
     public ActuatorStatus Status { get; }
 
-    public GrowthLightConfig Config { get; set; }
-
+    public GrowthLightConfig Config { get; }
+    
+    public IReadOnlyCollection<DeviceLog> Logs { get; }
 
     public enum GrowthLightState
     {

@@ -5,8 +5,8 @@ export interface DeviceLog {
 }
 
 export enum LogLevel {
-    Verbose = "VERBOSE",
-    Info = "INFO",
-    Warning = "WARNING",
-    Error = "ERROR",
+    Verbose = "Verbose",
+    Info = "Info",
+    Warning = "Warning",
+    Error = "Error",
 }

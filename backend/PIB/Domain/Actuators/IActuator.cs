@@ -1,3 +1,5 @@
+using Domain.Device;
+
 namespace Domain.Actuators;
 
 public interface IActuator
@@ -9,4 +11,6 @@ public interface IActuator
     public ActuatorType Type { get; }
 
     public ActuatorStatus Status { get; }
+
+    public IReadOnlyCollection<DeviceLog> Logs { get; }
 }

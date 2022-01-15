@@ -34,9 +34,9 @@ public class GrowthLightController : ControllerBase
     }
     
     [HttpPost("{actuatorId}/config/mode")]
-    public IActionResult SetMode(Guid actuatorId, [FromBody] GrowthLightSettingMode mode)
+    public IActionResult SetMode(Guid actuatorId, [FromBody] SettingModeModel modeModel)
     {
-        this._growthLightService.SetMode(actuatorId, mode);
+        this._growthLightService.SetMode(actuatorId, modeModel.Mode);
         
         return this.Ok();
     }
@@ -55,5 +55,10 @@ public class GrowthLightController : ControllerBase
         this._growthLightService.SetAutomatedSettings(actuatorId, automatedSettings);
         
         return this.Ok();
+    }
+
+    public class SettingModeModel
+    {
+        public GrowthLightSettingMode Mode { get; set; }
     }
 }

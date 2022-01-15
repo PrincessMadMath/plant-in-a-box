@@ -1,10 +1,13 @@
 using Domain.Actuators.Light;
+using Domain.Device;
 
 namespace Domain.Actuators.GrowthLight;
 
 public class GrowthLightService
 {
     private readonly Dictionary<Guid, GrowthLightActuator> _actuators = new();
+    
+    private readonly Dictionary<Guid, List<DeviceLog>> _logs = new();
     
     public void RegisterActuator(GrowthLightActuator actuator)
     {
@@ -14,6 +17,8 @@ public class GrowthLightService
         }
         
         _actuators.Add(actuator.Id, actuator);
+        // TODO: Split actuator from logs
+        _logs.Add(actuator.Id, actuator.Logs.ToList());
     }
     
     public IReadOnlyList<IActuator> GetActuators()
@@ -69,5 +74,26 @@ public class GrowthLightService
         }
         
         actuator.Config.AutomatedSettings = automatedSettings;
+    }
+    
+    public IReadOnlyCollection<DeviceLog> GetLogs(Guid actuatorId)
+    {
+        if (!this._logs.TryGetValue(actuatorId, out var logs))
+        {
+            return Array.Empty<DeviceLog>();
+        }
+
+        return logs;
+    }
+    
+    public void AppendLog(Guid actuatorId, DeviceLog log)
+    {
+        if (!this._logs.TryGetValue(actuatorId, out var logs))
+        {
+            this._logs.Add(actuatorId, new List<DeviceLog>(){log});
+            return;
+        }
+
+        logs.Add(log);
     }
 }

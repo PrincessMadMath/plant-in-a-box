@@ -37,5 +37,9 @@ export async function postJson<T>(url: string, data: T, fakePost: () => any): Pr
         throw new Error(message);
     }
 
+    if (!response.bodyUsed) {
+        return;
+    }
+
     return await response.json();
 }
