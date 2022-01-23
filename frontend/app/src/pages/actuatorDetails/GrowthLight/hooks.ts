@@ -3,7 +3,7 @@ import { getGrowthLightConfig } from "shared/api";
 import { useMutation, useQuery } from "react-query";
 import {
     ActuatorMutation,
-    GrowthLightAutomaticSettings,
+    GrowthLightAutomatedSettings,
     GrowthLightManualSettings,
     setGrowthLightAutoSettings,
     setGrowthLightConfigMode,
@@ -39,9 +39,9 @@ export function useSetGrowthLightManualSettings(
 }
 
 export function useSetGrowthLightAutoSettings(
-    options?: UseMutationOptions<void, Error, ActuatorMutation<GrowthLightAutomaticSettings>>
+    options?: UseMutationOptions<void, Error, ActuatorMutation<GrowthLightAutomatedSettings>>
 ) {
-    return useMutation<void, Error, ActuatorMutation<GrowthLightAutomaticSettings>>(
+    return useMutation<void, Error, ActuatorMutation<GrowthLightAutomatedSettings>>(
         (mutation) => setGrowthLightAutoSettings(mutation),
         options
     );

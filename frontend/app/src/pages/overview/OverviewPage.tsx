@@ -47,6 +47,7 @@ export const OverviewPage = () => {
                     <Tbody>
                         {sensors?.map((x) => (
                             <Tr
+                                key={x.id}
                                 onClick={() => {
                                     history.push(`/sensor/${x.id}`);
                                 }}
@@ -78,6 +79,7 @@ export const OverviewPage = () => {
                     <Tbody>
                         {actuators?.map((x) => (
                             <Tr
+                                key={x.id}
                                 onClick={() => {
                                     history.push(`/actuator/${x.id}`);
                                 }}

@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 export const fakeActuatorsList = [
     {
         id: "9dcdce7e-7420-4f63-a9fd-f005fd62b5bd",
-        name: "Growt light 1",
+        name: "Growth light 1",
         type: ActuatorType.GrowthLight,
         state: ActuatorState.On,
         status: ActuatorStatus.Healthy,
@@ -56,11 +56,11 @@ export const fakeActuatorLogs = [
 ];
 
 export const growthLightConfig = {
-    mode: ActuatorMode.Automatic,
+    mode: ActuatorMode.Automated,
     manualSettings: {
         isOn: false,
     },
-    automaticSettings: {
+    automatedSettings: {
         sunriseTime: "8:00:00",
         sunsetTime: "22:00:00",
     },

@@ -3,7 +3,7 @@ import { getJson, postJson } from "../utils";
 import {
     Actuator,
     ActuatorMode,
-    GrowthLightAutomaticSettings,
+    GrowthLightAutomatedSettings,
     GrowthLightConfig,
     GrowthLightManualSettings,
 } from "./models";
@@ -42,10 +42,10 @@ export const setGrowthLightManualSettings = (
 };
 
 export const setGrowthLightAutoSettings = (
-    modeMutation: ActuatorMutation<GrowthLightAutomaticSettings>
+    modeMutation: ActuatorMutation<GrowthLightAutomatedSettings>
 ): Promise<any> => {
-    return postJson(`growth-light/${modeMutation.actuatorId}/config/automatic`, modeMutation.data, () => {
-        growthLightConfig.automaticSettings = modeMutation.data;
+    return postJson(`growth-light/${modeMutation.actuatorId}/config/automated`, modeMutation.data, () => {
+        growthLightConfig.automatedSettings = modeMutation.data;
     });
 };
 

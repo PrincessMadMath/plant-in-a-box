@@ -13,3 +13,10 @@ https://betterprogramming.pub/7-tips-for-using-react-query-in-large-projects-22c
 * Group by domain
 * By default cached data is consider as stale (can configure staleTime globally)
 
+https://tsh.io/blog/react-query-tutorial/
+* Useful exemple
+
+
+3. Various tips
+
+https://proxify.io/articles/build-large-scale-React-apps

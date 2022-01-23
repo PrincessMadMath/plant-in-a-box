@@ -12,7 +12,7 @@ export const getSensor = (sensorId: string): Promise<Sensor> => {
 };
 
 export const getSensorHistory = (sensorId: string): Promise<SensorData[]> => {
-    return getJson<SensorData[]>(`sensors/${sensorId}/history`, fakeSoilMoistureHistory);
+    return getJson<SensorData[]>(`sensors/${sensorId}/data`, fakeSoilMoistureHistory);
 };
 
 export const getSensorLogs = (sensorId: string): Promise<DeviceLog[]> => {

@@ -11,14 +11,14 @@ export interface Actuator {
 export interface GrowthLightConfig {
     mode: ActuatorMode;
     manualSettings: GrowthLightManualSettings;
-    automaticSettings: GrowthLightAutomaticSettings;
+    automatedSettings: GrowthLightAutomatedSettings;
 }
 
 export interface GrowthLightManualSettings {
     isOn: boolean;
 }
 
-export interface GrowthLightAutomaticSettings {
+export interface GrowthLightAutomatedSettings {
     sunriseTime: string;
     sunsetTime: string;
 }
@@ -41,7 +41,8 @@ export enum ActuatorState {
     On = "ON",
 }
 
+// TODO: Check to parse from UPPERCASE
 export enum ActuatorMode {
-    Manual = "MANUAL",
-    Automatic = "AUTOMATIC",
+    Manual = "Manual",
+    Automated = "Automated",
 }
