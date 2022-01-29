@@ -34,3 +34,4 @@ jobs:
         name: XUNIT Tests
         path: TestResults/test-results.trx
         reporter: dotnet-trx 
+        working-directory: './backend'
