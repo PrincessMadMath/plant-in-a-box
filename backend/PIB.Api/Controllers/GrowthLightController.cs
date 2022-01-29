@@ -14,8 +14,8 @@ public class GrowthLightController : ControllerBase
 
     public GrowthLightController(ILogger<GrowthLightController> logger, GrowthLightService growthLightService)
     {
-        _logger = logger;
-        _growthLightService = growthLightService;
+        this._logger = logger;
+        this._growthLightService = growthLightService;
     }
     
     [HttpPost("register")]

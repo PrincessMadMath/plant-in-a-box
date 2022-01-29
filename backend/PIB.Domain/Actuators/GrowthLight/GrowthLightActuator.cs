@@ -7,12 +7,12 @@ public class GrowthLightActuator : IActuator
 {
     public GrowthLightActuator(Guid id, string name, ActuatorStatus status, GrowthLightState state, GrowthLightConfig config, IReadOnlyCollection<DeviceLog> logs)
     {
-        Id = id;
-        Name = name;
-        Status = status;
-        State = state;
-        Config = config;
-        Logs = logs;
+        this.Id = id;
+        this.Name = name;
+        this.Status = status;
+        this.State = state;
+        this.Config = config;
+        this.Logs = logs;
     }
 
     public Guid Id { get; }

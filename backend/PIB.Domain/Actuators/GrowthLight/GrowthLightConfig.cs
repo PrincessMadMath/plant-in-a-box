@@ -4,9 +4,9 @@ public class GrowthLightConfig
 {
     public GrowthLightConfig(GrowthLightSettingMode mode, GrowthLightAutomatedSettings automatedSettings, GrowthLightManualSettings manualSettings)
     {
-        Mode = mode;
-        AutomatedSettings = automatedSettings;
-        ManualSettings = manualSettings;
+        this.Mode = mode;
+        this.AutomatedSettings = automatedSettings;
+        this.ManualSettings = manualSettings;
     }
 
     public GrowthLightSettingMode Mode { get; set; }
@@ -27,8 +27,8 @@ public class GrowthLightAutomatedSettings
 {
     public GrowthLightAutomatedSettings(TimeSpan sunriseTime, TimeSpan sunsetTime)
     {
-        SunriseTime = sunriseTime;
-        SunsetTime = sunsetTime;
+        this.SunriseTime = sunriseTime;
+        this.SunsetTime = sunsetTime;
     }
 
     // TODO: Move to TimeOnly once supported in JsonSerializer
@@ -41,7 +41,7 @@ public class GrowthLightManualSettings
 {
     public GrowthLightManualSettings(bool isOn)
     {
-        IsOn = isOn;
+        this.IsOn = isOn;
     }
 
     public bool IsOn { get; set; }        

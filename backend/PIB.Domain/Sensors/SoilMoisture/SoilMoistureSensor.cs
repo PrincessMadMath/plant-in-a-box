@@ -4,10 +4,10 @@ public class SoilMoistureSensor: ISensor
 {
     public SoilMoistureSensor(Guid id, string name, SensorStatus status, ISensorData lastData)
     {
-        Id = id;
-        Name = name;
-        Status = status;
-        LastData = lastData;
+        this.Id = id;
+        this.Name = name;
+        this.Status = status;
+        this.LastData = lastData;
     }
 
     public Guid Id { get; }

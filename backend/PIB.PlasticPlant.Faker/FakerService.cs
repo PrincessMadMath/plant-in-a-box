@@ -9,7 +9,7 @@ public class FakerService
     
     public FakerService(HttpClient client)
     {
-        _client = client;
+        this._client = client;
     }
 
     public async Task SeedGrowthLightActuators()
@@ -19,7 +19,7 @@ public class FakerService
             var jsonContent = JsonSerializer.Serialize(actuator);
             var requestContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
             
-            var response = await _client.PostAsync(
+            var response = await this._client.PostAsync(
                 new Uri("https://localhost:7196/growth-light/register"), 
                 requestContent);
 
