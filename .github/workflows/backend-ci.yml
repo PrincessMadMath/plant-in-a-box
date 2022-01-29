@@ -33,3 +33,4 @@ jobs:
       with:
         name: XUNIT Tests
         path: test-results.trx
+        reporter: dotnet-trx 
