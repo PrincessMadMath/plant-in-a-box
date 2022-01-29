@@ -32,6 +32,6 @@ jobs:
       if: success() || failure()  
       with:
         name: XUNIT Tests
-        path: TestResults/test-results.trx
+        path: TestResults/**/*.trx
         reporter: dotnet-trx 
         working-directory: './backend'
