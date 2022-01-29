@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/PrincessMadMath/plant-in-a-box">
-    <img src="images/logo.png" alt="Logo" width="120" height="120">
+    <img src="docs/images/logo.png" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">Best-README-Template</h3>
@@ -45,13 +45,13 @@ There is 3 part to the application.
 
 We use an arduino as the IOT controller to communicate with the sensors and actuators.
 
-For more information [Readme Arduino](arduino/README.md)
+For more information [Readme Arduino](iot/arduino/README.md)
 
 ### Raspberry Pie
 
 We use an raspberry pie to communicate with the arduino and sync the data with the web application.
 
-For more information [Readme Raspberry](raspberry/README.md)
+For more information [Readme Raspberry](iot/raspberry/README.md)
 
 ### Web Application
 
