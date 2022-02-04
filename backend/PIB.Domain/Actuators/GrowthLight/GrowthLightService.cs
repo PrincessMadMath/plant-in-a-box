@@ -15,10 +15,10 @@ public class GrowthLightService
         {
             throw new ArgumentException("Actuator already exist.");
         }
-        
-        _actuators.Add(actuator.Id, actuator);
+
+        this._actuators.Add(actuator.Id, actuator);
         // TODO: Split actuator from logs
-        _logs.Add(actuator.Id, actuator.Logs.ToList());
+        this._logs.Add(actuator.Id, actuator.Logs.ToList());
     }
     
     public IReadOnlyList<IActuator> GetActuators()

@@ -15,8 +15,8 @@ public class SensorsController : ControllerBase
     // TODO: Add service that aggregate all sensors  service?
     public SensorsController(ILogger<SensorsController> logger, SoilMoistureService soilMoistureService)
     {
-        _logger = logger;
-        _soilMoistureService = soilMoistureService;
+        this._logger = logger;
+        this._soilMoistureService = soilMoistureService;
     }
     
     [HttpPost("register")]

@@ -20,7 +20,14 @@
   </p>
 </div>
 
-[![CI-Frontend](https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/frontend-actions.yml/badge.svg)](https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/frontend-actions.yml)
+<p align="center">
+  <a href="https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/backend-ci.yml">
+    <img src="https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/backend-ci.yml/badge.svg" alt="Backend CI" />
+  </a>&nbsp;
+  <a href="https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/frontend-ci.yml">
+    <img src="https://github.com/PrincessMadMath/plant-in-a-box/actions/workflows/frontend-ci.yml/badge.svg" alt="Frontend CI" />
+  </a>&nbsp;
+</p>
 
 ## About The Project
 

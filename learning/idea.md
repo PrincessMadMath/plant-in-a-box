@@ -12,3 +12,8 @@ MSWjs
 # Check this architecture
 
 https://github.com/alan2207/bulletproof-react
+
+
+# New Project checklist
+
+https://github.com/ardalis/new-software-project-checklist

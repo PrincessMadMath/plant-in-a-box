@@ -14,8 +14,8 @@ public class ActuatorsController : ControllerBase
 
     public ActuatorsController(ILogger<ActuatorsController> logger, GrowthLightService growthLightService)
     {
-        _logger = logger;
-        _growthLightService = growthLightService;
+        this._logger = logger;
+        this._growthLightService = growthLightService;
     }
     
     [HttpGet("")]

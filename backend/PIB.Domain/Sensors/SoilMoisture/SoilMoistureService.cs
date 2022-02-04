@@ -13,8 +13,8 @@ public class SoilMoistureService
         {
             throw new ArgumentException("Sensor already exist.");
         }
-        
-        _sensors.Add(sensor.Id, sensor);
+
+        this._sensors.Add(sensor.Id, sensor);
     }
 
     public SoilMoistureSensor GetSensor(Guid sensorId)
