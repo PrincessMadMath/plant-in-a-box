@@ -1,7 +1,14 @@
-using System.Text.Json;
+using Domain;
 using PIB.Api.Setup;
+using PIB.Infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((hostContext, loggerConfiguration) =>
+{
+    loggerConfiguration.ReadFrom.Configuration(hostContext.Configuration);
+});
 
 // Add services to the container.
 builder.Services.InjectDomainDependencies();
@@ -15,8 +22,12 @@ builder.Services.AddControllers().AddJsonOptions(o =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.SetupInfrastructure(builder.Configuration);
+builder.Services.SetupDomain(builder.Configuration);
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

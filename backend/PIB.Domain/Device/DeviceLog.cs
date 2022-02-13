@@ -4,7 +4,7 @@ public class DeviceLog
 {
     public DateTimeOffset Date { get; set; }
     public LogLevel Level { get; set; }
-    public string Message { get; set; }
+    public string Message { get; set; } = String.Empty;
 
     public enum LogLevel
     {
