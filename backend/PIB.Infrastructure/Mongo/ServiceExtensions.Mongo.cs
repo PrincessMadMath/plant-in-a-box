@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace PIB.Infrastructure.Mongo;
 
-public static class MongoConfiguration
+public static partial class ServiceCollectionExtensions
 {
-    public static IServiceCollection SetupMongo(this IServiceCollection services, ConfigurationManager config)
+    public static IServiceCollection AddAndConfigureMongoDB(this IServiceCollection services, ConfigurationManager config)
     {
         services.Configure<MongoSettings>(
             config.GetSection(MongoSettings.Mongo));

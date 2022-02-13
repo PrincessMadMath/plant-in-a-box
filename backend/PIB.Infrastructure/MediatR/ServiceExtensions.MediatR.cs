@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace PIB.Infrastructure.MediatR;
 
-public static class MediatRConfiguration
+public static partial class ServiceCollectionExtensions
 {
-    public static IServiceCollection SetupMediatR(this IServiceCollection services, ConfigurationManager config)
+    public static IServiceCollection AddAndConfigureMediatR(this IServiceCollection services, ConfigurationManager config)
     {
         services.AddMediatR(Assembly.GetExecutingAssembly());
 
