@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Actuators\Operations" />
+      <Folder Include="IoT" />
     </ItemGroup>
 
     <ItemGroup>

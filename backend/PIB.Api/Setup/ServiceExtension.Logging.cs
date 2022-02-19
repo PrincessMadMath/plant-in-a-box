@@ -1,6 +1,3 @@
-using Domain.Actuators.GrowthLight;
-using Domain.Actuators.Light;
-using Domain.Sensors.SoilMoisture;
 using Serilog;
 
 namespace PIB.Api.Setup;

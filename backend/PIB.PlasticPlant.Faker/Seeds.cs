@@ -1,7 +1,6 @@
-using Domain.Actuators;
-using Domain.Actuators.GrowthLight;
-using Domain.Actuators.Light;
-using Domain.Device;
+using Domain.IoT.Actuators;
+using Domain.IoT.Actuators.GrowthLight;
+using Domain.IoT.Device;
 
 namespace PIB.PlasticPlant.Faker;
 

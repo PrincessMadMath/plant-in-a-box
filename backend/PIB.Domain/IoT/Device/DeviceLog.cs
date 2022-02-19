@@ -1,4 +1,4 @@
-namespace Domain.Device;
+namespace Domain.IoT.Device;
 
 public class DeviceLog
 {

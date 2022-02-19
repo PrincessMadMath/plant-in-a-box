@@ -1,6 +1,6 @@
-using Domain.Actuators;
-using Domain.Actuators.GrowthLight;
-using Domain.Device;
+using Domain.IoT.Actuators;
+using Domain.IoT.Actuators.GrowthLight;
+using Domain.IoT.Device;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PIB.Api.Controllers;

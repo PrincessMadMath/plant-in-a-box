@@ -1,4 +1,4 @@
-namespace Domain.Sensors;
+namespace Domain.IoT.Sensors;
 
 public enum SensorType
 {

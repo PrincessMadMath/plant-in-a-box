@@ -1,4 +1,4 @@
-namespace Domain.Sensors.SoilMoisture;
+namespace Domain.IoT.Sensors.SoilMoisture;
 
 public class SoilMoistureSensor: ISensor
 {

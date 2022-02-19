@@ -1,5 +1,5 @@
-using Domain.Sensors;
-using Domain.Sensors.SoilMoisture;
+using Domain.IoT.Sensors;
+using Domain.IoT.Sensors.SoilMoisture;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PIB.Api.Controllers;
