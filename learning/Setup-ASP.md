@@ -57,3 +57,11 @@ Quand utilser règle stylecop vs editorconfig?
 6. How configure Rider?
 
 Conflict with rule (this.)... how fix for all teams (.idea but normally ignore (TODO))
+
+## Logging
+
+https://benfoster.io/blog/serilog-best-practices/
+
+## General setup
+
+https://dev.to/moesmp/what-every-asp-net-core-web-api-project-needs-part-1-serilog-o5a

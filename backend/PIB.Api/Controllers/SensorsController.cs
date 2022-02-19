@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PIB.Api.Controllers;
 
-// TODO: What does ApiController means!
 [ApiController]
 [Route("sensors")]
 public class SensorsController : ControllerBase

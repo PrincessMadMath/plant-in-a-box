@@ -1,4 +1,3 @@
-using Domain.Actuators;
 using Domain.Actuators.GrowthLight;
 using Domain.Actuators.Light;
 using Microsoft.AspNetCore.Mvc;
