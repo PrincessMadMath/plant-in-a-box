@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PIB.Infrastructure.MediatR;
 using Serilog.Context;
-using Serilog.Core;
 
 namespace PIB.Api.Controllers;
 
