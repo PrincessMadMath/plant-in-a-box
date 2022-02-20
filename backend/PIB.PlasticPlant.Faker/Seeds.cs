@@ -1,12 +1,20 @@
 using Domain.IoT.Actuators;
 using Domain.IoT.Actuators.GrowthLight;
 using Domain.IoT.Device;
+using Domain.Plants;
 
 namespace PIB.PlasticPlant.Faker;
 
 public static class Seeds
 {
-    public static IReadOnlyList<GrowthLightActuator> growthLightSeeds = new[]
+    public static IReadOnlyList<CreatePlantCommand> CreatePlantsSeeds = new[]
+    {
+        new CreatePlantCommand("Petunia", "Cactus", "Salon", "Dark Blue"),
+        new CreatePlantCommand("Toss a coin", "Dandelion", "Salon", "Red"),
+        new CreatePlantCommand("Mojito Provider", "Mint", "Salon", "Big one"),
+    };
+
+    public static readonly IReadOnlyList<GrowthLightActuator> GrowthLightSeeds = new[]
     {
         new GrowthLightActuator(
             Guid.NewGuid(),

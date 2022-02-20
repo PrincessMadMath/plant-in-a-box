@@ -33,7 +33,7 @@ public class PlantsController: ControllerBase
 
         return plants;
     }
-    
+
     [HttpGet("{plantId}")]
     public async Task<ActionResult<PlantDocument>> GetPlant(Guid plantId)
     {

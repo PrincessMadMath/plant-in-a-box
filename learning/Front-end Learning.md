@@ -1,4 +1,35 @@
-#Inspiration
+1. Fake API
+
+In app seems easy, quick and allow strong typing for the fake data. But it prevent easily testing networking scenario.
+
+
+2. React Query
+
+https://betterprogramming.pub/7-tips-for-using-react-query-in-large-projects-22ccc49d61c2
+
+* Enum for ServerStateKeys
+* Wrap in custom hooks
+** Include mutation and side effect (like toast) (but allow to pass Options in args)
+* Group by domain
+* By default cached data is consider as stale (can configure staleTime globally)
+
+https://tsh.io/blog/react-query-tutorial/
+* Useful exemple
+
+
+3. Various tips
+
+https://proxify.io/articles/build-large-scale-React-apps
+
+
+How use date formatting in Nivo
+- https://github.com/d3/d3-scale
+- https://momentjs.com/docs/#/displaying/unix-timestamp-milliseconds/
+
+
+# App structure
+
+## Inspiration
 
 https://github.com/oldboyxx/jira_clone/tree/master/client/src
 * Structure
@@ -9,7 +40,6 @@ https://github.com/oldboyxx/jira_clone/tree/master/client/src
 *** Date fetching use custom hook and is done directly in the components
 
 Rules: can only import from ancestor
-
 
 
 https://github.com/HospitalRun/hospitalrun

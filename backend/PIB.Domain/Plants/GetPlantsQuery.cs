@@ -18,13 +18,11 @@ public class GetPlantsQueryHandler : IStreamRequestHandler<GetPlantsQuery, Plant
         this._mongoRepository = mongoRepository;
     }
 
-    public async IAsyncEnumerable<PlantDocument> Handle(GetPlantsQuery request, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public IAsyncEnumerable<PlantDocument> Handle(GetPlantsQuery request, CancellationToken cancellationToken)
     {
         var collection = this._mongoRepository.GetCollection<PlantDocument>();
 
-        await foreach (var plant in collection.Find(FilterDefinition<PlantDocument>.Empty).ToAsyncEnumerable(cancellationToken: cancellationToken))
-        {
-            yield return plant;
-        }
+        return collection.Find(FilterDefinition<PlantDocument>.Empty)
+            .ToAsyncEnumerable(cancellationToken: cancellationToken);
     }
 }

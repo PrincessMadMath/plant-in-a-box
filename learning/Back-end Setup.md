@@ -1,3 +1,5 @@
+## Initial setup
+
 1. First mission have .net 5 API with swagger
 
 - Some issue on how to register route (and how it work)
@@ -57,26 +59,3 @@ Quand utilser règle stylecop vs editorconfig?
 6. How configure Rider?
 
 Conflict with rule (this.)... how fix for all teams (.idea but normally ignore (TODO))
-
-## Logging
-
-https://benfoster.io/blog/serilog-best-practices/
-
-https://stackoverflow.com/questions/69828142/does-asp-net-core-logging-api-have-method-to-create-independent-loggers-similar
-
-## General setup
-
-https://dev.to/moesmp/what-every-asp-net-core-web-api-project-needs-part-1-serilog-o5a
-
-    <ItemGroup>
-      <Reference Include="Microsoft.Extensions.Configuration, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-        <HintPath>..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.0\Microsoft.Extensions.Configuration.dll</HintPath>
-      </Reference>
-      <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-        <HintPath>..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-## ASP NET API
-
-https://dotnettutorials.net/lesson/controller-action-return-types-core-web-api/
