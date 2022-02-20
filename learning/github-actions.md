@@ -1,1 +1,0 @@
-How do backend: https://blog.kritner.com/2021/11/29/cicd-for-net6-with-github-actions/

@@ -1,4 +1,4 @@
-namespace Domain.Sensors.SoilMoisture;
+namespace Domain.IoT.Sensors.SoilMoisture;
 
 // Does not  support concurrent operations.
 public class SoilMoistureService

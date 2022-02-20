@@ -1,7 +1,6 @@
-using Domain.Actuators.Light;
-using Domain.Device;
+using Domain.IoT.Device;
 
-namespace Domain.Actuators.GrowthLight;
+namespace Domain.IoT.Actuators.GrowthLight;
 
 public class GrowthLightService
 {

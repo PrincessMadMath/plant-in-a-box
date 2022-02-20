@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Domain.Actuators.GrowthLight;
-using Domain.Sensors.SoilMoisture;
+using Domain.IoT.Actuators.GrowthLight;
+using Domain.IoT.Sensors.SoilMoisture;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

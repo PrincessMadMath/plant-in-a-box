@@ -1,6 +1,6 @@
-using Domain.Device;
+using Domain.IoT.Device;
 
-namespace Domain.Actuators;
+namespace Domain.IoT.Actuators;
 
 public interface IActuator
 {

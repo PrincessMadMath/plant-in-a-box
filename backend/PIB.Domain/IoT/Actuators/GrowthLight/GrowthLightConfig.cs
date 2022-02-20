@@ -1,4 +1,4 @@
-namespace Domain.Actuators.Light;
+namespace Domain.IoT.Actuators.GrowthLight;
 
 public class GrowthLightConfig
 {

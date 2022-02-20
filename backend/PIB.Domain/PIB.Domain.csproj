@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Actuators\Operations" />
+      <Folder Include="IoT" />
     </ItemGroup>
 
     <ItemGroup>
@@ -17,6 +17,10 @@
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PIB.Infrastructure\PIB.Infrastructure.csproj" />
     </ItemGroup>
   
 </Project>
