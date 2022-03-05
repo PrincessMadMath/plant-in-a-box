@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Center, Heading, Spinner, Grid, Stat, StatLabel, StatNumber, StatHelpText } from "@chakra-ui/react";
-import { useGetHistory, useGetLogs, useGetSensor } from "./hooks";
 import { useParams } from "react-router-dom";
 import { SensorInfo } from "pages/sensorDetails/SensorInfo";
 import { SensorHistory } from "pages/sensorDetails/SensorHistory";
 import { DeviceLogs } from "shared/components/deviceLogs";
 import { formatFrom } from "shared/utils";
+import {useGetHistory, useGetSensor, useGetSensorLogs} from "shared/api/sensors";
 
 interface SensorDetailsPageProps {
     sensorId: string;
@@ -16,7 +16,7 @@ export const SensorDetailsPage = () => {
 
     const { isLoading: isSensorLoading, data: sensor } = useGetSensor(sensorId);
     const { isLoading: isHistoryLoading, data: sensorHistory } = useGetHistory(sensorId);
-    const { isLoading: isLogsLoading, data: sensorLogs } = useGetLogs(sensorId);
+    const { isLoading: isLogsLoading, data: sensorLogs } = useGetSensorLogs(sensorId);
 
     if (isSensorLoading || isHistoryLoading || isLogsLoading) {
         return (

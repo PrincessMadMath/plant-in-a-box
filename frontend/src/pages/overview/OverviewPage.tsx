@@ -5,8 +5,8 @@ import { ActuatorStatus } from "shared/api";
 
 import { Box, Center, Heading, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 
-import { useGetActuators, useGetSensors } from "./hooks";
 import { formatFrom } from "shared/utils";
+import {useGetSensors, useGetActuators} from "shared/api";
 
 export const OverviewPage = () => {
     const history = useHistory();

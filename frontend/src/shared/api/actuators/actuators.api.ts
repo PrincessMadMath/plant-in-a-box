@@ -10,44 +10,36 @@ import {
 import { DeviceLog } from "shared/api/device";
 
 export const getActuatorsList = (): Promise<Actuator[]> => {
-    return getJson<Actuator[]>(`actuators`, fakeActuatorsList);
+    return getJson<Actuator[]>(`actuators`);
 };
 
 export const getActuator = (actuatorId: string): Promise<Actuator> => {
-    return getJson<Actuator>(`actuators/${actuatorId}`, fakeActuatorsList.find((x) => x.id === actuatorId)!);
+    return getJson<Actuator>(`actuators/${actuatorId}`);
 };
 
 export const getActuatorLogs = (actuatorId: string): Promise<DeviceLog[]> => {
-    return getJson<DeviceLog[]>(`actuators/${actuatorId}/logs`, fakeActuatorLogs);
+    return getJson<DeviceLog[]>(`actuators/${actuatorId}/logs`);
 };
 
 export const getGrowthLightConfig = (actuatorId: string): Promise<GrowthLightConfig> => {
-    return getJson<GrowthLightConfig>(`growth-light/${actuatorId}/config`, growthLightConfig);
+    return getJson<GrowthLightConfig>(`growth-light/${actuatorId}/config`);
 };
 
 export const setGrowthLightConfigMode = (
     modeMutation: ActuatorMutation<SetGrowthLightConfigModeMutation>
 ): Promise<any> => {
-    return postJson(`growth-light/${modeMutation.actuatorId}/config/mode`, modeMutation.data, () => {
-        growthLightConfig.mode = modeMutation.data.mode;
-    });
-};
+    return postJson(`growth-light/${modeMutation.actuatorId}/config/mode`, modeMutation.data)};
 
 export const setGrowthLightManualSettings = (
     modeMutation: ActuatorMutation<GrowthLightManualSettings>
 ): Promise<any> => {
-    return postJson(`growth-light/${modeMutation.actuatorId}/config/manual`, modeMutation.data, () => {
-        growthLightConfig.manualSettings = modeMutation.data;
-    });
+    return postJson(`growth-light/${modeMutation.actuatorId}/config/manual`, modeMutation.data);
 };
 
 export const setGrowthLightAutoSettings = (
     modeMutation: ActuatorMutation<GrowthLightAutomatedSettings>
 ): Promise<any> => {
-    return postJson(`growth-light/${modeMutation.actuatorId}/config/automated`, modeMutation.data, () => {
-        growthLightConfig.automatedSettings = modeMutation.data;
-    });
-};
+    return postJson(`growth-light/${modeMutation.actuatorId}/config/automated`, modeMutation.data)};
 
 export interface ActuatorMutation<T> {
     actuatorId: string;

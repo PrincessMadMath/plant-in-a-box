@@ -1,8 +1,11 @@
-import { Sensor, getSensor, getSensorHistory, SensorData } from "shared/api";
-
 import { useQuery } from "react-query";
-import { getSensorLogs } from "shared/api/sensors";
-import { DeviceLog } from "shared/api/device";
+import { Sensor } from "./models";
+import { getSensor, getSensorHistory, getSensorLogs, getSensorsList } from "./sensors.api";
+import { DeviceLog, SensorData } from "../index";
+
+export function useGetSensors() {
+    return useQuery<Sensor[], any>("sensors", getSensorsList);
+}
 
 export function useGetSensor(sensorId: string) {
     return useQuery<Sensor, any>(["sensor", sensorId], () => getSensor(sensorId));
@@ -12,6 +15,6 @@ export function useGetHistory(sensorId: string) {
     return useQuery<SensorData[], any>(["sensor", "history", sensorId], () => getSensorHistory(sensorId));
 }
 
-export function useGetLogs(sensorId: string) {
+export function useGetSensorLogs(sensorId: string) {
     return useQuery<DeviceLog[], any>(["sensor", "logs", sensorId], () => getSensorLogs(sensorId));
 }

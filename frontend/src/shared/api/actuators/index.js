@@ -1,2 +1,2 @@
-export * from "./actuators.api";
+export * from "./actuators.hooks";
 export * from "./models";
