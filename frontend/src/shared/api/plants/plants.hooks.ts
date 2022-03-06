@@ -1,7 +1,7 @@
 import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
-import { FertilizePlantCommand, RepotPlantCommand, WaterPlantCommand } from "./commands";
+import { CreatePlantCommand, FertilizePlantCommand, RepotPlantCommand, WaterPlantCommand } from "./commands";
 import { Plant } from "./models";
-import { fertilizePlant, getPlant, getPlants, repotPlant, waterPlant } from "./plants.api";
+import { createPlant, fertilizePlant, getPlant, getPlants, repotPlant, waterPlant } from "./plants.api";
 
 export function useGetPlants() {
     return useQuery<Plant[], any>("plants", getPlants);
@@ -9,6 +9,16 @@ export function useGetPlants() {
 
 export function useGetPlant(plantId: string) {
     return useQuery<Plant[], any>(["plants", plantId], () => getPlant(plantId));
+}
+
+export function useCreatePlant() {
+    const queryClient = useQueryClient();
+
+    return useMutation<void, Error, CreatePlantCommand>((mutation) => createPlant(mutation), {
+        onSuccess: async (data, variables, context) => {
+            queryClient.invalidateQueries(["plants"]);
+        },
+    });
 }
 
 export function useWaterPlant() {
