@@ -22,9 +22,9 @@ public class PlantDocument : MongoDocument
 
 public class CaringOperations
 {
-    public DateTimeOffset LastWateredDate { get; set; }
+    public DateTimeOffset? LastWateredDate { get; set; }
     
-    public DateTimeOffset LastRepotDate { get; set; }
+    public DateTimeOffset? LastRepotDate { get; set; }
     
-    public DateTimeOffset LastFertilizedDate { get; set; }
+    public DateTimeOffset? LastFertilizedDate { get; set; }
 }

@@ -1,16 +1,15 @@
-import React from "react";
+import { Box, ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 
 import dotenv from "dotenv";
+import React from "react";
 
-import { Box, ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import theme from "./theme";
-
-import Routes from "./Routes";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-import "react-datepicker/dist/react-datepicker.css";
+import Routes from "./Routes";
+import theme from "./theme";
 
 const queryClient = new QueryClient();
 

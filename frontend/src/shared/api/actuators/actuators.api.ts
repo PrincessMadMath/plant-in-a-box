@@ -1,3 +1,4 @@
+import { DeviceLog } from "shared/api/device";
 import { getJson, postJson } from "../utils";
 import {
     Actuator,
@@ -6,7 +7,6 @@ import {
     GrowthLightConfig,
     GrowthLightManualSettings,
 } from "./models";
-import { DeviceLog } from "shared/api/device";
 
 export const getActuatorsList = (): Promise<Actuator[]> => {
     return getJson<Actuator[]>(`actuators`);

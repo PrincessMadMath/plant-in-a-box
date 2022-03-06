@@ -1,7 +1,7 @@
 # Library to check:
 
--   Check https://react-query.tanstack.com/
--   UI: Chakra UI
+- Check https://react-query.tanstack.com/
+- UI: Chakra UI
 
 # TODO
 
@@ -14,8 +14,10 @@
 
 # Note
 
--   Comparaison graph lib: https://www.capitalone.com/tech/software-engineering/comparison-data-visualization-libraries-for-react/
--   Exemple of line chart with date: https://codesandbox.io/s/react-data-visualization-comparison-627nq?file=/src/charts/NivoAreaChart.js:822-862
+- Comparaison graph
+  lib: https://www.capitalone.com/tech/software-engineering/comparison-data-visualization-libraries-for-react/
+- Exemple of line chart with
+  date: https://codesandbox.io/s/react-data-visualization-comparison-627nq?file=/src/charts/NivoAreaChart.js:822-862
 
 # FAQ
 

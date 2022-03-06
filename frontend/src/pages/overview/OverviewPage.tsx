@@ -1,15 +1,11 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-
 import { Box, Center, Heading } from "@chakra-ui/react";
-
-import { PlantsOverview } from "./PlantsOverview";
-import { SensorsOverview } from "./SensorsOverview";
+import React from "react";
 import { ActuatorsOverview } from "./ActuatorsOverview";
 
-export const OverviewPage = () => {
-    const history = useHistory();
+import { PlantsOverview } from "./plants/PlantsOverview";
+import { SensorsOverview } from "./SensorsOverview";
 
+export const OverviewPage = () => {
     return (
         <Box mt="8">
             <Center>

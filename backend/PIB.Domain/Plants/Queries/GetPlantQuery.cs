@@ -1,9 +1,8 @@
-﻿using System.Runtime.CompilerServices;
-using MediatR;
+﻿using MediatR;
 using MongoDB.Driver;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.Plants;
+namespace Domain.Plants.Queries;
 
 public class GetPlantQuery: IRequest<PlantDocument?>  
 {

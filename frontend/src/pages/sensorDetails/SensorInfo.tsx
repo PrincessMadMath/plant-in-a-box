@@ -1,6 +1,5 @@
-import React from "react";
-
 import { Box, Grid, SimpleGrid, Text } from "@chakra-ui/react";
+import React from "react";
 import { Sensor } from "shared/api/sensors";
 
 interface SensorDetailsProps {

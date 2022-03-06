@@ -1,6 +1,6 @@
+import { DeviceLog } from "shared/api/device";
 import { getJson } from "../utils";
 import { Sensor, SensorData } from "./models";
-import { DeviceLog } from "shared/api/device";
 
 export const getSensorsList = (): Promise<Sensor[]> => {
     return getJson<Sensor[]>(`sensors`);

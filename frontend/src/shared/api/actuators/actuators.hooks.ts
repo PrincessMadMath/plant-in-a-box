@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 import { UseMutationOptions } from "react-query/types/react/types";
+import { DeviceLog } from "../device";
 import {
     ActuatorMutation,
     getActuator,
@@ -12,7 +13,6 @@ import {
     setGrowthLightManualSettings,
 } from "./actuators.api";
 import { Actuator, GrowthLightAutomatedSettings, GrowthLightManualSettings } from "./models";
-import { DeviceLog } from "../device";
 
 export function useGetActuators() {
     return useQuery<Actuator[], any>("actuators", getActuatorsList);

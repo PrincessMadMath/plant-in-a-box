@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
+import { DeviceLog, SensorData } from "../index";
 import { Sensor } from "./models";
 import { getSensor, getSensorHistory, getSensorLogs, getSensorsList } from "./sensors.api";
-import { DeviceLog, SensorData } from "../index";
 
 export function useGetSensors() {
     return useQuery<Sensor[], any>("sensors", getSensorsList);

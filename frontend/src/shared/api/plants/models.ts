@@ -13,10 +13,3 @@ export interface CaringOperations {
     lastRepotDate: string;
     lastFertilizedDate: string;
 }
-
-export interface CreatePlantCommand {
-    name: string;
-    species: string;
-    room: string;
-    pot: string;
-}

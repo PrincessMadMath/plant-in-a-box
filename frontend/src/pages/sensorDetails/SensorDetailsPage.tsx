@@ -1,11 +1,11 @@
-import React from "react";
-import { Box, Center, Heading, Spinner, Grid, Stat, StatLabel, StatNumber, StatHelpText } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
-import { SensorInfo } from "pages/sensorDetails/SensorInfo";
+import { Box, Center, Grid, Heading, Spinner, Stat, StatHelpText, StatLabel, StatNumber } from "@chakra-ui/react";
 import { SensorHistory } from "pages/sensorDetails/SensorHistory";
+import { SensorInfo } from "pages/sensorDetails/SensorInfo";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useGetHistory, useGetSensor, useGetSensorLogs } from "shared/api/sensors";
 import { DeviceLogs } from "shared/components/deviceLogs";
 import { formatFrom } from "shared/utils";
-import { useGetHistory, useGetSensor, useGetSensorLogs } from "shared/api/sensors";
 
 interface SensorDetailsPageProps {
     sensorId: string;

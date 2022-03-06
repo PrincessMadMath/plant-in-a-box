@@ -1,29 +1,10 @@
 ﻿using MediatR;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.Plants;
+namespace Domain.Plants.Commands;
 
-public class CreatePlantCommand: IRequest<PlantDocument>
-{
-    public CreatePlantCommand(string name, string species, string room, string pot, DateTimeOffset acquisitionDate)
-    {
-        this.Name = name;
-        this.Species = species;
-        this.Room = room;
-        this.Pot = pot;
-        this.AcquisitionDate = acquisitionDate;
-    }
-
-    public string Name { get; }
-
-    public string Species { get; } 
-
-    public string Room { get; }
-    
-    public string Pot { get; }
-
-    public DateTimeOffset AcquisitionDate { get; }
-}
+public record CreatePlantCommand
+    (string Name, string Species, string Room, string Pot, DateTimeOffset AcquisitionDate) : IRequest<PlantDocument>;
 
 public class CreatePlantCommandHandler : IRequestHandler<CreatePlantCommand, PlantDocument>
 {
@@ -47,6 +28,7 @@ public class CreatePlantCommandHandler : IRequestHandler<CreatePlantCommand, Pla
             Room = command.Room,
             Pot = command.Pot,
             AcquisitionDate = command.AcquisitionDate,
+            Operations = new CaringOperations(),
         };
         
         await collection.InsertOneAsync(newPlant, cancellationToken: cancellationToken);

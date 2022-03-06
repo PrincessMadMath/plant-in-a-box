@@ -1,6 +1,6 @@
-import { ActuatorMode, ActuatorState, ActuatorStatus, ActuatorType } from "./models";
-import { LogLevel } from "shared/api/device";
 import dayjs from "dayjs";
+import { LogLevel } from "shared/api/device";
+import { ActuatorMode, ActuatorState, ActuatorStatus, ActuatorType } from "./models";
 
 export const fakeActuatorsList = [
     {

@@ -1,7 +1,7 @@
-.light-theme{
+.light-theme {
     --light-gray: var(--chakra-colors-gray-200);
     --gray: var(--chakra-colors-gray-300);
-    --blue700:var(--chakra-colors-blue-600);
+    --blue700: var(--chakra-colors-blue-600);
     --blue600: var(--chakra-colors-blue-500);
     --blue500: var(--chakra-colors-gray-400);
     --blue400: var(--chakra-colors-gray-300);
@@ -9,10 +9,11 @@
     --blue200: var(--chakra-colors-gray-200);
     --blue100: var(--chakra-colors-gray-100);
     --monthBackground: var(--chakra-colors-white);
-    --text:var(--chakra-colors-black);
-    --negative-text:var(--chakra-colors-white);
+    --text: var(--chakra-colors-black);
+    --negative-text: var(--chakra-colors-white);
 }
-.dark-theme{
+
+.dark-theme {
     --light-gray: var(--chakra-colors-gray-600);
     --gray: var(--chakra-colors-gray-500);
     --blue700: var(--chakra-colors-blue-600);
@@ -23,15 +24,15 @@
     --blue200: var(--chakra-colors-gray-600);
     --blue100: var(--chakra-colors-gray-800);
     --monthBackground: var(--chakra-colors-gray-700);
-    --text:var(--chakra-colors-gray-200);
-    --negative-text:var(--chakra-colors-black);
+    --text: var(--chakra-colors-gray-200);
+    --negative-text: var(--chakra-colors-black);
 }
 
 /* if you dont want to use chakra's theme use this class in the wrapping div. These are the exact original values */
-.light-theme-original{
+.light-theme-original {
     --light-gray: #cccccc;
     --gray: #b3b3b3;
-    --blue700:#2a69ac;
+    --blue700: #2a69ac;
     --blue600: #3182ce;
     --blue500: #a0aec0;
     --blue400: #cbd5e0;
@@ -39,6 +40,7 @@
     --blue200: #edf2f7;
     --blue100: #f7fafc;
 }
+
 .react-datepicker {
     font-family: unset;
     font-size: 0.9rem;
@@ -59,6 +61,7 @@
     border: 1px solid;
     border-color: var(--light-gray);
 }
+
 .react-datapicker__input-text {
     background-color: transparent;
 }
@@ -66,6 +69,7 @@
 .react-datepicker__input-container:hover {
     border-color: var(--gray)
 }
+
 .react-datepicker__input-container:focus-within {
     z-index: 1;
     border-color: var(--blue600);
@@ -121,10 +125,10 @@
     color: var(--text)
 }
 
-.react-datepicker__month{
+.react-datepicker__month {
     background-color: var(--monthBackground);
-    margin:0;
-    padding:0.4rem;
+    margin: 0;
+    padding: 0.4rem;
 }
 
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
@@ -146,7 +150,7 @@
 }
 
 .react-datepicker__day-name {
-    color:var(--text)
+    color: var(--text)
 }
 
 .react-datepicker__day--selected,
@@ -158,7 +162,7 @@
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
     background: var(--blue600);
     font-weight: normal;
-    color:var(--negative-text);
+    color: var(--negative-text);
 }
 
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected:hover {

@@ -1,8 +1,8 @@
-import React from "react";
 import { Box, Center, Heading, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import { formatFrom } from "../../shared/utils";
-import { useGetSensors } from "shared/api";
+import React from "react";
 import { useHistory } from "react-router-dom";
+import { useGetSensors } from "shared/api";
+import { formatFrom } from "shared/utils";
 
 export const SensorsOverview = () => {
     const history = useHistory();
