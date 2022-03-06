@@ -15,6 +15,8 @@ public class PlantDocument : MongoDocument
     
     public string Pot { get; set; } = string.Empty;
 
+    public DateTimeOffset AcquisitionDate { get; set; }
+
     public CaringOperations Operations { get; set; }
 }
 

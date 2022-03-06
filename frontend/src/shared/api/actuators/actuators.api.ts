@@ -1,4 +1,3 @@
-import { fakeActuatorLogs, fakeActuatorsList, growthLightConfig } from "./actuators.fake";
 import { getJson, postJson } from "../utils";
 import {
     Actuator,
@@ -28,7 +27,8 @@ export const getGrowthLightConfig = (actuatorId: string): Promise<GrowthLightCon
 export const setGrowthLightConfigMode = (
     modeMutation: ActuatorMutation<SetGrowthLightConfigModeMutation>
 ): Promise<any> => {
-    return postJson(`growth-light/${modeMutation.actuatorId}/config/mode`, modeMutation.data)};
+    return postJson(`growth-light/${modeMutation.actuatorId}/config/mode`, modeMutation.data);
+};
 
 export const setGrowthLightManualSettings = (
     modeMutation: ActuatorMutation<GrowthLightManualSettings>
@@ -39,7 +39,8 @@ export const setGrowthLightManualSettings = (
 export const setGrowthLightAutoSettings = (
     modeMutation: ActuatorMutation<GrowthLightAutomatedSettings>
 ): Promise<any> => {
-    return postJson(`growth-light/${modeMutation.actuatorId}/config/automated`, modeMutation.data)};
+    return postJson(`growth-light/${modeMutation.actuatorId}/config/automated`, modeMutation.data);
+};
 
 export interface ActuatorMutation<T> {
     actuatorId: string;

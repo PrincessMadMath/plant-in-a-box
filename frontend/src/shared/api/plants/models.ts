@@ -4,6 +4,7 @@ export interface Plant {
     species: string;
     room: string;
     pot: string;
+    acquisitionDate: string;
     operations: CaringOperations;
 }
 

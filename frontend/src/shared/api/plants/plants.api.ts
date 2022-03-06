@@ -1,5 +1,5 @@
-import {getJson, postJson} from "../utils";
-import {CreatePlantCommand, Plant} from "./models";
+import { getJson, postJson } from "../utils";
+import { CreatePlantCommand, Plant } from "./models";
 
 export const getPlants = (): Promise<Plant[]> => {
     return getJson<Plant[]>(`plants`);

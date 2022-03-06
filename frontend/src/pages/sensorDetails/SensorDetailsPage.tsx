@@ -5,7 +5,7 @@ import { SensorInfo } from "pages/sensorDetails/SensorInfo";
 import { SensorHistory } from "pages/sensorDetails/SensorHistory";
 import { DeviceLogs } from "shared/components/deviceLogs";
 import { formatFrom } from "shared/utils";
-import {useGetHistory, useGetSensor, useGetSensorLogs} from "shared/api/sensors";
+import { useGetHistory, useGetSensor, useGetSensorLogs } from "shared/api/sensors";
 
 interface SensorDetailsPageProps {
     sensorId: string;

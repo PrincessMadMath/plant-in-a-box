@@ -9,9 +9,9 @@ public static class Seeds
 {
     public static IReadOnlyList<CreatePlantCommand> CreatePlantsSeeds = new[]
     {
-        new CreatePlantCommand("Petunia", "Cactus", "Salon", "Dark Blue"),
-        new CreatePlantCommand("Toss a coin", "Dandelion", "Salon", "Red"),
-        new CreatePlantCommand("Mojito Provider", "Mint", "Salon", "Big one"),
+        new CreatePlantCommand("Petunia", "Cactus", "Salon", "Dark Blue", DateTimeOffset.UtcNow.AddDays(-7)),
+        new CreatePlantCommand("Toss a coin", "Dandelion", "Salon", "Red", DateTimeOffset.UtcNow.AddYears(-2)),
+        new CreatePlantCommand("Mojito Provider", "Mint", "Salon", "Big one", DateTimeOffset.UtcNow.AddMonths(-3)),
     };
 
     public static readonly IReadOnlyList<GrowthLightActuator> GrowthLightSeeds = new[]

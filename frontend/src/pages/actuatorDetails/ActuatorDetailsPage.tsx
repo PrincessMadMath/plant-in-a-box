@@ -1,10 +1,10 @@
 import React from "react";
-import { Box, Center, Heading, Spinner, Grid } from "@chakra-ui/react";
+import { Box, Center, Grid, Heading, Spinner } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { DeviceLogs } from "shared/components/deviceLogs";
 import { ActuatorInfo } from "pages/actuatorDetails/ActuatorInfo";
 import { GrowthLightControl } from "./GrowthLight/GrowthLightControl";
-import {useGetActuator, useGetActuatorsLogs} from "shared/api/actuators";
+import { useGetActuator, useGetActuatorsLogs } from "shared/api/actuators";
 
 interface ActuatorDetailsPageProps {
     actuatorId: string;
