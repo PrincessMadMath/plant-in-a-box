@@ -18,6 +18,7 @@ import {
     useBreakpointValue,
     useDisclosure,
 } from "@chakra-ui/react";
+import { PlantsTable } from "pages/overview/plants/PlantsTable";
 import React from "react";
 import { useCreatePlant, useGetPlants } from "shared/api";
 import { PlantCards } from "./PlantCards";
@@ -56,8 +57,7 @@ export const PlantsOverview = () => {
                 <Button onClick={onOpen}>Add a plant</Button>
             </HStack>
             <CreatePlantModel onClose={onClose} isOpen={isOpen} />
-            {/*{useTable ? <PlantsTable plants={plants} /> : <PlantCards plants={plants} />}*/}
-            <PlantCards plants={plants} />
+            {useTable ? <PlantsTable plants={plants} /> : <PlantCards plants={plants} />}
         </Box>
     );
 };

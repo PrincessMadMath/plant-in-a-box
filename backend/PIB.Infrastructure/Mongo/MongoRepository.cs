@@ -9,7 +9,6 @@ namespace PIB.Infrastructure.Mongo;
 
 public class MongoRepository
 {
-    private readonly MongoClient _client;
     private readonly IMongoDatabase _database;
 
     public MongoRepository(IOptions<MongoSettings> mongoOption)
@@ -23,8 +22,8 @@ public class MongoRepository
         BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
 #pragma warning restore CS0618
         
-        this._client = new MongoClient(mongoSetting);
-        this._database = this._client.GetDatabase(mongoOption.Value.DatabaseName);
+        var client = new MongoClient(mongoSetting);
+        this._database = client.GetDatabase(mongoOption.Value.DatabaseName);
     }
 
     public IMongoCollection<T> GetCollection<T>() where T : MongoDocument
@@ -39,7 +38,7 @@ public class MongoRepository
         IAsyncEnumerable<TDocument> a=  AsyncEnumerable.Create(
                 token =>
                 {
-                    IAsyncCursor<TDocument> cursor = null;
+                    IAsyncCursor<TDocument>? cursor = null;
 
                     async ValueTask<bool> MoveNextAsync()
                     {
