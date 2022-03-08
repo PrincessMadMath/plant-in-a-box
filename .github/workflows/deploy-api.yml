@@ -21,6 +21,7 @@ name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
   AZURE_WEBAPP_NAME: pib-server    # set this to the name of your Azure Web App
+  BACKEND_PATH: './backend'      # set this to the path to your web app project, defaults to the repository root
   AZURE_WEBAPP_PACKAGE_PATH: '/backend/PIB.Api'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '5.*'                 # set this to the .NET Core version to use
 
@@ -39,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        working-directory: ${{ env.BACKEND_PATH }}
 
     steps:
       - uses: actions/checkout@v2
