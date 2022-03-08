@@ -1,18 +1,18 @@
-import React from "react";
-
 import { Box, Center, FormControl, FormLabel, Grid, Radio, RadioGroup, Spinner, Switch, Text } from "@chakra-ui/react";
-import { Actuator, ActuatorMode } from "shared/api/actuators";
-import { DatePicker } from "shared/components/datePicker/datePicker";
-import { dateToTimeOnly, durationBetween, timeOnlyToDate } from "shared/utils";
 import dayjs from "dayjs";
+import React from "react";
+import { useQueryClient } from "react-query";
 import {
+    Actuator,
+    ActuatorMode,
     invalidateGrowthLightConfig,
     useGetGrowthLightConfig,
     useSetGrowthLightAutoSettings,
     useSetGrowthLightManualSettings,
     useSetGrowthLightMode,
-} from "pages/actuatorDetails/GrowthLight/hooks";
-import { useQueryClient } from "react-query";
+} from "shared/api/actuators";
+import { DatePicker } from "shared/components/datePicker/datePicker";
+import { dateToTimeOnly, durationBetween, timeOnlyToDate } from "shared/utils";
 import { printDuration } from "shared/utils/duration";
 
 interface GrowthLightControlProps {

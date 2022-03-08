@@ -1,9 +1,8 @@
+import { Table, Tag, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { orderBy } from "lodash";
 import React from "react";
-
-import { Table, Tbody, Td, Th, Thead, Tr, Tag } from "@chakra-ui/react";
 import { LogLevel } from "shared/api/device";
 import { formatToReadableDate } from "shared/utils";
-import { orderBy } from "lodash";
 
 interface SensorLogsProps {
     sensorLogs: DeviceLog[];

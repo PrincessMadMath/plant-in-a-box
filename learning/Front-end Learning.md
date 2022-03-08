@@ -13,6 +13,9 @@ https://betterprogramming.pub/7-tips-for-using-react-query-in-large-projects-22c
 * Group by domain
 * By default cached data is consider as stale (can configure staleTime globally)
 
+https://tkdodo.eu/blog/practical-react-query
+* Lots of in depth best practices
+
 https://tsh.io/blog/react-query-tutorial/
 * Useful exemple
 
@@ -73,3 +76,14 @@ https://github.com/alan2207/bulletproof-react
 
 https://stackoverflow.com/questions/55221433/is-there-an-official-style-guide-or-naming-convention-for-react-based-projects
 
+# IDE config
+
+- Config import https://blog.jetbrains.com/webstorm/2020/07/configuring-the-style-of-imports-in-javascript-and-typescript/
+- ESLint + Prettier
+-- https://www.jetbrains.com/help/rider/eslint.html#ws_js_eslint_activate
+-- https://www.jetbrains.com/help/rider/Prettier.html
+
+
+#  UI/UX
+
+https://www.mockplus.com/blog/post/list-ui-design

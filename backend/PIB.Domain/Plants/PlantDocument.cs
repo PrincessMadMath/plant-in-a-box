@@ -15,14 +15,16 @@ public class PlantDocument : MongoDocument
     
     public string Pot { get; set; } = string.Empty;
 
+    public DateTimeOffset AcquisitionDate { get; set; }
+
     public CaringOperations Operations { get; set; }
 }
 
 public class CaringOperations
 {
-    public DateTimeOffset LastWateredDate { get; set; }
+    public DateTimeOffset? LastWateredDate { get; set; }
     
-    public DateTimeOffset LastRepotDate { get; set; }
+    public DateTimeOffset? LastRepotDate { get; set; }
     
-    public DateTimeOffset LastFertilizedDate { get; set; }
+    public DateTimeOffset? LastFertilizedDate { get; set; }
 }

@@ -1,20 +1,19 @@
-import { fakeSoilMoistureHistory, fakeSensorsList, fakeSensorLogs } from "./sensors.fake";
+import { DeviceLog } from "shared/api/device";
 import { getJson } from "../utils";
 import { Sensor, SensorData } from "./models";
-import { DeviceLog } from "shared/api/device";
 
 export const getSensorsList = (): Promise<Sensor[]> => {
-    return getJson<Sensor[]>(`sensors`, fakeSensorsList);
+    return getJson<Sensor[]>(`sensors`);
 };
 
 export const getSensor = (sensorId: string): Promise<Sensor> => {
-    return getJson<Sensor>(`sensors/${sensorId}`, fakeSensorsList.find((x) => x.id === sensorId)!);
+    return getJson<Sensor>(`sensors/${sensorId}`);
 };
 
 export const getSensorHistory = (sensorId: string): Promise<SensorData[]> => {
-    return getJson<SensorData[]>(`sensors/${sensorId}/data`, fakeSoilMoistureHistory);
+    return getJson<SensorData[]>(`sensors/${sensorId}/data`);
 };
 
 export const getSensorLogs = (sensorId: string): Promise<DeviceLog[]> => {
-    return getJson<DeviceLog[]>(`sensors/${sensorId}/logs`, fakeSensorLogs);
+    return getJson<DeviceLog[]>(`sensors/${sensorId}/logs`);
 };

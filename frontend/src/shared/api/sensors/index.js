@@ -1,2 +1,2 @@
-export * from "./sensors.api";
+export * from "./sensors.hooks";
 export * from "./models";

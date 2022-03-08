@@ -1,10 +1,6 @@
 import { config } from "shared/config/config";
 
-export async function getJson<T>(url: string, fakeData: T): Promise<T> {
-    if (config.api.useFakeData) {
-        return fakeData;
-    }
-
+export async function getJson<T>(url: string): Promise<T> {
     const response = await fetch(`${config.api.url}/${url}`, {
         method: "GET",
     });
@@ -19,11 +15,7 @@ export async function getJson<T>(url: string, fakeData: T): Promise<T> {
     return data;
 }
 
-export async function postJson<T>(url: string, data: T, fakePost: () => any): Promise<any> {
-    if (config.api.useFakeData) {
-        return fakePost();
-    }
-
+export async function postJson<T>(url: string, data: T): Promise<any> {
     const response = await fetch(`${config.api.url}/${url}`, {
         method: "POST",
         headers: {

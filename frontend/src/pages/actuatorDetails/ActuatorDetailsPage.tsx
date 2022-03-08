@@ -1,9 +1,9 @@
-import React from "react";
-import { Box, Center, Heading, Spinner, Grid } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
-import { useGetActuator, useGetLogs } from "./hooks";
-import { DeviceLogs } from "shared/components/deviceLogs";
+import { Box, Center, Grid, Heading, Spinner } from "@chakra-ui/react";
 import { ActuatorInfo } from "pages/actuatorDetails/ActuatorInfo";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useGetActuator, useGetActuatorsLogs } from "shared/api/actuators";
+import { DeviceLogs } from "shared/components/deviceLogs";
 import { GrowthLightControl } from "./GrowthLight/GrowthLightControl";
 
 interface ActuatorDetailsPageProps {
@@ -13,7 +13,7 @@ interface ActuatorDetailsPageProps {
 export const ActuatorDetailsPage = () => {
     let { actuatorId } = useParams<ActuatorDetailsPageProps>();
     const { isLoading: isActuatorLoading, data: actuator } = useGetActuator(actuatorId);
-    const { isLoading: isLogsLoading, data: sensorLogs } = useGetLogs(actuatorId);
+    const { isLoading: isLogsLoading, data: sensorLogs } = useGetActuatorsLogs(actuatorId);
 
     if (isActuatorLoading || isLogsLoading) {
         return (

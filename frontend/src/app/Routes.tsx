@@ -1,9 +1,9 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { ActuatorDetailsPage } from "pages/actuatorDetails/ActuatorDetailsPage";
 
 import { OverviewPage } from "pages/overview/OverviewPage";
-import { ActuatorDetailsPage } from "pages/actuatorDetails/ActuatorDetailsPage";
 import { SensorDetailsPage } from "pages/sensorDetails/SensorDetailsPage";
+import React from "react";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 
 const Routes = () => (
     <Router>

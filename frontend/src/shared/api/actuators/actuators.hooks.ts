@@ -1,16 +1,26 @@
-import { getGrowthLightConfig } from "shared/api";
-
 import { useMutation, useQuery } from "react-query";
+import { UseMutationOptions } from "react-query/types/react/types";
+import { DeviceLog } from "../device";
 import {
     ActuatorMutation,
-    GrowthLightAutomatedSettings,
-    GrowthLightManualSettings,
+    getActuator,
+    getActuatorLogs,
+    getActuatorsList,
+    getGrowthLightConfig,
     setGrowthLightAutoSettings,
     setGrowthLightConfigMode,
     SetGrowthLightConfigModeMutation,
     setGrowthLightManualSettings,
-} from "shared/api/actuators";
-import { UseMutationOptions } from "react-query/types/react/types";
+} from "./actuators.api";
+import { Actuator, GrowthLightAutomatedSettings, GrowthLightManualSettings } from "./models";
+
+export function useGetActuators() {
+    return useQuery<Actuator[], any>("actuators", getActuatorsList);
+}
+
+export function useGetActuator(actuatorId: string) {
+    return useQuery<Actuator, any>(["actuator", actuatorId], () => getActuator(actuatorId));
+}
 
 export function useGetGrowthLightConfig(actuatorId: string) {
     return useQuery(["actuator", "config", actuatorId], () => getGrowthLightConfig(actuatorId));
@@ -45,4 +55,8 @@ export function useSetGrowthLightAutoSettings(
         (mutation) => setGrowthLightAutoSettings(mutation),
         options
     );
+}
+
+export function useGetActuatorsLogs(actuatorId: string) {
+    return useQuery<DeviceLog[], any>(["actuator", "logs", actuatorId], () => getActuatorLogs(actuatorId));
 }

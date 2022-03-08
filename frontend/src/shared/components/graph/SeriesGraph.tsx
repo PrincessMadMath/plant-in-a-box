@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { Box, Select } from "@chakra-ui/react";
 
 import { PointTooltipProps, ResponsiveLine, Serie } from "@nivo/line";
 import moment from "moment";
-import { Box, Select } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 
 enum DatePreset {
     LastHour = "LastHour",

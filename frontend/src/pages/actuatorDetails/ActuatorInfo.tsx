@@ -1,6 +1,5 @@
-import React from "react";
-
 import { Box, Grid, SimpleGrid, Text } from "@chakra-ui/react";
+import React from "react";
 import { Actuator } from "shared/api/actuators";
 
 interface ActuatorDetailsProps {

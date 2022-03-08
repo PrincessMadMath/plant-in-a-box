@@ -1,3 +1,7 @@
+# Prototyping on local network
+
+Need server to redirect local network to localhost (https://caddyserver.com/docs/quick-starts/reverse-proxy)
+
 # Python code
 
 ## Setup

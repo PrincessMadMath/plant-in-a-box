@@ -1,4 +1,6 @@
 using Domain.Plants;
+using Domain.Plants.Commands;
+using Domain.Plants.Queries;
 using Domain.Test;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -46,4 +48,29 @@ public class PlantsController: ControllerBase
 
         return plant;
     }
+    
+    [HttpPost("water")]
+    public async Task<ActionResult<PlantDocument>> WaterPlant(WaterPlantCommand command)
+    {
+        await this._mediator.Send(command);
+
+        return this.Ok();
+    }
+    
+    [HttpPost("fertilize")]
+    public async Task<ActionResult<PlantDocument>> WaterPlant(FertilizePlantCommand command)
+    {
+        await this._mediator.Send(command);
+
+        return this.Ok();
+    }
+    
+    [HttpPost("repot")]
+    public async Task<ActionResult<PlantDocument>> RepotPlant(RepotPlantCommand command)
+    {
+        await this._mediator.Send(command);
+
+        return this.Ok();
+    }
+
 }
