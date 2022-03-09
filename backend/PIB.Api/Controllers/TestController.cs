@@ -32,7 +32,7 @@ public class TestController : ControllerBase
     }
     
     [HttpGet("Log")]
-    public Task<TestDocument> Log()
+    public IActionResult Log()
     {
         using (LogContext.PushProperty("Random", "correlated-value"))
         {
@@ -44,7 +44,7 @@ public class TestController : ControllerBase
                 .LogError("Error log with {ErrorCode}", 1);
         }
 
-        return this._mediator.Send(new TestRequestQuery(10));
+        return this.Ok();
     }
     
     [HttpGet("Exception")]
