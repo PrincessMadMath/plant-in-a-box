@@ -23,6 +23,7 @@ env:
   AZURE_WEBAPP_NAME: pib-server    # set this to the name of your Azure Web App
   BACKEND_PATH: './backend'      # set this to the path to your web app project, defaults to the repository root
   AZURE_WEBAPP_PACKAGE_PATH: '/backend/PIB.Api'      # set this to the path to your web app project, defaults to the repository root
+  PACKAGE_NAME: 'package'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.*'                 # set this to the .NET Core version to use
 
 on:
@@ -40,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ env.BACKEND_PATH }}
+        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
     steps:
       - uses: actions/checkout@v2
@@ -62,13 +63,13 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
+        run: dotnet publish -c Release -o ${{env.PACKAGE_NAME }}
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
+          path: ${{env.AZURE_WEBAPP_PACKAGE_PATH }}/${{env.PACKAGE_NAME}}
 
   deploy:
     runs-on: ubuntu-latest
@@ -79,7 +80,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: .net-app
 
@@ -89,4 +90,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+          package: ${{env.AZURE_WEBAPP_PACKAGE_PATH }}/${{env.PACKAGE_NAME }}
