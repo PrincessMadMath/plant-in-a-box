@@ -21,9 +21,8 @@ name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
   AZURE_WEBAPP_NAME: pib-server    # set this to the name of your Azure Web App
-  BACKEND_PATH: './backend'      # set this to the path to your web app project, defaults to the repository root
-  AZURE_WEBAPP_PACKAGE_PATH: '/backend/PIB.Api'      # set this to the path to your web app project, defaults to the repository root
-  PACKAGE_NAME: 'package'      # set this to the path to your web app project, defaults to the repository root
+  API_PATH: './backend/PIB.Api'      # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_NAME: 'package'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.*'                 # set this to the .NET Core version to use
 
 on:
@@ -41,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        working-directory: ${{ env.API_PATH }}
 
     steps:
       - uses: actions/checkout@v2
@@ -51,43 +50,17 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       
-      - name: Set up dependency caching for faster builds
-        uses: actions/cache@v2
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
+      # Run dotnet build and publish
+      - name: dotnet build and publish
+        run: |
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_NAME }}' 
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.PACKAGE_NAME }}
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: .net-app
-          path: ${{env.AZURE_WEBAPP_PACKAGE_PATH }}/${{env.PACKAGE_NAME}}
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Development'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: .net-app
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+    # Deploy to Azure Web apps
+      - name: 'Run Azure webapp deploy action using publish profile credentials'
         uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{env.AZURE_WEBAPP_PACKAGE_PATH }}/${{env.PACKAGE_NAME }}
+        with: 
+          app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
