@@ -1,14 +1,6 @@
 import {
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogCloseButton,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogOverlay,
     Avatar,
     Box,
-    Button,
     Collapse,
     Divider,
     Flex,
@@ -16,18 +8,19 @@ import {
     HStack,
     Icon,
     IconButton,
-    Input,
-    InputGroup,
-    InputLeftElement,
     Text,
     useDisclosure,
     VStack,
 } from "@chakra-ui/react";
+import { DeleteOperation } from "pages/overview/plants/DeleteOperation";
+import { FertilizeOperation } from "pages/overview/plants/FertilizeOperation";
+import { RepotOperation } from "pages/overview/plants/RepotOperation";
+import { WaterOperation } from "pages/overview/plants/WaterOperation";
 import React from "react";
 import { FiChevronDown, FiChevronUp, FiDroplet } from "react-icons/fi";
 import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse, GiPlantSeed } from "react-icons/gi";
 import { MdCake } from "react-icons/md";
-import { Plant, useDeletePlant, useFertilizePlant, useRepotPlant, useWaterPlant } from "shared/api";
+import { Plant } from "shared/api";
 import { formatFrom } from "shared/utils";
 
 interface PlantCardProps {
@@ -134,150 +127,6 @@ const PlantOperations = ({ plant }: PlantOperationsProps) => {
                 <DeleteOperation plant={plant} />
             </VStack>
         </Box>
-    );
-};
-
-const WaterOperation = ({ plant }: PlantOperationsProps) => {
-    const waterCommand = useWaterPlant();
-
-    return (
-        <Button
-            leftIcon={<FiDroplet />}
-            isFullWidth
-            isLoading={waterCommand.isLoading}
-            onClick={() => waterCommand.mutate({ plantId: plant.plantId })}
-            colorScheme="teal"
-        >
-            Water
-        </Button>
-    );
-};
-
-const FertilizeOperation = ({ plant }: PlantOperationsProps) => {
-    const fertilizeCommand = useFertilizePlant();
-
-    return (
-        <Button
-            leftIcon={<GiFertilizerBag />}
-            isFullWidth
-            isLoading={fertilizeCommand.isLoading}
-            onClick={() => fertilizeCommand.mutate({ plantId: plant.plantId })}
-            colorScheme="teal"
-            variant="outline"
-        >
-            Fertilize
-        </Button>
-    );
-};
-
-const RepotOperation = ({ plant }: PlantOperationsProps) => {
-    const repotCommand = useRepotPlant();
-
-    const [value, setValue] = React.useState("");
-    const handleChange = (event: any) => setValue(event.target.value);
-
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const cancelRef = React.useRef() as any;
-
-    return (
-        <>
-            <Button
-                leftIcon={<GiBoxUnpacking />}
-                isLoading={repotCommand.isLoading}
-                onClick={onOpen}
-                isFullWidth
-                colorScheme="teal"
-                variant="outline"
-            >
-                Repot
-            </Button>
-            <AlertDialog
-                motionPreset="slideInBottom"
-                leastDestructiveRef={cancelRef}
-                onClose={onClose}
-                isOpen={isOpen}
-                isCentered
-            >
-                <AlertDialogOverlay />
-
-                <AlertDialogContent>
-                    <AlertDialogHeader>Repot Plant?</AlertDialogHeader>
-                    <AlertDialogCloseButton />
-                    <AlertDialogBody>
-                        <InputGroup>
-                            <InputLeftElement pointerEvents="none" children={<Icon as={GiBoxUnpacking} />} />
-                            <Input value={value} onChange={handleChange} placeholder="Entre new pot name" size="md" />
-                        </InputGroup>
-                    </AlertDialogBody>
-                    <AlertDialogFooter>
-                        <Button ref={cancelRef} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button
-                            colorScheme="red"
-                            ml={3}
-                            onClick={() => {
-                                repotCommand.mutate({ plantId: plant.plantId, pot: value });
-                                onClose();
-                            }}
-                        >
-                            Repot
-                        </Button>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-        </>
-    );
-};
-
-const DeleteOperation = ({ plant }: PlantOperationsProps) => {
-    const deleteCommand = useDeletePlant();
-
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const cancelRef = React.useRef() as any;
-
-    return (
-        <>
-            <Button
-                leftIcon={<FiDroplet />}
-                isFullWidth
-                isLoading={deleteCommand.isLoading}
-                onClick={onOpen}
-                colorScheme="red"
-            >
-                Delete
-            </Button>
-            <AlertDialog
-                motionPreset="slideInBottom"
-                leastDestructiveRef={cancelRef}
-                onClose={onClose}
-                isOpen={isOpen}
-                isCentered
-            >
-                <AlertDialogOverlay />
-
-                <AlertDialogContent>
-                    <AlertDialogHeader>RIP Plant?</AlertDialogHeader>
-                    <AlertDialogCloseButton />
-                    <AlertDialogBody>Are you sure it is dead?</AlertDialogBody>
-                    <AlertDialogFooter>
-                        <Button ref={cancelRef} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button
-                            colorScheme="red"
-                            ml={3}
-                            onClick={() => {
-                                deleteCommand.mutate({ plantId: plant.plantId });
-                                onClose();
-                            }}
-                        >
-                            Delete
-                        </Button>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-        </>
     );
 };
 

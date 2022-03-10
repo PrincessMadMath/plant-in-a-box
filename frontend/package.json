@@ -12,6 +12,7 @@
         "@types/react-datepicker": "^4.1.6",
         "dayjs": "^1.10.7",
         "dotenv": "^10.0.0",
+        "formik": "^2.2.9",
         "framer-motion": "^4.1.17",
         "lodash": "^4.17.21",
         "moment": "^2.29.1",
