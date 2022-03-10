@@ -27,7 +27,7 @@ import React from "react";
 import { FiChevronDown, FiChevronUp, FiDroplet } from "react-icons/fi";
 import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse, GiPlantSeed } from "react-icons/gi";
 import { MdCake } from "react-icons/md";
-import { Plant, useFertilizePlant, useRepotPlant, useWaterPlant } from "shared/api";
+import { Plant, useDeletePlant, useFertilizePlant, useRepotPlant, useWaterPlant } from "shared/api";
 import { formatFrom } from "shared/utils";
 
 interface PlantCardProps {
@@ -131,6 +131,7 @@ const PlantOperations = ({ plant }: PlantOperationsProps) => {
                 <WaterOperation plant={plant} />
                 <FertilizeOperation plant={plant} />
                 <RepotOperation plant={plant} />
+                <DeleteOperation plant={plant} />
             </VStack>
         </Box>
     );
@@ -221,6 +222,57 @@ const RepotOperation = ({ plant }: PlantOperationsProps) => {
                             }}
                         >
                             Repot
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    );
+};
+
+const DeleteOperation = ({ plant }: PlantOperationsProps) => {
+    const deleteCommand = useDeletePlant();
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const cancelRef = React.useRef() as any;
+
+    return (
+        <>
+            <Button
+                leftIcon={<FiDroplet />}
+                isFullWidth
+                isLoading={deleteCommand.isLoading}
+                onClick={onOpen}
+                colorScheme="red"
+            >
+                Delete
+            </Button>
+            <AlertDialog
+                motionPreset="slideInBottom"
+                leastDestructiveRef={cancelRef}
+                onClose={onClose}
+                isOpen={isOpen}
+                isCentered
+            >
+                <AlertDialogOverlay />
+
+                <AlertDialogContent>
+                    <AlertDialogHeader>RIP Plant?</AlertDialogHeader>
+                    <AlertDialogCloseButton />
+                    <AlertDialogBody>Are you sure it is dead?</AlertDialogBody>
+                    <AlertDialogFooter>
+                        <Button ref={cancelRef} onClick={onClose}>
+                            Cancel
+                        </Button>
+                        <Button
+                            colorScheme="red"
+                            ml={3}
+                            onClick={() => {
+                                deleteCommand.mutate({ plantId: plant.plantId });
+                                onClose();
+                            }}
+                        >
+                            Delete
                         </Button>
                     </AlertDialogFooter>
                 </AlertDialogContent>

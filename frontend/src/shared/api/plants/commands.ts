@@ -5,6 +5,10 @@ export interface CreatePlantCommand {
     pot: string;
 }
 
+export interface DeletePlantCommand {
+    plantId: string;
+}
+
 export interface WaterPlantCommand {
     plantId: string;
 }

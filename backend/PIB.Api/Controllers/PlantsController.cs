@@ -28,6 +28,14 @@ public class PlantsController: ControllerBase
         return newPlant;
     }
     
+    [HttpPost("delete")]
+    public async Task<ActionResult> DeletePlant(DeletePlantCommand command)
+    {
+        var newPlant = await this._mediator.Send(command);
+
+        return this.Ok();
+    }
+    
     [HttpGet("")]
     public async Task<ActionResult<IReadOnlyList<PlantDocument>>> GetPlants()
     {
@@ -50,7 +58,7 @@ public class PlantsController: ControllerBase
     }
     
     [HttpPost("water")]
-    public async Task<ActionResult<PlantDocument>> WaterPlant(WaterPlantCommand command)
+    public async Task<ActionResult> WaterPlant(WaterPlantCommand command)
     {
         await this._mediator.Send(command);
 
@@ -58,7 +66,7 @@ public class PlantsController: ControllerBase
     }
     
     [HttpPost("fertilize")]
-    public async Task<ActionResult<PlantDocument>> WaterPlant(FertilizePlantCommand command)
+    public async Task<ActionResult> WaterPlant(FertilizePlantCommand command)
     {
         await this._mediator.Send(command);
 
@@ -66,7 +74,7 @@ public class PlantsController: ControllerBase
     }
     
     [HttpPost("repot")]
-    public async Task<ActionResult<PlantDocument>> RepotPlant(RepotPlantCommand command)
+    public async Task<ActionResult> RepotPlant(RepotPlantCommand command)
     {
         await this._mediator.Send(command);
 

@@ -1,7 +1,13 @@
 import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
-import { CreatePlantCommand, FertilizePlantCommand, RepotPlantCommand, WaterPlantCommand } from "./commands";
+import {
+    CreatePlantCommand,
+    DeletePlantCommand,
+    FertilizePlantCommand,
+    RepotPlantCommand,
+    WaterPlantCommand,
+} from "./commands";
 import { Plant } from "./models";
-import { createPlant, fertilizePlant, getPlant, getPlants, repotPlant, waterPlant } from "./plants.api";
+import { createPlant, deletePlant, fertilizePlant, getPlant, getPlants, repotPlant, waterPlant } from "./plants.api";
 
 export function useGetPlants() {
     return useQuery<Plant[], any>("plants", getPlants);
@@ -21,12 +27,22 @@ export function useCreatePlant() {
     });
 }
 
+export function useDeletePlant() {
+    const queryClient = useQueryClient();
+
+    return useMutation<void, Error, DeletePlantCommand>((mutation) => deletePlant(mutation), {
+        onSuccess: async (data, variables, context) => {
+            await removePlantFromCache(queryClient, variables.plantId);
+        },
+    });
+}
+
 export function useWaterPlant() {
     const queryClient = useQueryClient();
 
     return useMutation<void, Error, WaterPlantCommand>((mutation) => waterPlant(mutation), {
         onSuccess: async (data, variables, context) => {
-            await updatePlant(queryClient, variables.plantId);
+            await updatePlantInCache(queryClient, variables.plantId);
         },
     });
 }
@@ -36,7 +52,7 @@ export function useFertilizePlant() {
 
     return useMutation<void, Error, FertilizePlantCommand>((mutation) => fertilizePlant(mutation), {
         onSuccess: async (data, variables, context) => {
-            await updatePlant(queryClient, variables.plantId);
+            await updatePlantInCache(queryClient, variables.plantId);
         },
     });
 }
@@ -46,13 +62,13 @@ export function useRepotPlant() {
 
     return useMutation<void, Error, RepotPlantCommand>((mutation) => repotPlant(mutation), {
         onSuccess: async (data, variables, context) => {
-            await updatePlant(queryClient, variables.plantId);
+            await updatePlantInCache(queryClient, variables.plantId);
         },
     });
 }
 
 // TODO: Is it the clean way with react-query?
-const updatePlant = async (client: QueryClient, plantId: string) => {
+const updatePlantInCache = async (client: QueryClient, plantId: string) => {
     const updatedPlant = await getPlant(plantId);
     client.setQueriesData(["plants"], (previous: any) => {
         return previous.map((plant: Plant) => {
@@ -61,6 +77,14 @@ const updatePlant = async (client: QueryClient, plantId: string) => {
             } else {
                 return plant;
             }
+        });
+    });
+};
+
+const removePlantFromCache = async (client: QueryClient, plantId: string) => {
+    client.setQueriesData(["plants"], (previous: any) => {
+        return previous.filter((plant: Plant) => {
+            return plant.plantId !== plantId;
         });
     });
 };
