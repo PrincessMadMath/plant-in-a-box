@@ -3,6 +3,16 @@ export interface CreatePlantCommand {
     species: string;
     room: string;
     pot: string;
+    acquisitionDate: string;
+}
+
+export interface UpdatePlantCommand {
+    plantId: string;
+    name: string;
+    species: string;
+    room: string;
+    pot: string;
+    acquisitionDate: string;
 }
 
 export interface DeletePlantCommand {

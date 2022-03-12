@@ -14,24 +14,26 @@ import {
 } from "@chakra-ui/react";
 import { DatePicker } from "@mantine/dates";
 import React from "react";
-import { useCreatePlant } from "shared/api";
+import { Plant, useUpdatePlant } from "shared/api";
 import { Formik, Field, Form, FieldProps } from "formik";
 
-interface CreatePlantModalProps {
+interface UpdatePlantModalProps {
+    plant: Plant;
     onClose: () => void;
     isOpen: boolean;
 }
 
-export const CreatePlantModal = ({ onClose, isOpen }: CreatePlantModalProps) => {
-    const createPlantCommand = useCreatePlant();
+export const UpdatePlantModal = ({ plant, onClose, isOpen }: UpdatePlantModalProps) => {
+    const updatePlantCommand = useUpdatePlant();
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} isCentered>
             <Formik
-                initialValues={{ name: "", species: "", room: "", pot: "", acquisitionDate: new Date() }}
+                initialValues={{ ...plant, acquisitionDate: new Date(plant.acquisitionDate) }}
                 onSubmit={async (values, actions) => {
-                    createPlantCommand.mutate(
+                    updatePlantCommand.mutate(
                         {
+                            plantId: values.plantId,
                             name: values.name,
                             species: values.species,
                             room: values.room,
@@ -40,11 +42,9 @@ export const CreatePlantModal = ({ onClose, isOpen }: CreatePlantModalProps) => 
                         },
                         {
                             onSuccess: () => {
-                                debugger;
                                 actions.setSubmitting(false);
                             },
                             onSettled: () => {
-                                debugger;
                                 onClose();
                             },
                         }
@@ -55,7 +55,7 @@ export const CreatePlantModal = ({ onClose, isOpen }: CreatePlantModalProps) => 
                     <Form>
                         <ModalOverlay />
                         <ModalContent>
-                            <ModalHeader>Create Plant</ModalHeader>
+                            <ModalHeader>Update Plant</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
                                 <Box>
@@ -114,7 +114,7 @@ export const CreatePlantModal = ({ onClose, isOpen }: CreatePlantModalProps) => 
                                     Cancel
                                 </Button>
                                 <Button type={"submit"} isLoading={props.isSubmitting} colorScheme="teal">
-                                    Add plant
+                                    Update plant
                                 </Button>
                             </ModalFooter>
                         </ModalContent>

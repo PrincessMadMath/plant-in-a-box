@@ -8,7 +8,7 @@ import { PlantCards } from "./PlantCards";
 export const PlantsOverview = () => {
     const { isLoading: isPlantsLoading, data: plants } = useGetPlants();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const useTable = useBreakpointValue({ base: false, lg: true });
+    const useTable = useBreakpointValue({ base: false, lg: true }) && false;
 
     if (isPlantsLoading) {
         return (

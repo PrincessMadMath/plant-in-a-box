@@ -11,13 +11,16 @@ import {
     Text,
     useDisclosure,
     VStack,
+    Button,
 } from "@chakra-ui/react";
+import { DatePicker } from "@mantine/dates";
 import { DeleteOperation } from "pages/overview/plants/DeleteOperation";
 import { FertilizeOperation } from "pages/overview/plants/FertilizeOperation";
 import { RepotOperation } from "pages/overview/plants/RepotOperation";
+import { UpdatePlantModal } from "pages/overview/plants/UpdatePlantModal";
 import { WaterOperation } from "pages/overview/plants/WaterOperation";
 import React from "react";
-import { FiChevronDown, FiChevronUp, FiDroplet } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp, FiDroplet, FiEdit } from "react-icons/fi";
 import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse, GiPlantSeed } from "react-icons/gi";
 import { MdCake } from "react-icons/md";
 import { Plant } from "shared/api";
@@ -28,7 +31,8 @@ interface PlantCardProps {
 }
 
 export const PlantCard = ({ plant }: PlantCardProps) => {
-    const { isOpen, onToggle } = useDisclosure();
+    const { isOpen: isExpanded, onToggle: onToggleExpand } = useDisclosure();
+    const { isOpen: isUpdateOpen, onOpen: onOpenUpdate, onClose: onCloseUpdate } = useDisclosure();
 
     return (
         <Box w={"100%"} borderWidth="1px" borderRadius="lg" p={2}>
@@ -45,8 +49,8 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
                         </Text>
                         <IconButton
                             aria-label="Expand plant information."
-                            onClick={onToggle}
-                            icon={isOpen ? <Icon as={FiChevronUp} /> : <Icon as={FiChevronDown} />}
+                            onClick={onToggleExpand}
+                            icon={isExpanded ? <Icon as={FiChevronUp} /> : <Icon as={FiChevronDown} />}
                         />
                     </Flex>
                     <HStack spacing={1}>
@@ -61,19 +65,20 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
                             {plant.species}
                         </Box>
                     </HStack>
-                    <Collapse in={isOpen} animateOpacity>
+                    <Collapse in={isExpanded} animateOpacity>
                         <Box mt="4">
                             <PlantExtraInfo plant={plant} />
                         </Box>
                     </Collapse>
                 </Box>
             </Grid>
-            <Collapse in={isOpen} animateOpacity>
+            <Collapse in={isExpanded} animateOpacity>
                 <Divider mt={4} mb={4} />
                 <Box>
-                    <PlantOperations plant={plant} />
+                    <PlantOperations plant={plant} openUpdate={onOpenUpdate} />
                 </Box>
             </Collapse>
+            <UpdatePlantModal plant={plant} onClose={onCloseUpdate} isOpen={isUpdateOpen} />
         </Box>
     );
 };
@@ -115,16 +120,21 @@ const PlantExtraInfo = ({ plant }: PlantExtraInfoProps) => {
 
 interface PlantOperationsProps {
     plant: Plant;
+    openUpdate: () => void;
 }
 
-const PlantOperations = ({ plant }: PlantOperationsProps) => {
+const PlantOperations = ({ plant, openUpdate }: PlantOperationsProps) => {
     return (
         <Box>
             <VStack spacing={4}>
                 <WaterOperation plant={plant} />
                 <FertilizeOperation plant={plant} />
                 <RepotOperation plant={plant} />
+                <Button leftIcon={<FiEdit />} isFullWidth onClick={openUpdate}>
+                    Edit
+                </Button>
                 <DeleteOperation plant={plant} />
+                <DatePicker placeholder="Pick date" />
             </VStack>
         </Box>
     );

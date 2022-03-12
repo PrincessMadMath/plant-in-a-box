@@ -25,7 +25,15 @@ public class PlantsController: ControllerBase
     {
         var newPlant = await this._mediator.Send(command);
 
-        return newPlant;
+        return this.Ok(newPlant);
+    }
+    
+    [HttpPost("update")]
+    public async Task<ActionResult<PlantDocument>> UpdatePlant(UpdatePlantCommand command)
+    {
+        var updatePlant = await this._mediator.Send(command);
+
+        return this.Ok(updatePlant);
     }
     
     [HttpPost("delete")]

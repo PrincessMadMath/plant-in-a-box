@@ -29,9 +29,9 @@ export async function postJson<T>(url: string, data: T): Promise<any> {
         throw new Error(message);
     }
 
-    if (!response.bodyUsed) {
-        return;
-    }
+    const isJson = response.headers.get("content-type")?.includes("application/json");
 
-    return await response.json();
+    if (isJson) {
+        return response.json();
+    }
 }
