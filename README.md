@@ -12,7 +12,7 @@
     Plant in a Box!
     <br />
     <br />
-    <a href="https://example.com/">View Demo</a>
+    <a href="https://polite-field-0bd85cd10.azurestaticapps.net/overview">View App</a>
     ·
     <a href="https://github.com/PrincessMadMath/plant-in-a-box/issues">Report Bug</a>
     ·

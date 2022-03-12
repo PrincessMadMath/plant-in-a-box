@@ -1,5 +1,12 @@
 import { getJson, postJson } from "../utils";
-import { CreatePlantCommand, FertilizePlantCommand, RepotPlantCommand, WaterPlantCommand } from "./commands";
+import {
+    CreatePlantCommand,
+    DeletePlantCommand,
+    FertilizePlantCommand,
+    RepotPlantCommand,
+    UpdatePlantCommand,
+    WaterPlantCommand,
+} from "./commands";
 import { Plant } from "./models";
 
 export const getPlants = (): Promise<Plant[]> => {
@@ -10,8 +17,16 @@ export const getPlant = (plantId: string): Promise<Plant[]> => {
     return getJson<Plant[]>(`plants/${plantId}`);
 };
 
-export const createPlant = (createPlant: CreatePlantCommand): Promise<any> => {
+export const createPlant = (createPlant: CreatePlantCommand): Promise<Plant> => {
     return postJson(`plants/create`, createPlant);
+};
+
+export const updatePlant = (createPlant: UpdatePlantCommand): Promise<Plant> => {
+    return postJson(`plants/update`, createPlant);
+};
+
+export const deletePlant = (command: DeletePlantCommand): Promise<any> => {
+    return postJson(`plants/delete`, command);
 };
 
 export const waterPlant = (command: WaterPlantCommand): Promise<any> => {

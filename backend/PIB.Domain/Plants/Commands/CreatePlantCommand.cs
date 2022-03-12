@@ -4,7 +4,7 @@ using PIB.Infrastructure.Mongo;
 namespace Domain.Plants.Commands;
 
 public record CreatePlantCommand
-    (string Name, string Species, string Room, string Pot) : IRequest<PlantDocument>;
+    (string Name, string Species, string Room, string Pot, DateTimeOffset AcquisitionDate) : IRequest<PlantDocument>;
 
 public class CreatePlantCommandHandler : IRequestHandler<CreatePlantCommand, PlantDocument>
 {
@@ -27,7 +27,7 @@ public class CreatePlantCommandHandler : IRequestHandler<CreatePlantCommand, Pla
             Species = command.Species,
             Room = command.Room,
             Pot = command.Pot,
-            AcquisitionDate = DateTimeOffset.UtcNow,
+            AcquisitionDate = command.AcquisitionDate,
             Operations = new CaringOperations()
             {
                 LastRepotDate = DateTimeOffset.UtcNow
