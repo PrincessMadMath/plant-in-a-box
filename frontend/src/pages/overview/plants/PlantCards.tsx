@@ -10,10 +10,11 @@ interface PlantsTableProps {
 
 export const PlantCards = ({ plants }: PlantsTableProps) => {
     const roomGroupedPlants = _.groupBy(plants, (x) => x.room);
+    const sortedRooms = _.sortBy(Object.entries(roomGroupedPlants), [([room, _]) => room]);
 
     return (
         <Box>
-            {Object.entries(roomGroupedPlants).map(([room, roomPlants]) => {
+            {sortedRooms.map(([room, roomPlants]) => {
                 return (
                     <Box pt={6} key={room}>
                         <HStack pb={6}>

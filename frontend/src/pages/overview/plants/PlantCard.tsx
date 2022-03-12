@@ -44,9 +44,7 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
                 />
                 <Box>
                     <Flex justify={"space-between"} direction={"row"}>
-                        <Text fontSize="2xl" pb={2}>
-                            {plant.name}
-                        </Text>
+                        <Text fontSize="2xl">{plant.name}</Text>
                         <IconButton
                             aria-label="Expand plant information."
                             onClick={onToggleExpand}
@@ -55,24 +53,21 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
                     </Flex>
                     <HStack spacing={1}>
                         <Icon as={FiDroplet} color={"gray.400"} />
-                        <Box fontSize="lg" color={"gray.400"}>
+                        <Text fontSize="lg" color={"gray.400"}>
                             {formatOperationsDate(plant.operations?.lastWateredDate)}
-                        </Box>
+                        </Text>
                     </HStack>
                     <HStack spacing={1}>
-                        <Icon as={GiPlantSeed} color={"gray.500"} />
-                        <Box fontSize="m" color={"gray.500"}>
+                        <Text fontSize="m" color={"gray.400"} as="i">
                             {plant.species}
-                        </Box>
+                        </Text>
                     </HStack>
-                    <Collapse in={isExpanded} animateOpacity>
-                        <Box mt="4">
-                            <PlantExtraInfo plant={plant} />
-                        </Box>
-                    </Collapse>
                 </Box>
             </Grid>
             <Collapse in={isExpanded} animateOpacity>
+                <Box mt="4">
+                    <PlantExtraInfo plant={plant} />
+                </Box>
                 <Divider mt={4} mb={4} />
                 <Box>
                     <PlantOperations plant={plant} openUpdate={onOpenUpdate} />
@@ -92,27 +87,39 @@ const PlantExtraInfo = ({ plant }: PlantExtraInfoProps) => {
         <Box>
             <HStack spacing={1}>
                 <Icon as={GiFertilizerBag} color={"gray.500"} />
-                <Box fontSize="m" color={"gray.500"}>
+                <Text fontSize="m" color={"gray.500"}>
+                    Last Fertilize:
+                </Text>
+                <Text fontSize="m" color={"gray.500"}>
                     {formatOperationsDate(plant.operations?.lastFertilizedDate)}
-                </Box>
+                </Text>
             </HStack>
             <HStack spacing={1}>
                 <Icon as={GiBoxUnpacking} color={"gray.500"} />
-                <Box fontSize="m" color={"gray.500"}>
+                <Text fontSize="m" color={"gray.500"}>
+                    Last Repot:
+                </Text>
+                <Text fontSize="m" color={"gray.500"}>
                     {formatOperationsDate(plant.operations?.lastRepotDate)}
-                </Box>
+                </Text>
             </HStack>
             <HStack spacing={1}>
                 <Icon as={MdCake} color={"gray.500"} />
-                <Box fontSize="m" color={"gray.500"}>
+                <Text fontSize="m" color={"gray.500"}>
+                    With you since
+                </Text>
+                <Text fontSize="m" color={"gray.500"}>
                     {formatOperationsDate(plant.acquisitionDate)}
-                </Box>
+                </Text>
             </HStack>
             <HStack spacing={1}>
                 <Icon as={GiGreenhouse} color={"gray.500"} />
-                <Box fontSize="m" color={"gray.500"}>
+                <Text fontSize="m" color={"gray.500"}>
+                    Location:
+                </Text>
+                <Text fontSize="m" color={"gray.500"}>
                     {plant.room} - {plant.pot}
-                </Box>
+                </Text>
             </HStack>
         </Box>
     );

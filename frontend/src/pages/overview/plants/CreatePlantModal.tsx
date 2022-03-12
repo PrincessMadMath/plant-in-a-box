@@ -40,11 +40,9 @@ export const CreatePlantModal = ({ onClose, isOpen }: CreatePlantModalProps) => 
                         },
                         {
                             onSuccess: () => {
-                                debugger;
                                 actions.setSubmitting(false);
                             },
                             onSettled: () => {
-                                debugger;
                                 onClose();
                             },
                         }
