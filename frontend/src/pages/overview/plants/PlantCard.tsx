@@ -21,7 +21,7 @@ import { UpdatePlantModal } from "pages/overview/plants/UpdatePlantModal";
 import { WaterOperation } from "pages/overview/plants/WaterOperation";
 import React from "react";
 import { FiChevronDown, FiChevronUp, FiDroplet, FiEdit } from "react-icons/fi";
-import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse, GiPlantSeed } from "react-icons/gi";
+import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse } from "react-icons/gi";
 import { MdCake } from "react-icons/md";
 import { Plant } from "shared/api";
 import { formatFrom } from "shared/utils";
