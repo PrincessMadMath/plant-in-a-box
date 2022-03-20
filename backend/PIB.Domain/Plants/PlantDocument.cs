@@ -17,7 +17,9 @@ public class PlantDocument : MongoDocument
 
     public DateTimeOffset AcquisitionDate { get; set; }
 
-    public CaringOperations Operations { get; set; }
+    public CaringOperations Operations { get; set; } = new CaringOperations();
+
+    public Image Image { get; set; } = new Image();
 }
 
 public class CaringOperations
@@ -27,4 +29,9 @@ public class CaringOperations
     public DateTimeOffset? LastRepotDate { get; set; }
     
     public DateTimeOffset? LastFertilizedDate { get; set; }
+}
+
+public class Image
+{
+    public string Etag { get; set; }
 }

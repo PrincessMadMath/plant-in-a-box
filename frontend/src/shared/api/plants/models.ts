@@ -6,10 +6,15 @@ export interface Plant {
     pot: string;
     acquisitionDate: string;
     operations: CaringOperations;
+    image: Image;
 }
 
 export interface CaringOperations {
     lastWateredDate: string;
     lastRepotDate: string;
     lastFertilizedDate: string;
+}
+
+export interface Image {
+    etag: string;
 }

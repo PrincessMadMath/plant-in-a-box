@@ -4,7 +4,9 @@ import {
     DeletePlantCommand,
     FertilizePlantCommand,
     RepotPlantCommand,
-    UpdatePlantCommand, UploadImage,
+    UpdatePlantCommand,
+    UploadImageCommand,
+    UploadImageResult,
     WaterPlantCommand,
 } from "./commands";
 import { Plant } from "./models";
@@ -15,7 +17,8 @@ import {
     getPlant,
     getPlants,
     repotPlant,
-    updatePlant, uploadPlantImage,
+    updatePlant,
+    uploadPlantImage,
     waterPlant,
 } from "./plants.api";
 
@@ -50,7 +53,7 @@ export function useUpdatePlant() {
 export function useUploadImage() {
     const queryClient = useQueryClient();
 
-    return useMutation<void, Error, UploadImage>((mutation) => uploadPlantImage(mutation), {
+    return useMutation<UploadImageResult, Error, UploadImageCommand>((mutation) => uploadPlantImage(mutation), {
         onSuccess: async (data, variables, context) => {
             await refreshPlantInCache(queryClient, variables.plantId);
         },

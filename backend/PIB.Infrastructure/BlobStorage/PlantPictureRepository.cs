@@ -1,5 +1,7 @@
+using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Sas;
 using Microsoft.Extensions.Options;
 
 namespace PIB.Infrastructure.BlobStorage;
@@ -29,7 +31,7 @@ public class PlantPictureRepository
         return this._plantContainerClient;
     }
 
-    public async Task UploadPlantPicture(Guid plantId, Stream stream, string contentType)
+    public async Task<ETag> UploadPlantPicture(Guid plantId, Stream stream, string contentType)
     {
         var plantContainer = await this.GetPlantContainer();
 
@@ -39,16 +41,28 @@ public class PlantPictureRepository
         blobHttpHeader.ContentType = contentType;
         
         var info = await blobClient.UploadAsync(stream, blobHttpHeader);
+        
+        return info.Value.ETag;
+
     }
-    
+
     public async Task<BlobDownloadResult> GetPlantPicture(Guid plantId)
     {
         var plantContainer = await this.GetPlantContainer();
         
-            var blobClient = plantContainer.GetBlobClient(GetPlantPictureName(plantId));
-            var result = await blobClient.DownloadContentAsync();
-            return result.Value;
-        }
+        var blobClient = plantContainer.GetBlobClient(GetPlantPictureName(plantId));
+        var result = await blobClient.DownloadContentAsync();
+        return result.Value;
+    }
+    
+    public async Task<Uri> GetUrl(Guid plantId)
+    {
+        var plantContainer = await this.GetPlantContainer();
+        
+        var blobClient = plantContainer.GetBlobClient(GetPlantPictureName(plantId));
+
+        return blobClient.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddDays(1));
+    }
 
     private static string GetPlantPictureName(Guid plantId)
     {

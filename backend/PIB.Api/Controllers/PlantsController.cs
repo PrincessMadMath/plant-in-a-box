@@ -61,26 +61,43 @@ public class PlantsController: ControllerBase
 
     // TODO: Security check! (https://dotnetthoughts.net/file-upload-extension-validation-in-aspnet-core/)
     [HttpPost("{plantId}/image")]
-    public async Task<ActionResult> UploadImage(Guid plantId, IFormFile file)
+    public async Task<ActionResult<UploadPlantPictureResponse>> UploadImage(Guid plantId, IFormFile file)
     {
         if (file.Length == 0 || file.Length > 3 * Math.Pow(1024, 2) || !SupportedImage.Contains(file.ContentType))
         {
             return this.BadRequest();
         }
 
-        await this._mediator.Send(new UploadPlantPictureCommand(plantId, file.OpenReadStream(), file.ContentType));
+        var response= await this._mediator.Send(new UploadPlantPictureCommand(plantId, file.OpenReadStream(), file.ContentType));
 
-        return this.Ok();
+        return this.Ok(response);
     }
     
     [HttpGet("{plantId}/image")]
-    public async Task<ActionResult> GetImage(Guid plantId)
+    [ResponseCache(Duration = 60*60*24*7, Location = ResponseCacheLocation.Client)]
+    public async Task<ActionResult> GetImage(Guid plantId, [FromQuery] string etag)
     {
         try
         {
             var result = await this._mediator.Send(new GetPlantPictureQuery(plantId));
 
             return  new FileStreamResult(result.Stream, result.mimeType);
+        }
+        catch (Exception e)
+        {
+            return this.NotFound();
+        }
+
+    }
+    
+    [HttpGet("{plantId}/imageUrl")]
+    public async Task<ActionResult> GetImageUrl(Guid plantId, [FromQuery] string etag)
+    {
+        try
+        {
+            var result = await this._mediator.Send(new GetPlantPictureUriQuery(plantId));
+
+            return this.Redirect(result.ToString());
         }
         catch (Exception e)
         {

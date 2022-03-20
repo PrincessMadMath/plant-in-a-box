@@ -26,7 +26,7 @@ import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse } from "react-icons/gi";
 import { MdCake } from "react-icons/md";
 import { Plant } from "shared/api";
 import { formatFrom } from "shared/utils";
-import {getPlantImage} from "../../../shared/api/plants/plants.api";
+import { getPlantImage } from "../../../shared/api/plants/plants.api";
 
 interface PlantCardProps {
     plant: Plant;
@@ -43,7 +43,7 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
                 <Avatar
                     name={plant.name}
                     size="xl"
-                    src= {getPlantImage(plant.plantId)}
+                    src={getPlantImage(plant.plantId, plant.image.etag)}
                     onClick={() => {
                         console.log("Click");
                         onOpenUpload();

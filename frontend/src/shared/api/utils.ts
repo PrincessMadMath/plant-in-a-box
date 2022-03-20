@@ -39,7 +39,7 @@ export async function postJson<T>(url: string, data: T): Promise<any> {
 export async function postFile(url: string, data: File): Promise<any> {
     const formData = new FormData();
     formData.append("file", data);
-    
+
     const response = await fetch(`${config.api.url}/${url}`, {
         method: "POST",
         body: formData,
