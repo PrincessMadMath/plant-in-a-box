@@ -1,10 +1,13 @@
-import { getJson, postJson } from "../utils";
+import { config } from "shared/config/config";
+import { getJson, postFile, postJson } from "../utils";
 import {
     CreatePlantCommand,
     DeletePlantCommand,
     FertilizePlantCommand,
     RepotPlantCommand,
     UpdatePlantCommand,
+    UploadImageCommand,
+    UploadImageResult,
     WaterPlantCommand,
 } from "./commands";
 import { Plant } from "./models";
@@ -23,6 +26,14 @@ export const createPlant = (createPlant: CreatePlantCommand): Promise<Plant> => 
 
 export const updatePlant = (createPlant: UpdatePlantCommand): Promise<Plant> => {
     return postJson(`plants/update`, createPlant);
+};
+
+export const uploadPlantImage = (uploadImage: UploadImageCommand): Promise<UploadImageResult> => {
+    return postFile(`plants/${uploadImage.plantId}/image`, uploadImage.file);
+};
+
+export const getPlantImage = (plantId: string, etag: string): string => {
+    return `${config.api.url}/plants/${plantId}/imageUrl?etag=${etag}`;
 };
 
 export const deletePlant = (command: DeletePlantCommand): Promise<any> => {

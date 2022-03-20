@@ -35,3 +35,24 @@ export async function postJson<T>(url: string, data: T): Promise<any> {
         return response.json();
     }
 }
+
+export async function postFile(url: string, data: File): Promise<any> {
+    const formData = new FormData();
+    formData.append("file", data);
+
+    const response = await fetch(`${config.api.url}/${url}`, {
+        method: "POST",
+        body: formData,
+    });
+
+    if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+    }
+
+    const isJson = response.headers.get("content-type")?.includes("application/json");
+
+    if (isJson) {
+        return response.json();
+    }
+}

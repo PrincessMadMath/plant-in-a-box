@@ -13,35 +13,13 @@ public class PlantsController: ControllerBase
 {
     private readonly ILogger<PlantsController> _logger;
     private readonly IMediator _mediator;
+    
+    public readonly HashSet<string> SupportedImage = new() { "image/png", "image/gif", "image/jpeg" };
 
     public PlantsController(ILogger<PlantsController> logger, IMediator mediator)
     {
         this._logger = logger;
         this._mediator = mediator;
-    }
-    
-    [HttpPost("create")]
-    public async Task<ActionResult<PlantDocument>> CreatePlant(CreatePlantCommand command)
-    {
-        var newPlant = await this._mediator.Send(command);
-
-        return this.Ok(newPlant);
-    }
-    
-    [HttpPost("update")]
-    public async Task<ActionResult<PlantDocument>> UpdatePlant(UpdatePlantCommand command)
-    {
-        var updatePlant = await this._mediator.Send(command);
-
-        return this.Ok(updatePlant);
-    }
-    
-    [HttpPost("delete")]
-    public async Task<ActionResult> DeletePlant(DeletePlantCommand command)
-    {
-        var newPlant = await this._mediator.Send(command);
-
-        return this.Ok();
     }
     
     [HttpGet("")]
@@ -65,6 +43,77 @@ public class PlantsController: ControllerBase
         return plant;
     }
     
+    [HttpPost("create")]
+    public async Task<ActionResult<PlantDocument>> CreatePlant(CreatePlantCommand command)
+    {
+        var newPlant = await this._mediator.Send(command);
+
+        return this.Ok(newPlant);
+    }
+    
+    [HttpPost("update")]
+    public async Task<ActionResult<PlantDocument>> UpdatePlant(UpdatePlantCommand command)
+    {
+        var updatePlant = await this._mediator.Send(command);
+
+        return this.Ok(updatePlant);
+    }
+
+    // TODO: Security check! (https://dotnetthoughts.net/file-upload-extension-validation-in-aspnet-core/)
+    [HttpPost("{plantId}/image")]
+    public async Task<ActionResult<UploadPlantPictureResponse>> UploadImage(Guid plantId, IFormFile file)
+    {
+        if (file.Length == 0 || file.Length > 3 * Math.Pow(1024, 2) || !SupportedImage.Contains(file.ContentType))
+        {
+            return this.BadRequest();
+        }
+
+        var response= await this._mediator.Send(new UploadPlantPictureCommand(plantId, file.OpenReadStream(), file.ContentType));
+
+        return this.Ok(response);
+    }
+    
+    [HttpGet("{plantId}/image")]
+    [ResponseCache(Duration = 60*60*24*7, Location = ResponseCacheLocation.Client)]
+    public async Task<ActionResult> GetImage(Guid plantId, [FromQuery] string etag)
+    {
+        try
+        {
+            var result = await this._mediator.Send(new GetPlantPictureQuery(plantId));
+
+            return  new FileStreamResult(result.Stream, result.mimeType);
+        }
+        catch (Exception e)
+        {
+            return this.NotFound();
+        }
+
+    }
+    
+    [HttpGet("{plantId}/imageUrl")]
+    public async Task<ActionResult> GetImageUrl(Guid plantId, [FromQuery] string etag)
+    {
+        try
+        {
+            var result = await this._mediator.Send(new GetPlantPictureUriQuery(plantId));
+
+            return this.Redirect(result.ToString());
+        }
+        catch (Exception e)
+        {
+            return this.NotFound();
+        }
+
+    }
+    
+    [HttpPost("delete")]
+    public async Task<ActionResult> DeletePlant(DeletePlantCommand command)
+    {
+        var newPlant = await this._mediator.Send(command);
+
+        return this.Ok();
+    }
+
     [HttpPost("water")]
     public async Task<ActionResult> WaterPlant(WaterPlantCommand command)
     {

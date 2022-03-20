@@ -1,5 +1,6 @@
 using Domain;
 using PIB.Api.Setup;
+using PIB.Infrastructure.BlobStorage;
 using PIB.Infrastructure.MediatR;
 using PIB.Infrastructure.Mongo;
 
@@ -12,6 +13,7 @@ builder.Services.ConfigureAPI(builder.Configuration);
 
 builder.Services.AddAndConfigureMongoDB(builder.Configuration);
 builder.Services.AddAndConfigureMediatR(builder.Configuration);
+builder.Services.AddAndConfigureBlobStorage(builder.Configuration);
 
 builder.Services.AddAndConfigureDomain(builder.Configuration);
 

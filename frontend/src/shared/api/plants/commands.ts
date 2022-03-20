@@ -15,6 +15,15 @@ export interface UpdatePlantCommand {
     acquisitionDate: string;
 }
 
+export interface UploadImageCommand {
+    plantId: string;
+    file: File;
+}
+
+export interface UploadImageResult {
+    etag: string;
+}
+
 export interface DeletePlantCommand {
     plantId: string;
 }
