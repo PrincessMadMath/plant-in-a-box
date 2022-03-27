@@ -66,3 +66,8 @@ Need to understand CORS:
 ## Documenation about .net 5
 
 - Complete exemple: https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-5.0&tabs=visual-studio 
+
+
+# Project Structure
+
+* Minimal API approach: https://timdeschryver.dev/blog/maybe-its-time-to-rethink-our-project-structure-with-dot-net-6#conclusion

@@ -1,5 +1,6 @@
 import { Box, ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { MantineProvider } from "@mantine/core";
+import Routes from "app/Routes";
 
 import dotenv from "dotenv";
 import React from "react";
@@ -8,8 +9,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-
-import Routes from "./Routes";
 import theme from "./theme";
 
 const queryClient = new QueryClient();
@@ -24,7 +23,6 @@ function App() {
                     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
                     <QueryClientProvider client={queryClient}>
                         <Box mx="6">
-                            {/* <SensorDetailsPage sensorId={"88b2f49e-1226-4964-9aa9-9b1f8442fd36"}/> */}
                             <Routes />
                         </Box>
                         <ReactQueryDevtools initialIsOpen={false} />

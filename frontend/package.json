@@ -4,6 +4,7 @@
     "private": true,
     "proxy": "https://pib-server.azurewebsites.net",
     "dependencies": {
+        "@auth0/auth0-react": "^1.9.0",
         "@chakra-ui/react": "^1.8.6",
         "@emotion/react": "^11.4.1",
         "@emotion/styled": "^11.3.0",
@@ -14,6 +15,7 @@
         "@nivo/core": "^0.73.0",
         "@nivo/line": "^0.73.0",
         "@types/react-datepicker": "^4.1.6",
+        "auth0-js": "^9.19.0",
         "dayjs": "^1.10.8",
         "dotenv": "^10.0.0",
         "formik": "^2.2.9",
