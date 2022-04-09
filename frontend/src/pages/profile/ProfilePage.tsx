@@ -2,22 +2,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Box } from "@chakra-ui/react";
 
 import React, { useState, useEffect } from "react";
+import {config} from "shared/config/config";
 
 export const ProfilePage = () => {
-    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const { user, getAccessTokenSilently } = useAuth0();
     const [userMetadata, setUserMetadata] = useState(null);
 
     useEffect(() => {
         const getUserMetadata = async () => {
-            const domain = "dev-macadam.us.auth0.com";
-            
             try {
                 const accessToken = await getAccessTokenSilently({
-                    audience: `https://${domain}/api/v2/`,
-                    scope: "read:current_user",
+                    audience: config.auth.audience,
+                    scope:"Plant.Read Plant.Write.All Plant.Write.Operations",
                 });
 
-                const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user!.sub}`;
+                const userDetailsByIdUrl = `${config.api.url}/test/Protected`;
 
                 const metadataResponse = await fetch(userDetailsByIdUrl, {
                     headers: {

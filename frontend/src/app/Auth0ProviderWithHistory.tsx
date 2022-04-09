@@ -16,10 +16,8 @@ export const Auth0ProviderWithHistory = ({children}: any) => {
         <Auth0Provider
             domain={config.auth.domain}
             clientId={config.auth.clientId}
-            // audience={config.auth.audience}/
-            // scope="Plant.Read Plant.Write.All Plant.Write.Operations"
-            audience="https://dev-macadam.us.auth0.com/api/v2/"
-            scope="read:current_user update:current_user_metadata"
+            audience={config.auth.audience}
+            scope="Plant.Read Plant.Write.All Plant.Write.Operations"
             redirectUri={window.location.origin}
             onRedirectCallback={onRedirectCallback}
         >
