@@ -150,7 +150,6 @@ const PlantOperations = ({ plant, openUpdate }: PlantOperationsProps) => {
                     Edit
                 </Button>
                 <DeleteOperation plant={plant} />
-                <DatePicker placeholder="Pick date" />
             </VStack>
         </Box>
     );
