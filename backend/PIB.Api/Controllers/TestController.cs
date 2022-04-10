@@ -2,6 +2,7 @@ using Domain.Test;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PIB.Api.Setup;
 using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.MediatR;
 using Serilog.Context;
@@ -57,7 +58,7 @@ public class TestController : ControllerBase
 
 
     [HttpGet("Protected")]
-    [Authorize("Plant.Read")]
+    [Authorize(Permissions.Plant)]
     public string Protected()
     {
         // https://docs.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-6.0

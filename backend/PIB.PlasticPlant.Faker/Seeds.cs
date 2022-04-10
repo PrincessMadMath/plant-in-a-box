@@ -8,14 +8,14 @@ namespace PIB.PlasticPlant.Faker;
 
 public static class Seeds
 {
-    public static IReadOnlyList<CreatePlantCommand> CreatePlantsSeeds = new[]
-    {
-        new CreatePlantCommand("Petunia", "Cactus", "Salon", "Dark Blue", DateTimeOffset.UtcNow.AddMonths(-40)),
-        new CreatePlantCommand("Toss a coin", "Dandelion", "Salon", "Red", DateTimeOffset.UtcNow.AddMonths(-1)),
-        new CreatePlantCommand("Mojito Provider", "Mint", "Salon", "Big one", DateTimeOffset.UtcNow.AddHours(-2)),
-        new CreatePlantCommand("Red", "Rose", "Bureau", "Red pot", DateTimeOffset.UtcNow.AddDays(-4)),
-        new CreatePlantCommand("Death Itself", "Poison Ivy", "Bureau", "Textured pot", DateTimeOffset.UtcNow.AddDays(-20)),
-    };
+    // public static IReadOnlyList<CreatePlantCommand> CreatePlantsSeeds = new[]
+    // {
+    //     new CreatePlantCommand("Petunia", "Cactus", "Salon", "Dark Blue", DateTimeOffset.UtcNow.AddMonths(-40)),
+    //     new CreatePlantCommand("Toss a coin", "Dandelion", "Salon", "Red", DateTimeOffset.UtcNow.AddMonths(-1)),
+    //     new CreatePlantCommand("Mojito Provider", "Mint", "Salon", "Big one", DateTimeOffset.UtcNow.AddHours(-2)),
+    //     new CreatePlantCommand("Red", "Rose", "Bureau", "Red pot", DateTimeOffset.UtcNow.AddDays(-4)),
+    //     new CreatePlantCommand("Death Itself", "Poison Ivy", "Bureau", "Textured pot", DateTimeOffset.UtcNow.AddDays(-20)),
+    // };
 
     public static readonly IReadOnlyList<GrowthLightActuator> GrowthLightSeeds = new[]
     {

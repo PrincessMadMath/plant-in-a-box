@@ -1,8 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Box } from "@chakra-ui/react";
 
-import React, { useState, useEffect } from "react";
-import {config} from "shared/config/config";
+import React, { useEffect, useState } from "react";
+import { config } from "shared/config/config";
 
 export const ProfilePage = () => {
     const { user, getAccessTokenSilently } = useAuth0();
@@ -13,7 +13,7 @@ export const ProfilePage = () => {
             try {
                 const accessToken = await getAccessTokenSilently({
                     audience: config.auth.audience,
-                    scope:"Plant.Read Plant.Write.All Plant.Write.Operations",
+                    scope: "plant",
                 });
 
                 const userDetailsByIdUrl = `${config.api.url}/test/Protected`;
@@ -35,11 +35,9 @@ export const ProfilePage = () => {
         getUserMetadata();
     }, [getAccessTokenSilently, user?.sub]);
 
-
     if (!user) {
         return <div>Not authenticated</div>;
     }
-
 
     return (
         <Box mt="8">

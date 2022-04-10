@@ -1,4 +1,5 @@
 import { Auth0ProviderWithHistory } from "app/Auth0ProviderWithHistory";
+import { RequestInterceptor } from "app/RequestInterceptor";
 import { ActuatorDetailsPage } from "pages/actuatorDetails/ActuatorDetailsPage";
 
 import { OverviewPage } from "pages/overview/OverviewPage";
@@ -12,13 +13,15 @@ import { ProtectedRoute } from "shared/auth/ProtectedRoute";
 const Routes = () => (
     <Router>
         <Auth0ProviderWithHistory>
-            <Switch>
-                <Route exact path="/" component={WelcomePage} />
-                <ProtectedRoute path="/overview" component={OverviewPage} />
-                <ProtectedRoute path="/sensor/:sensorId" component={SensorDetailsPage} />
-                <ProtectedRoute path="/actuator/:actuatorId" component={ActuatorDetailsPage} />
-                <ProtectedRoute path="/profile" component={ProfilePage} />
-            </Switch>
+            <RequestInterceptor>
+                <Switch>
+                    <Route exact path="/" component={WelcomePage} />
+                    <ProtectedRoute path="/overview" component={OverviewPage} />
+                    <ProtectedRoute path="/sensor/:sensorId" component={SensorDetailsPage} />
+                    <ProtectedRoute path="/actuator/:actuatorId" component={ActuatorDetailsPage} />
+                    <ProtectedRoute path="/profile" component={ProfilePage} />
+                </Switch>
+            </RequestInterceptor>
         </Auth0ProviderWithHistory>
     </Router>
 );

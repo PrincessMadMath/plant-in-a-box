@@ -5,6 +5,8 @@ namespace Domain.Plants;
 [Collection("Plants")]
 public class PlantDocument : MongoDocument
 {
+    public string UserId { get; set; } = string.Empty;
+    
     public Guid PlantId { get; set; }
     
     public string Name { get; set; } = string.Empty;

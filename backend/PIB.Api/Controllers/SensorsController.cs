@@ -17,7 +17,7 @@ public class SensorsController : ControllerBase
         this._logger = logger;
         this._soilMoistureService = soilMoistureService;
     }
-    
+
     [HttpPost("register")]
     public IActionResult Register([FromBody] SoilMoistureSensor soilMoistureSensor)
     {
@@ -25,28 +25,28 @@ public class SensorsController : ControllerBase
 
         return this.Ok();
     }
-    
+
     // TODO: Return last  data
     [HttpGet("")]
     public IReadOnlyList<ISensor> GetSensors()
     {
         return this._soilMoistureService.GetSensors();
     }
-    
+
     // TODO: Record for SensorId and ActuatorId?
     [HttpGet("{sensorId}")]
     public ISensor GetSensor(Guid sensorId)
     {
         return this._soilMoistureService.GetSensor(sensorId);
     }
-    
+
     // Make abstraction for data point?
     [HttpGet("{sensorId}/data")]
     public IReadOnlyList<SoilMoistureData> GetSensorHistory(Guid sensorId)
     {
         return this._soilMoistureService.GetData(sensorId);
     }
-    
+
     // TODO: Use  log type
     [HttpGet("{sensorId}/logs")]
     public IReadOnlyList<string> GetSensorLogs(Guid sensorId)

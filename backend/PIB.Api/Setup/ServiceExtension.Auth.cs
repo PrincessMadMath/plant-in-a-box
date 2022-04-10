@@ -27,7 +27,8 @@ public static partial class ServiceCollectionExtensions
 
         services.AddAuthorization(options =>
         {
-            options.AddPolicy("Plant.Read", policy => policy.Requirements.Add(new HasScopeRequirement("Plant.Read", "https://dev-macadam.us.auth0.com/")));
+            // TODO: How update based on settings
+            options.AddPolicy(Permissions.Plant, policy => policy.Requirements.Add(new HasScopeRequirement("plant", "https://dev-macadam.us.auth0.com/")));
         });
 
         services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();

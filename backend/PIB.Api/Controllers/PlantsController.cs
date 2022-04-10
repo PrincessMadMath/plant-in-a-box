@@ -1,19 +1,22 @@
 using Domain.Plants;
 using Domain.Plants.Commands;
 using Domain.Plants.Queries;
-using Domain.Test;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PIB.Api.Setup;
+using PIB.Infrastructure.Auth;
 
 namespace PIB.Api.Controllers;
 
 [ApiController]
 [Route("plants")]
-public class PlantsController: ControllerBase
+[Authorize(Permissions.Plant)]
+public class PlantsController : ControllerBase
 {
     private readonly ILogger<PlantsController> _logger;
     private readonly IMediator _mediator;
-    
+
     public readonly HashSet<string> SupportedImage = new() { "image/png", "image/gif", "image/jpeg" };
 
     public PlantsController(ILogger<PlantsController> logger, IMediator mediator)
@@ -21,11 +24,11 @@ public class PlantsController: ControllerBase
         this._logger = logger;
         this._mediator = mediator;
     }
-    
+
     [HttpGet("")]
     public async Task<ActionResult<IReadOnlyList<PlantDocument>>> GetPlants()
     {
-        var plants = await this._mediator.CreateStream(new GetPlantsQuery()).ToListAsync();
+        var plants = await this._mediator.CreateStream(new GetPlantsQuery(UserContext.CurrentUser)).ToListAsync();
 
         return plants;
     }
@@ -33,7 +36,7 @@ public class PlantsController: ControllerBase
     [HttpGet("{plantId}")]
     public async Task<ActionResult<PlantDocument>> GetPlant(Guid plantId)
     {
-        var plant = await this._mediator.Send(new GetPlantQuery(plantId));
+        var plant = await this._mediator.Send(new GetPlantQuery(UserContext.CurrentUser, plantId));
 
         if (plant == null)
         {
@@ -42,19 +45,33 @@ public class PlantsController: ControllerBase
 
         return plant;
     }
-    
+
     [HttpPost("create")]
-    public async Task<ActionResult<PlantDocument>> CreatePlant(CreatePlantCommand command)
+    public async Task<ActionResult<PlantDocument>> CreatePlant(PlantsControllerModels.CreatePlantRequest request)
     {
-        var newPlant = await this._mediator.Send(command);
+        var newPlant = await this._mediator.Send(
+            new CreatePlantCommand(
+                UserContext.CurrentUser,
+                request.Name,
+                request.Species,
+                request.Room,
+                request.Pot,
+                request.AcquisitionDate));
 
         return this.Ok(newPlant);
     }
-    
+
     [HttpPost("update")]
-    public async Task<ActionResult<PlantDocument>> UpdatePlant(UpdatePlantCommand command)
+    public async Task<ActionResult<PlantDocument>> UpdatePlant(PlantsControllerModels.UpdatePlantRequest request)
     {
-        var updatePlant = await this._mediator.Send(command);
+        var updatePlant = await this._mediator.Send(new UpdatePlantCommand(
+            UserContext.CurrentUser,
+            request.PlantId,
+            request.Name,
+            request.Species,
+            request.Room,
+            request.Pot,
+            request.AcquisitionDate));
 
         return this.Ok(updatePlant);
     }
@@ -63,34 +80,19 @@ public class PlantsController: ControllerBase
     [HttpPost("{plantId}/image")]
     public async Task<ActionResult<UploadPlantPictureResponse>> UploadImage(Guid plantId, IFormFile file)
     {
-        if (file.Length == 0 || file.Length > 3 * Math.Pow(1024, 2) || !SupportedImage.Contains(file.ContentType))
+        if (file.Length == 0 || file.Length > 3 * Math.Pow(1024, 2) || !this.SupportedImage.Contains(file.ContentType))
         {
             return this.BadRequest();
         }
 
-        var response= await this._mediator.Send(new UploadPlantPictureCommand(plantId, file.OpenReadStream(), file.ContentType));
+        var response =
+            await this._mediator.Send(new UploadPlantPictureCommand(UserContext.CurrentUser, plantId, file.OpenReadStream(), file.ContentType));
 
         return this.Ok(response);
     }
-    
+
     [HttpGet("{plantId}/image")]
-    [ResponseCache(Duration = 60*60*24*7, Location = ResponseCacheLocation.Client)]
-    public async Task<ActionResult> GetImage(Guid plantId, [FromQuery] string etag)
-    {
-        try
-        {
-            var result = await this._mediator.Send(new GetPlantPictureQuery(plantId));
-
-            return  new FileStreamResult(result.Stream, result.mimeType);
-        }
-        catch (Exception e)
-        {
-            return this.NotFound();
-        }
-
-    }
-    
-    [HttpGet("{plantId}/imageUrl")]
+    [AllowAnonymous]
     public async Task<ActionResult> GetImageUrl(Guid plantId, [FromQuery] string etag)
     {
         try
@@ -103,39 +105,66 @@ public class PlantsController: ControllerBase
         {
             return this.NotFound();
         }
-
     }
     
-    [HttpPost("delete")]
-    public async Task<ActionResult> DeletePlant(DeletePlantCommand command)
+    [HttpGet("{plantId}/imageUrl")]
+    [AllowAnonymous]
+    public async Task<ActionResult> GetImageUrl2(Guid plantId, [FromQuery] string etag)
     {
-        var newPlant = await this._mediator.Send(command);
+        try
+        {
+            var result = await this._mediator.Send(new GetPlantPictureUriQuery(plantId));
+
+            return this.Ok(result.ToString());
+        }
+        catch (Exception e)
+        {
+            return this.NotFound();
+        }
+    }
+
+    [HttpPost("delete")]
+    public async Task<ActionResult> DeletePlant(PlantsControllerModels.DeletePlantRequest request)
+    {
+        await this._mediator.Send(new DeletePlantCommand(
+            UserContext.CurrentUser,
+            request.PlantId
+            ));
 
         return this.Ok();
     }
 
     [HttpPost("water")]
-    public async Task<ActionResult> WaterPlant(WaterPlantCommand command)
+    public async Task<ActionResult> WaterPlant(PlantsControllerModels.WaterPlantRequest request)
     {
-        await this._mediator.Send(command);
+        await this._mediator.Send(new WaterPlantCommand(
+            UserContext.CurrentUser,
+            request.PlantId
+        ));
 
         return this.Ok();
     }
-    
+
     [HttpPost("fertilize")]
-    public async Task<ActionResult> WaterPlant(FertilizePlantCommand command)
+    public async Task<ActionResult> WaterPlant(PlantsControllerModels.FertilizePlantRequest request)
     {
-        await this._mediator.Send(command);
+        await this._mediator.Send(new FertilizePlantCommand(
+            UserContext.CurrentUser,
+            request.PlantId
+        ));
 
         return this.Ok();
     }
-    
+
     [HttpPost("repot")]
-    public async Task<ActionResult> RepotPlant(RepotPlantCommand command)
+    public async Task<ActionResult> RepotPlant(PlantsControllerModels.RepotPlantRequest request)
     {
-        await this._mediator.Send(command);
+        await this._mediator.Send(new RepotPlantCommand(
+            UserContext.CurrentUser,
+            request.PlantId,
+            request.Pot
+        ));
 
         return this.Ok();
     }
-
 }

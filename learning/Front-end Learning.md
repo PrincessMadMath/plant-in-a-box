@@ -30,6 +30,16 @@ How use date formatting in Nivo
 - https://momentjs.com/docs/#/displaying/unix-timestamp-milliseconds/
 
 
+4. Authentification
+
+https://kentcdodds.com/blog/authentication-in-react-applications
+
+Make authenticated call:
+- Axios Interceptor: https://medium.com/sopra-steria-norge/msal-react-automatically-sign-in-users-and-get-app-roles-30893449ed87
+- Axios: https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/#new_tab
+
+
+
 # App structure
 
 ## Inspiration

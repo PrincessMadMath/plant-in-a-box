@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
 import {
     CreatePlantCommand,
@@ -15,6 +16,7 @@ import {
     deletePlant,
     fertilizePlant,
     getPlant,
+    getPlantImage,
     getPlants,
     repotPlant,
     updatePlant,
@@ -28,6 +30,38 @@ export function useGetPlants() {
 
 export function useGetPlant(plantId: string) {
     return useQuery<Plant[], any>(["plants", plantId], () => getPlant(plantId));
+}
+
+export function useGetPlantImageSource(plantId: string, etag: string) {
+    return useQuery<string, any>(["plants", plantId, "image"], () => getPlantImage(plantId, etag));
+}
+
+// https://devtrium.com/posts/async-functions-useeffect
+export function useGetPlantImageSource2(plantId: string, etag: string) {
+    const [source, setSource] = useState("");
+
+    console.log(`Use image ${etag}`);
+
+    useEffect(() => {
+        let isSubscribed = true;
+
+        console.log(`Is fetching image ${etag}`);
+        const fetchData = async () => {
+            const imageSource = await getPlantImage(plantId, etag);
+
+            if (isSubscribed) {
+                setSource(imageSource);
+            }
+        };
+
+        fetchData();
+
+        return () => {
+            isSubscribed = false;
+        };
+    }, [plantId, etag]);
+
+    return source;
 }
 
 export function useCreatePlant() {
