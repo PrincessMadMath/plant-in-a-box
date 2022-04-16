@@ -80,7 +80,7 @@ public class PlantsController : ControllerBase
     [HttpPost("{plantId}/image")]
     public async Task<ActionResult<UploadPlantPictureResponse>> UploadImage(Guid plantId, IFormFile file)
     {
-        if (file.Length == 0 || file.Length > 3 * Math.Pow(1024, 2) || !this.SupportedImage.Contains(file.ContentType))
+        if (file.Length == 0 || file.Length > 16 * Math.Pow(1024, 2) || !this.SupportedImage.Contains(file.ContentType))
         {
             return this.BadRequest();
         }
