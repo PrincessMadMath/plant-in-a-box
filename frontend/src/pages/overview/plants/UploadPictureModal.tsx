@@ -63,7 +63,7 @@ export const UploadPictureModal = ({ plantId, isOpen, onClose }: UploadPictureMo
                                     isClosable: true,
                                 });
                             }}
-                            maxSize={3 * 1024 ** 2}
+                            maxSize={16 * 1024 ** 2}
                             accept={[MIME_TYPES.png, MIME_TYPES.jpeg, MIME_TYPES.gif]}
                         >
                             {(status) => <Text>{file !== undefined ? `${file.name}` : "Click me"}</Text>}
