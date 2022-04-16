@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Host.ConfigureLogging();
 
-builder.Services.ConfigureAuth();
+builder.Services.ConfigureAuth(builder.Configuration);
 builder.Services.ConfigureAPI(builder.Configuration);
 
 builder.Services.AddAndConfigureMongoDB(builder.Configuration);

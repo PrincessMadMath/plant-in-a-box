@@ -101,7 +101,7 @@ public class PlantsController : ControllerBase
 
             return this.Redirect(result.ToString());
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return this.NotFound();
         }
@@ -117,7 +117,7 @@ public class PlantsController : ControllerBase
 
             return this.Ok(result.ToString());
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return this.NotFound();
         }

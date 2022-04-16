@@ -31,8 +31,8 @@ public class FakerService
         }
     }
 
-    public async Task SeedPlants()
-    {
+    // public Task SeedPlants()
+    // {
         // foreach (var createPlantCommand in Seeds.CreatePlantsSeeds)
         // {
         //     var jsonContent = JsonSerializer.Serialize(createPlantCommand);
@@ -55,5 +55,5 @@ public class FakerService
         //         Console.WriteLine($"Error while creating plant: {response.StatusCode}.");
         //     }
         // }
-    }
+    // }
 }

@@ -13,7 +13,6 @@ import {
     useDisclosure,
     VStack,
 } from "@chakra-ui/react";
-import { DatePicker } from "@mantine/dates";
 import { DeleteOperation } from "pages/overview/plants/DeleteOperation";
 import { FertilizeOperation } from "pages/overview/plants/FertilizeOperation";
 import { RepotOperation } from "pages/overview/plants/RepotOperation";
