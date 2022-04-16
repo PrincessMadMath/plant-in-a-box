@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.Mongo;
 
 namespace Domain.Plants.Commands;
 
 public record CreatePlantCommand
-    (string Name, string Species, string Room, string Pot, DateTimeOffset AcquisitionDate) : IRequest<PlantDocument>;
+    (User User, string Name, string Species, string Room, string Pot, DateTimeOffset AcquisitionDate) : IRequest<PlantDocument>;
 
 public class CreatePlantCommandHandler : IRequestHandler<CreatePlantCommand, PlantDocument>
 {
@@ -22,6 +23,7 @@ public class CreatePlantCommandHandler : IRequestHandler<CreatePlantCommand, Pla
 
         var newPlant = new PlantDocument()
         {
+            UserId = command.User.Id,
             PlantId = Guid.NewGuid(),
             Name = command.Name,
             Species = command.Species,

@@ -1,5 +1,7 @@
 import { Box, ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { MantineProvider } from "@mantine/core";
+import Routes from "app/Routes";
+import axios from "axios";
 
 import dotenv from "dotenv";
 import React from "react";
@@ -8,8 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-
-import Routes from "./Routes";
+import { config } from "shared/config/config";
 import theme from "./theme";
 
 const queryClient = new QueryClient();
@@ -17,6 +18,8 @@ const queryClient = new QueryClient();
 dotenv.config();
 
 function App() {
+    axios.defaults.baseURL = config.api.url;
+
     return (
         <>
             <MantineProvider theme={{ colorScheme: "dark" }}>
@@ -24,7 +27,6 @@ function App() {
                     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
                     <QueryClientProvider client={queryClient}>
                         <Box mx="6">
-                            {/* <SensorDetailsPage sensorId={"88b2f49e-1226-4964-9aa9-9b1f8442fd36"}/> */}
                             <Routes />
                         </Box>
                         <ReactQueryDevtools initialIsOpen={false} />

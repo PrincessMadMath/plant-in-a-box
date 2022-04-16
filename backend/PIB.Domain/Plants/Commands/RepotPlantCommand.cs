@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using MongoDB.Driver;
+using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.Mongo;
 
 namespace Domain.Plants.Commands;
 
-public record RepotPlantCommand(Guid PlantId, string Pot) : IRequest<bool>;
+public record RepotPlantCommand(User User, Guid PlantId, string Pot) : IRequest<bool>;
 
 public class RepotPlantCommandHandler : IRequestHandler<RepotPlantCommand, bool>
 {
@@ -21,7 +22,7 @@ public class RepotPlantCommandHandler : IRequestHandler<RepotPlantCommand, bool>
         var collection = this._mongoRepository.GetCollection<PlantDocument>();
         
         await collection.UpdateOneAsync(
-            
+            Builders<PlantDocument>.Filter.Eq(x => x.UserId, command.User.Id) &
             Builders<PlantDocument>.Filter.Eq(x => x.PlantId, command.PlantId),
             Builders<PlantDocument>.Update
                 .Set(x => x.Operations.LastRepotDate, DateTimeOffset.UtcNow)

@@ -1,6 +1,7 @@
 import {
     Avatar,
     Box,
+    Button,
     Collapse,
     Divider,
     Flex,
@@ -11,9 +12,7 @@ import {
     Text,
     useDisclosure,
     VStack,
-    Button,
 } from "@chakra-ui/react";
-import { DatePicker } from "@mantine/dates";
 import { DeleteOperation } from "pages/overview/plants/DeleteOperation";
 import { FertilizeOperation } from "pages/overview/plants/FertilizeOperation";
 import { RepotOperation } from "pages/overview/plants/RepotOperation";
@@ -24,9 +23,8 @@ import React from "react";
 import { FiChevronDown, FiChevronUp, FiDroplet, FiEdit } from "react-icons/fi";
 import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse } from "react-icons/gi";
 import { MdCake } from "react-icons/md";
-import { Plant } from "shared/api";
+import { Plant, useGetPlantImageSource2 } from "shared/api";
 import { formatFrom } from "shared/utils";
-import { getPlantImage } from "../../../shared/api/plants/plants.api";
 
 interface PlantCardProps {
     plant: Plant;
@@ -37,13 +35,15 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
     const { isOpen: isUpdateOpen, onOpen: onOpenUpdate, onClose: onCloseUpdate } = useDisclosure();
     const { isOpen: isUploadOpen, onOpen: onOpenUpload, onClose: onCloseUpload } = useDisclosure();
 
+    const imageSource = useGetPlantImageSource2(plant.plantId, plant.image.etag);
+
     return (
         <Box w={"100%"} borderWidth="1px" borderRadius="lg" p={2}>
             <Grid templateColumns="max-content 1fr" gap={4}>
                 <Avatar
                     name={plant.name}
                     size="xl"
-                    src={getPlantImage(plant.plantId, plant.image.etag)}
+                    src={imageSource}
                     onClick={() => {
                         console.log("Click");
                         onOpenUpload();
@@ -149,7 +149,6 @@ const PlantOperations = ({ plant, openUpdate }: PlantOperationsProps) => {
                     Edit
                 </Button>
                 <DeleteOperation plant={plant} />
-                <DatePicker placeholder="Pick date" />
             </VStack>
         </Box>
     );

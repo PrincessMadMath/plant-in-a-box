@@ -20,6 +20,12 @@ ca: code analysis (roselyn analyzer)
 
 ## API
 
+https://docs.microsoft.com/en-us/aspnet/core/getting-started/?view=aspnetcore-6.0&tabs=windows
+- Official docs
+
+https://code-maze.com/aspnetcore-webapi-best-practices/
+- Some guideline (TODO)
+
 https://dotnettutorials.net/lesson/controller-action-return-types-core-web-api/
 
 
@@ -66,3 +72,17 @@ Need to understand CORS:
 ## Documenation about .net 5
 
 - Complete exemple: https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-5.0&tabs=visual-studio 
+
+
+# Project Structure
+
+* Minimal API approach: https://timdeschryver.dev/blog/maybe-its-time-to-rethink-our-project-structure-with-dot-net-6#conclusion
+
+
+# Authentification
+
+Role based vs Attribute(scope, claims) based | Access Control
+- https://www.okta.com/identity-101/role-based-access-control-vs-attribute-based-access-control/
+
+Scope best practices:
+- https://curity.io/resources/learn/scope-best-practices/

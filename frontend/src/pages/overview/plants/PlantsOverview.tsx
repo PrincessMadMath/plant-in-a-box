@@ -23,9 +23,13 @@ export const PlantsOverview = () => {
     if (!plants || plants.length === 0) {
         return (
             <Box mt="8">
-                <Heading as="h2" size="md">
-                    Plants (none registered)
-                </Heading>
+                <HStack justify={"space-between"}>
+                    <Heading as="h2" size="md">
+                        Plants (none registered)
+                    </Heading>
+                    <Button onClick={onOpen}>Add your first plant</Button>
+                </HStack>
+                <CreatePlantModal onClose={onClose} isOpen={isOpen} />
             </Box>
         );
     }

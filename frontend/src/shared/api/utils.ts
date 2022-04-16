@@ -1,7 +1,8 @@
+import axios from "axios";
 import { config } from "shared/config/config";
 
 export async function getJson<T>(url: string): Promise<T> {
-    const response = await fetch(`${config.api.url}/${url}`, {
+    const response = await fetch(`${url}`, {
         method: "GET",
     });
 
@@ -13,6 +14,17 @@ export async function getJson<T>(url: string): Promise<T> {
     const data = await response.json();
 
     return data;
+}
+
+export async function getJsonAxios<T>(url: string): Promise<T> {
+    try {
+        const result = await axios.get(url);
+
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
 
 export async function postJson<T>(url: string, data: T): Promise<any> {
@@ -36,6 +48,17 @@ export async function postJson<T>(url: string, data: T): Promise<any> {
     }
 }
 
+export async function postJsonAxios<T>(url: string, data: T): Promise<any> {
+    try {
+        const result = await axios.post(url, data);
+
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 export async function postFile(url: string, data: File): Promise<any> {
     const formData = new FormData();
     formData.append("file", data);
@@ -55,4 +78,18 @@ export async function postFile(url: string, data: File): Promise<any> {
     if (isJson) {
         return response.json();
     }
+}
+
+// https://maximorlov.com/send-a-file-with-axios-in-nodejs/
+export async function postFileAxios(url: string, data: File): Promise<any> {
+    const formData = new FormData();
+    formData.append("file", data);
+
+    const response = await axios.post(`${config.api.url}/${url}`, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+
+    return response.data;
 }

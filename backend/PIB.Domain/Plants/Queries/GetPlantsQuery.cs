@@ -1,12 +1,11 @@
 ﻿using MediatR;
 using MongoDB.Driver;
+using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.Mongo;
 
 namespace Domain.Plants.Queries;
 
-public class GetPlantsQuery: IStreamRequest<PlantDocument>
-{
-}
+public record GetPlantsQuery(User User) : IStreamRequest<PlantDocument>;
 
 public class GetPlantsQueryHandler : IStreamRequestHandler<GetPlantsQuery, PlantDocument>
 {
@@ -21,7 +20,7 @@ public class GetPlantsQueryHandler : IStreamRequestHandler<GetPlantsQuery, Plant
     {
         var collection = this._mongoRepository.GetCollection<PlantDocument>();
 
-        return collection.Find(FilterDefinition<PlantDocument>.Empty)
+        return collection.Find(Builders<PlantDocument>.Filter.Eq(x => x.UserId, request.User.Id))
             .ToAsyncEnumerable(cancellationToken: cancellationToken);
     }
 }

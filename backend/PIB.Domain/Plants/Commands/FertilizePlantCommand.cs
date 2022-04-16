@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using MongoDB.Driver;
+using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.Mongo;
 
 namespace Domain.Plants.Commands;
 
-public record FertilizePlantCommand(Guid PlantId) : IRequest<bool>;
+public record FertilizePlantCommand(User User, Guid PlantId) : IRequest<bool>;
 
 public class FertilizePlantCommandHandler : IRequestHandler<FertilizePlantCommand, bool>
 {
@@ -21,6 +22,7 @@ public class FertilizePlantCommandHandler : IRequestHandler<FertilizePlantComman
         var collection = this._mongoRepository.GetCollection<PlantDocument>();
         
         await collection.UpdateOneAsync(
+            Builders<PlantDocument>.Filter.Eq(x => x.UserId, command.User.Id) &
             Builders<PlantDocument>.Filter.Eq(x => x.PlantId, command.PlantId),
             Builders<PlantDocument>.Update.Set(x => x.Operations.LastFertilizedDate, DateTimeOffset.UtcNow)
             , cancellationToken: cancellationToken);

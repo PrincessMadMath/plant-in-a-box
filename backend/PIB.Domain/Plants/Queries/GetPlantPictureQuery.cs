@@ -36,6 +36,7 @@ public class GetPlantPictureQueryHandler : IRequestHandler<GetPlantPictureQuery,
     {
         try
         {
+            // Prevent broken permission access
             var result = await this._plantPictureRepository.GetUrl(request.PlantId);
         
             return result;
