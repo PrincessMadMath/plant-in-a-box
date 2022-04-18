@@ -1,4 +1,4 @@
-import { Box, ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { MantineProvider } from "@mantine/core";
 import Routes from "app/Routes";
 import axios from "axios";
@@ -26,9 +26,7 @@ function App() {
                 <ChakraProvider theme={theme}>
                     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
                     <QueryClientProvider client={queryClient}>
-                        <Box mx="6">
-                            <Routes />
-                        </Box>
+                        <Routes />
                         <ReactQueryDevtools initialIsOpen={false} />
                     </QueryClientProvider>
                 </ChakraProvider>

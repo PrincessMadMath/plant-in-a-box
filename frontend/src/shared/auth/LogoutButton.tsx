@@ -5,5 +5,9 @@ import React from "react";
 export const LogoutButton = () => {
     const { logout } = useAuth0();
 
-    return <Button onClick={() => logout()}>Log Out</Button>;
+    return (
+        <Button width="100%" onClick={() => logout()}>
+            Log Out
+        </Button>
+    );
 };

@@ -9,5 +9,9 @@ export const LoginButton = () => {
         loginWithRedirect({ redirectUri: `${window.location.origin}/overview` });
     };
 
-    return <Button onClick={handleLogin}>Log In</Button>;
+    return (
+        <Button width="100%" onClick={handleLogin}>
+            Log In
+        </Button>
+    );
 };
