@@ -1,29 +1,14 @@
-import { Auth0ProviderWithHistory } from "app/Auth0ProviderWithHistory";
-import { RequestInterceptor } from "app/RequestInterceptor";
-import { ActuatorDetailsPage } from "pages/actuatorDetails/ActuatorDetailsPage";
-
-import { OverviewPage } from "pages/overview/OverviewPage";
-import { ProfilePage } from "pages/profile/ProfilePage";
-import { SensorDetailsPage } from "pages/sensorDetails/SensorDetailsPage";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Shell } from "app/Shell";
 import { WelcomePage } from "pages/welcome/WelcomePage";
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ProtectedRoute } from "shared/auth/ProtectedRoute";
 
-const Routes = () => (
-    <Router>
-        <Auth0ProviderWithHistory>
-            <RequestInterceptor>
-                <Switch>
-                    <Route exact path="/" component={WelcomePage} />
-                    <ProtectedRoute path="/overview" component={OverviewPage} />
-                    <ProtectedRoute path="/sensor/:sensorId" component={SensorDetailsPage} />
-                    <ProtectedRoute path="/actuator/:actuatorId" component={ActuatorDetailsPage} />
-                    <ProtectedRoute path="/profile" component={ProfilePage} />
-                </Switch>
-            </RequestInterceptor>
-        </Auth0ProviderWithHistory>
-    </Router>
-);
+export const Routes = () => {
+    const { isAuthenticated, isLoading } = useAuth0();
 
-export default Routes;
+    if (!isAuthenticated) {
+        return <WelcomePage isLoading={isLoading} />;
+    }
+
+    return <Shell />;
+};
