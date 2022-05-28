@@ -10,16 +10,9 @@
 #
 # 3. Change the values for the APP_LOCATION, API_LOCATION and APP_ARTIFACT_LOCATION, AZURE_STATIC_WEB_APPS_API_TOKEN environment variables (below).
 #    For instructions on setting up the appropriate configuration values go to https://docs.microsoft.com/azure/static-web-apps/front-end-frameworks
-name: Deploy SPA 2
+name: Deploy SPA Manually
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - master
   workflow_dispatch:
   
 # Environment variables available to all jobs and steps in this workflow
@@ -48,11 +41,6 @@ jobs:
           app_location: ${{ env.APP_LOCATION }}
           app_artifact_location: ${{ env.APP_ARTIFACT_LOCATION }}
           ###### End of Repository/Build Configurations ######
-
-  close_pull_request_job:
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
       - name: Close Pull Request
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
