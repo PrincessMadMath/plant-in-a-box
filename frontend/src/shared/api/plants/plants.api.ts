@@ -16,8 +16,8 @@ export const getPlants = (): Promise<Plant[]> => {
     return getJsonAxios<Plant[]>(`plants`);
 };
 
-export const getPlant = (plantId: string): Promise<Plant[]> => {
-    return getJsonAxios<Plant[]>(`plants/${plantId}`);
+export const getPlant = (plantId: string): Promise<Plant> => {
+    return getJsonAxios<Plant>(`plants/${plantId}`);
 };
 
 export const createPlant = (createPlant: CreatePlantCommand): Promise<Plant> => {

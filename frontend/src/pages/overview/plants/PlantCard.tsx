@@ -23,6 +23,7 @@ import React from "react";
 import { FiChevronDown, FiChevronUp, FiDroplet, FiEdit } from "react-icons/fi";
 import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse } from "react-icons/gi";
 import { MdCake } from "react-icons/md";
+import { useHistory } from "react-router-dom";
 import { Plant, useGetPlantImageSource2 } from "shared/api";
 import { formatFrom } from "shared/utils";
 
@@ -139,6 +140,8 @@ interface PlantOperationsProps {
 }
 
 const PlantOperations = ({ plant, openUpdate }: PlantOperationsProps) => {
+    const history = useHistory();
+
     return (
         <Box>
             <VStack spacing={4}>
@@ -147,6 +150,15 @@ const PlantOperations = ({ plant, openUpdate }: PlantOperationsProps) => {
                 <RepotOperation plant={plant} />
                 <Button leftIcon={<FiEdit />} isFullWidth onClick={openUpdate}>
                     Edit
+                </Button>
+                <Button
+                    leftIcon={<FiEdit />}
+                    isFullWidth
+                    onClick={() => {
+                        history.push(`/plant/${plant.plantId}`);
+                    }}
+                >
+                    Details
                 </Button>
                 <DeleteOperation plant={plant} />
             </VStack>

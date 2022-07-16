@@ -2,6 +2,7 @@ import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import { AppShell, Burger, Header, MediaQuery, Navbar, useMantineTheme } from "@mantine/core";
 import { ActuatorDetailsPage } from "pages/actuatorDetails/ActuatorDetailsPage";
 import { OverviewPage } from "pages/overview/OverviewPage";
+import { PlantPage } from "pages/plant/PlantPage";
 import { ProfilePage } from "pages/profile/ProfilePage";
 import { SensorDetailsPage } from "pages/sensorDetails/SensorDetailsPage";
 
@@ -83,6 +84,7 @@ const AuthenticatedApp = () => {
         <Switch>
             <Route exact path="/" component={OverviewPage} />
             <ProtectedRoute path="/overview" component={OverviewPage} />
+            <ProtectedRoute path="/plant/:plantId" component={PlantPage} />
             <ProtectedRoute path="/sensor/:sensorId" component={SensorDetailsPage} />
             <ProtectedRoute path="/actuator/:actuatorId" component={ActuatorDetailsPage} />
             <ProtectedRoute path="/profile" component={ProfilePage} />

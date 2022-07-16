@@ -29,7 +29,7 @@ export function useGetPlants() {
 }
 
 export function useGetPlant(plantId: string) {
-    return useQuery<Plant[], any>(["plants", plantId], () => getPlant(plantId));
+    return useQuery<Plant, any>(["plants", plantId], () => getPlant(plantId));
 }
 
 export function useGetPlantImageSource(plantId: string, etag: string) {
