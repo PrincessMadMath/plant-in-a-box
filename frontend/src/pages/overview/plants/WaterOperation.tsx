@@ -13,7 +13,7 @@ export const WaterOperation = ({ plant }: WaterOperationProps) => {
     return (
         <Button
             leftIcon={<FiDroplet />}
-            isFullWidth
+            width="full"
             isLoading={waterCommand.isLoading}
             onClick={() => waterCommand.mutate({ plantId: plant.plantId })}
             colorScheme="teal"

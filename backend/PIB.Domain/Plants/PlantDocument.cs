@@ -35,5 +35,5 @@ public class CaringOperations
 
 public class Image
 {
-    public string Etag { get; set; }
+    public string Etag { get; set; } = string.Empty;
 }

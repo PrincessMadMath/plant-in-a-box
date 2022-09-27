@@ -27,7 +27,7 @@ export const DeleteOperation = ({ plant }: DeleteOperationProps) => {
         <>
             <Button
                 leftIcon={<FiDroplet />}
-                isFullWidth
+                width="full"
                 isLoading={deleteCommand.isLoading}
                 onClick={onOpen}
                 colorScheme="red"

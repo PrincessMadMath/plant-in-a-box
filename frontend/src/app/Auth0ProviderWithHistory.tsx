@@ -7,7 +7,7 @@ import { config } from "shared/config/config";
 export const Auth0ProviderWithHistory = ({ children }: any) => {
     const history = useHistory();
 
-    const onRedirectCallback = (appState: AppState) => {
+    const onRedirectCallback = (appState?: AppState) => {
         history.replace(appState?.returnTo || window.location.pathname);
     };
 

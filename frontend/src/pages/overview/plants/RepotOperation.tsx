@@ -36,7 +36,7 @@ export const RepotOperation = ({ plant }: RepotOperationProps) => {
                 leftIcon={<GiBoxUnpacking />}
                 isLoading={repotCommand.isLoading}
                 onClick={onOpen}
-                isFullWidth
+                width="full"
                 colorScheme="teal"
                 variant="outline"
             >

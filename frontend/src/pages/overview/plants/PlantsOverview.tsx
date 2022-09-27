@@ -8,6 +8,8 @@ import { PlantCards } from "./PlantCards";
 export const PlantsOverview = () => {
     const { isLoading: isPlantsLoading, data: plants } = useGetPlants();
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    // Hack to force cards
     const useTable = useBreakpointValue({ base: false, lg: true }) && false;
 
     if (isPlantsLoading) {

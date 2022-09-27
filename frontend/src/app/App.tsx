@@ -4,8 +4,6 @@ import { Auth0ProviderWithHistory } from "app/Auth0ProviderWithHistory";
 import { RequestInterceptor } from "app/RequestInterceptor";
 import { Routes } from "app/Routes";
 import axios from "axios";
-
-import dotenv from "dotenv";
 import React from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,8 +15,6 @@ import { config } from "shared/config/config";
 import theme from "./theme";
 
 const queryClient = new QueryClient();
-
-dotenv.config();
 
 function App() {
     axios.defaults.baseURL = config.api.url;

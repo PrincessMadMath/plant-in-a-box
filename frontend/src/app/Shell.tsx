@@ -5,6 +5,7 @@ import { OverviewPage } from "pages/overview/OverviewPage";
 import { PlantPage } from "pages/plant/PlantPage";
 import { ProfilePage } from "pages/profile/ProfilePage";
 import { SensorDetailsPage } from "pages/sensorDetails/SensorDetailsPage";
+import { SpeciesPage } from "pages/species/SpeciesPage";
 
 import React, { useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
@@ -33,6 +34,15 @@ export const Shell = () => {
                                 }}
                             >
                                 My Plants
+                            </Button>
+                            <Button
+                                mt={4}
+                                onClick={() => {
+                                    history.push(`/species`);
+                                    setOpened(false);
+                                }}
+                            >
+                                Species
                             </Button>
                             <Button
                                 mt={4}
@@ -84,6 +94,7 @@ const AuthenticatedApp = () => {
         <Switch>
             <Route exact path="/" component={OverviewPage} />
             <ProtectedRoute path="/overview" component={OverviewPage} />
+            <ProtectedRoute path="/species" component={SpeciesPage} />
             <ProtectedRoute path="/plant/:plantId" component={PlantPage} />
             <ProtectedRoute path="/sensor/:sensorId" component={SensorDetailsPage} />
             <ProtectedRoute path="/actuator/:actuatorId" component={ActuatorDetailsPage} />

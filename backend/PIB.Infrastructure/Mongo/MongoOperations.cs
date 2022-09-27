@@ -8,7 +8,7 @@ namespace PIB.Infrastructure.Mongo;
 public static class MongoOperations
 {
     
-    /// <summary>Get the first result or null.</summary>
+    /// <summary>Get the first result or null. (support nullable type)</summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
     /// <typeparam name="TProjection">The type of the projection (same as TDocument if there is no projection).</typeparam>
     /// <param name="find">The fluent find.</param>
@@ -16,10 +16,9 @@ public static class MongoOperations
     /// <returns>A Task whose result is the first result or null.</returns>
     public static async Task<TProjection?> FirstOrDefaultNullableAsync<TDocument, TProjection>(
         this IFindFluent<TDocument, TProjection> find,
-        CancellationToken cancellationToken = default (CancellationToken))
+        CancellationToken cancellationToken = default)
     {
-        Ensure.IsNotNull(find, nameof (find));
-        var value = await find.Limit(1).FirstOrDefaultAsync<TProjection>(cancellationToken) ;
+        var value = await find.FirstOrDefaultAsync(cancellationToken) ;
 
         if (value == null)
         {

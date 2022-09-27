@@ -148,12 +148,12 @@ const PlantOperations = ({ plant, openUpdate }: PlantOperationsProps) => {
                 <WaterOperation plant={plant} />
                 <FertilizeOperation plant={plant} />
                 <RepotOperation plant={plant} />
-                <Button leftIcon={<FiEdit />} isFullWidth onClick={openUpdate}>
+                <Button leftIcon={<FiEdit />} width="full" onClick={openUpdate}>
                     Edit
                 </Button>
                 <Button
                     leftIcon={<FiEdit />}
-                    isFullWidth
+                    width="full"
                     onClick={() => {
                         history.push(`/plant/${plant.plantId}`);
                     }}
