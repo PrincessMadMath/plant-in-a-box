@@ -1,5 +1,7 @@
 using Domain.IoT.Sensors;
+using Domain.IoT.Sensors.Commands;
 using Domain.IoT.Sensors.SoilMoisture;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIB.Api.Setup;
@@ -14,18 +16,29 @@ public class SensorsController : ControllerBase
 {
     private readonly ILogger<SensorsController> _logger;
     private readonly SoilMoistureService _soilMoistureService;
+    private readonly IMediator _mediator;
+
 
     // TODO: Add service that aggregate all sensors  service?
-    public SensorsController(ILogger<SensorsController> logger, SoilMoistureService soilMoistureService)
+    public SensorsController(ILogger<SensorsController> logger, SoilMoistureService soilMoistureService, IMediator mediator)
     {
         this._logger = logger;
         this._soilMoistureService = soilMoistureService;
+        this._mediator = mediator;
     }
 
     [HttpPost("register")]
     public IActionResult Register([FromBody] SoilMoistureSensor soilMoistureSensor)
     {
         this._soilMoistureService.RegisterSensor(soilMoistureSensor);
+
+        return this.Ok();
+    }
+    
+    [HttpPost("generate")]
+    public async Task<ActionResult> Generate()
+    {
+        await this._mediator.Send(new GenerateSensorsCommand(UserContext.CurrentUser, 5));
 
         return this.Ok();
     }

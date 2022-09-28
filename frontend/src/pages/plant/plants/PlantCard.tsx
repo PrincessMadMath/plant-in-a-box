@@ -13,12 +13,6 @@ import {
     useDisclosure,
     VStack,
 } from "@chakra-ui/react";
-import { DeleteOperation } from "pages/overview/plants/DeleteOperation";
-import { FertilizeOperation } from "pages/overview/plants/FertilizeOperation";
-import { RepotOperation } from "pages/overview/plants/RepotOperation";
-import { UpdatePlantModal } from "pages/overview/plants/UpdatePlantModal";
-import { UploadPictureModal } from "pages/overview/plants/UploadPictureModal";
-import { WaterOperation } from "pages/overview/plants/WaterOperation";
 import React from "react";
 import { FiChevronDown, FiChevronUp, FiDroplet, FiEdit } from "react-icons/fi";
 import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse } from "react-icons/gi";
@@ -26,6 +20,12 @@ import { MdCake } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { Plant, useGetPlantImageSource2 } from "shared/api";
 import { formatFrom } from "shared/utils";
+import { DeleteOperation } from "./DeleteOperation";
+import { FertilizeOperation } from "./FertilizeOperation";
+import { RepotOperation } from "./RepotOperation";
+import { UpdatePlantModal } from "./UpdatePlantModal";
+import { UploadPictureModal } from "./UploadPictureModal";
+import { WaterOperation } from "./WaterOperation";
 
 interface PlantCardProps {
     plant: Plant;

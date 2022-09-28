@@ -1,10 +1,11 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import { AppShell, Burger, Header, MediaQuery, Navbar, useMantineTheme } from "@mantine/core";
 import { ActuatorDetailsPage } from "pages/actuatorDetails/ActuatorDetailsPage";
-import { OverviewPage } from "pages/overview/OverviewPage";
 import { PlantPage } from "pages/plant/PlantPage";
+import { PlantsOverviewPage } from "pages/plant/PlantsOverviewPage";
 import { ProfilePage } from "pages/profile/ProfilePage";
-import { SensorDetailsPage } from "pages/sensorDetails/SensorDetailsPage";
+import { SensorDetailsPage } from "pages/sensors/sensorDetails/SensorDetailsPage";
+import { SensorsOverviewPage } from "pages/sensors/SensorsOverviewPage";
 import { SpeciesPage } from "pages/species/SpeciesPage";
 
 import React, { useState } from "react";
@@ -29,11 +30,20 @@ export const Shell = () => {
                         <Flex direction={"column"}>
                             <Button
                                 onClick={() => {
-                                    history.push(`/overview`);
+                                    history.push(`/plants`);
                                     setOpened(false);
                                 }}
                             >
                                 My Plants
+                            </Button>
+                            <Button
+                                mt={4}
+                                onClick={() => {
+                                    history.push(`/sensors`);
+                                    setOpened(false);
+                                }}
+                            >
+                                My Sensors
                             </Button>
                             <Button
                                 mt={4}
@@ -51,7 +61,7 @@ export const Shell = () => {
                                     setOpened(false);
                                 }}
                             >
-                                Profile
+                                My Profile
                             </Button>
                         </Flex>
                     </Navbar.Section>
@@ -92,9 +102,10 @@ export const Shell = () => {
 const AuthenticatedApp = () => {
     return (
         <Switch>
-            <Route exact path="/" component={OverviewPage} />
-            <ProtectedRoute path="/overview" component={OverviewPage} />
+            <Route exact path="/" component={PlantsOverviewPage} />
+            <ProtectedRoute path="/plants" component={PlantsOverviewPage} />
             <ProtectedRoute path="/species" component={SpeciesPage} />
+            <ProtectedRoute path="/sensors" component={SensorsOverviewPage} />
             <ProtectedRoute path="/plant/:plantId" component={PlantPage} />
             <ProtectedRoute path="/sensor/:sensorId" component={SensorDetailsPage} />
             <ProtectedRoute path="/actuator/:actuatorId" component={ActuatorDetailsPage} />

@@ -69,7 +69,7 @@ export function useCreatePlant() {
 
     return useMutation<Plant, Error, CreatePlantCommand>((mutation) => createPlant(mutation), {
         onSuccess: async (data, variables, context) => {
-            queryClient.invalidateQueries(["plants"]);
+            await queryClient.invalidateQueries(["plants"]);
         },
     });
 }

@@ -2,6 +2,7 @@ using PIB.Infrastructure.Mongo;
 
 namespace Domain.IoT.Sensors.SoilMoisture;
 
+[Collection("SoilMoistureSensors")]
 public class SoilMoistureSensorDocument : MongoDocument
 {
     public string UserId { get; init; } = String.Empty;

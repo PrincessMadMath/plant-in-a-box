@@ -6,7 +6,7 @@ export const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
 
     const handleLogin = () => {
-        loginWithRedirect({ redirectUri: `${window.location.origin}/overview` });
+        loginWithRedirect({ redirectUri: `${window.location.origin}/plants` });
     };
 
     return (

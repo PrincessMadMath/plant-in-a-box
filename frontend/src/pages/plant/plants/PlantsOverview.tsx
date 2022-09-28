@@ -1,6 +1,6 @@
 import { Box, Button, Center, Heading, HStack, Spinner, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
-import { CreatePlantModal } from "pages/overview/plants/CreatePlantModal";
-import { PlantsTable } from "pages/overview/plants/PlantsTable";
+import { CreatePlantModal } from "pages/plant/plants/CreatePlantModal";
+import { PlantsTable } from "pages/plant/plants/PlantsTable";
 import React from "react";
 import { useGetPlants } from "shared/api";
 import { PlantCards } from "./PlantCards";
