@@ -13,7 +13,7 @@ export const SpeciesCard = ({ species }: SpeciesCardProps) => {
     return (
         <Box w={"100%"} borderWidth="1px" borderRadius="lg" p={2}>
             <Grid templateColumns="max-content 1fr" gap={4}>
-                <Avatar name={species.name} size="xl" src={"https://via.placeholder.com/150"} />
+                <Avatar name={species.name} size="xl" />
                 <Box>
                     <Text fontSize="2xl">{species.name}</Text>
                     <HStack spacing={1}>

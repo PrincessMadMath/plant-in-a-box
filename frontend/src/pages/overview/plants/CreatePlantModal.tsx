@@ -12,10 +12,12 @@ import {
     ModalHeader,
     ModalOverlay,
 } from "@chakra-ui/react";
+import { Autocomplete } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
+import { Field, FieldProps, Form, Formik } from "formik";
 import React from "react";
 import { useCreatePlant } from "shared/api";
-import { Formik, Field, Form, FieldProps } from "formik";
+import { useGetAllSpecies } from "shared/api/species/species.hooks";
 
 interface CreatePlantModalProps {
     onClose: () => void;
@@ -24,6 +26,9 @@ interface CreatePlantModalProps {
 
 export const CreatePlantModal = ({ onClose, isOpen }: CreatePlantModalProps) => {
     const createPlantCommand = useCreatePlant();
+
+    const { data: species } = useGetAllSpecies();
+    const speciesName = species?.map((x) => x.name) ?? [];
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} isCentered>
@@ -69,7 +74,14 @@ export const CreatePlantModal = ({ onClose, isOpen }: CreatePlantModalProps) => 
                                         {({ field }: FieldProps) => (
                                             <FormControl>
                                                 <FormLabel htmlFor="species">Species</FormLabel>
-                                                <Input id="species" type="text" {...field} />
+                                                <Autocomplete
+                                                    {...field}
+                                                    zIndex={10000}
+                                                    onChange={(data) => {
+                                                        props.setFieldValue("species", data);
+                                                    }}
+                                                    data={speciesName}
+                                                />
                                             </FormControl>
                                         )}
                                     </Field>
