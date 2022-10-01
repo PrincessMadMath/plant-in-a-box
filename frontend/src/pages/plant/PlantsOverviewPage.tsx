@@ -1,5 +1,5 @@
 import { Box, Center, Heading } from "@chakra-ui/react";
-import {PlantsOverview} from "pages/plant/plants/PlantsOverview";
+import { PlantsOverview } from "pages/plant/plants/PlantsOverview";
 
 import React from "react";
 

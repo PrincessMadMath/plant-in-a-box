@@ -14,7 +14,7 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import { FiChevronDown, FiChevronUp, FiDroplet, FiEdit } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp, FiDroplet, FiEdit, FiFileText } from "react-icons/fi";
 import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse } from "react-icons/gi";
 import { MdCake } from "react-icons/md";
 import { useHistory } from "react-router-dom";
@@ -36,6 +36,8 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
     const { isOpen: isUpdateOpen, onOpen: onOpenUpdate, onClose: onCloseUpdate } = useDisclosure();
     const { isOpen: isUploadOpen, onOpen: onOpenUpload, onClose: onCloseUpload } = useDisclosure();
 
+    const history = useHistory();
+
     const imageSource = useGetPlantImageSource2(plant.plantId, plant.image.etag);
 
     return (
@@ -53,11 +55,20 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
                 <Box>
                     <Flex justify={"space-between"} direction={"row"}>
                         <Text fontSize="2xl">{plant.name}</Text>
-                        <IconButton
-                            aria-label="Expand plant information."
-                            onClick={onToggleExpand}
-                            icon={isExpanded ? <Icon as={FiChevronUp} /> : <Icon as={FiChevronDown} />}
-                        />
+                        <HStack>
+                            <IconButton
+                                icon={<FiFileText />}
+                                onClick={() => {
+                                    history.push(`/plant/${plant.plantId}`);
+                                }}
+                                aria-label="See details."
+                            />
+                            <IconButton
+                                aria-label="Expand plant information."
+                                onClick={onToggleExpand}
+                                icon={isExpanded ? <Icon as={FiChevronUp} /> : <Icon as={FiChevronDown} />}
+                            />
+                        </HStack>
                     </Flex>
                     <HStack spacing={1}>
                         <Icon as={FiDroplet} color={"gray.400"} />
@@ -140,8 +151,6 @@ interface PlantOperationsProps {
 }
 
 const PlantOperations = ({ plant, openUpdate }: PlantOperationsProps) => {
-    const history = useHistory();
-
     return (
         <Box>
             <VStack spacing={4}>
@@ -150,15 +159,6 @@ const PlantOperations = ({ plant, openUpdate }: PlantOperationsProps) => {
                 <RepotOperation plant={plant} />
                 <Button leftIcon={<FiEdit />} width="full" onClick={openUpdate}>
                     Edit
-                </Button>
-                <Button
-                    leftIcon={<FiEdit />}
-                    width="full"
-                    onClick={() => {
-                        history.push(`/plant/${plant.plantId}`);
-                    }}
-                >
-                    Details
                 </Button>
                 <DeleteOperation plant={plant} />
             </VStack>

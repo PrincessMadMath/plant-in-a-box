@@ -1,6 +1,6 @@
-import {CreateSpeciesCommand} from "shared/api/species/species.command";
-import {Species} from "shared/api/species/species.models";
-import {getJsonAxios, postJsonAxios} from "shared/api/utils";
+import { CreateSpeciesCommand } from "shared/api/species/species.command";
+import { Species } from "shared/api/species/species.models";
+import { getJsonAxios, postJsonAxios } from "shared/api/utils";
 
 export const getAllSpecies = (): Promise<Species[]> => {
     return getJsonAxios<Species[]>(`species`);

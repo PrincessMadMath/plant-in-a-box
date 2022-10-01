@@ -1,10 +1,6 @@
 import { Box, Button, Center, Heading, HStack, Spinner, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
-import { CreatePlantModal } from "pages/overview/plants/CreatePlantModal";
-import { PlantCards } from "pages/overview/plants/PlantCards";
-import { PlantsTable } from "pages/overview/plants/PlantsTable";
 import { CreateSpeciesModal } from "pages/species/CreateSpeciesModal";
-import {SpeciesCard} from "pages/species/SpeciesCard";
-import {SpeciesCards} from "pages/species/SpeciesCards";
+import { SpeciesCards } from "pages/species/SpeciesCards";
 import { SpeciesTable } from "pages/species/SpeciesTable";
 
 import React from "react";
@@ -50,9 +46,7 @@ export const SpeciesPage = () => {
                 <Button onClick={onOpen}>Add species</Button>
             </HStack>
             <CreateSpeciesModal onClose={onClose} isOpen={isOpen} />
-            <Box  pt={6}>  
-                {useTable ? <SpeciesTable species={species} /> : <SpeciesCards species={species} />}
-            </Box>
+            <Box pt={6}>{useTable ? <SpeciesTable species={species} /> : <SpeciesCards species={species} />}</Box>
         </Box>
     );
 };

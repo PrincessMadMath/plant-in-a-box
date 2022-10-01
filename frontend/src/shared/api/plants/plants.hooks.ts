@@ -4,6 +4,7 @@ import {
     CreatePlantCommand,
     DeletePlantCommand,
     FertilizePlantCommand,
+    LinkSensorCommand,
     RepotPlantCommand,
     UpdatePlantCommand,
     UploadImageCommand,
@@ -18,6 +19,7 @@ import {
     getPlant,
     getPlantImage,
     getPlants,
+    linkWithSoilMoistureSensor,
     repotPlant,
     updatePlant,
     uploadPlantImage,
@@ -166,3 +168,13 @@ const removePlantFromCache = async (client: QueryClient, plantId: string) => {
         });
     });
 };
+
+export function useLinkWithSoilMoistureSensor() {
+    const queryClient = useQueryClient();
+
+    return useMutation<void, Error, LinkSensorCommand>((mutation) => linkWithSoilMoistureSensor(mutation), {
+        onSuccess: async (data, variables, context) => {
+            await queryClient.invalidateQueries(["plants", variables.plantId]);
+        },
+    });
+}

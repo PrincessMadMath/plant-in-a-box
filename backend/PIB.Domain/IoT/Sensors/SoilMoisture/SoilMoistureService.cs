@@ -19,7 +19,7 @@ public class SoilMoistureService
 
         return collection.InsertOneAsync(new SoilMoistureSensorDocument()
         {
-            SensorId = sensor.Id, Name = sensor.Name, Status = sensor.Status,
+            SensorId = sensor.Id, Name = sensor.Name, Status = sensor.Status
         });
     }
 
@@ -39,7 +39,7 @@ public class SoilMoistureService
         }
 
         // TODO: Query last data?
-        return new SoilMoistureSensor(sensorDocument.SensorId, sensorDocument.Name, sensorDocument.Status, null);
+        return new SoilMoistureSensor(sensorDocument.SensorId, sensorDocument.Name, sensorDocument.Status, sensorDocument.LastDataPoint);
     }
     
     public async IAsyncEnumerable<SoilMoistureSensor> GetSensors(string userId)
@@ -53,39 +53,10 @@ public class SoilMoistureService
 
         await foreach (var sensorDocument in query)
         {
-            yield return new SoilMoistureSensor(sensorDocument.SensorId, sensorDocument.Name, sensorDocument.Status, null); 
-        }
-    }
-    
-    public async IAsyncEnumerable<SoilMoistureSensor> GetPlantSensors(string userId, Guid plantId)
-    {
-        var collection = this._mongoRepository.GetCollection<SoilMoistureSensorDocument>();
-
-        var query = collection.Find(
-                Builders<SoilMoistureSensorDocument>.Filter.Eq(x => x.UserId, userId)  & 
-                Builders<SoilMoistureSensorDocument>.Filter.Eq(x => x.PlantId, plantId)
-            )
-            .ToAsyncEnumerable();
-
-        await foreach (var sensorDocument in query)
-        {
-            yield return new SoilMoistureSensor(sensorDocument.SensorId, sensorDocument.Name, sensorDocument.Status, null); 
+            yield return new SoilMoistureSensor(sensorDocument.SensorId, sensorDocument.Name, sensorDocument.Status, sensorDocument.LastDataPoint); 
         }
     }
 
-    public async Task LinkSensor(string userId, Guid linkSensorSensorId, Guid linkSensorPlantId)
-    {
-        // Validate plantID is to the user
-        var collection = this._mongoRepository.GetCollection<SoilMoistureSensorDocument>();
-
-        var filter = Builders<SoilMoistureSensorDocument>.Filter.Eq(x => x.UserId, userId) &
-                     Builders<SoilMoistureSensorDocument>.Filter.Eq(x => x.SensorId, linkSensorSensorId);
-
-        var update = Builders<SoilMoistureSensorDocument>.Update.Set(x => x.PlantId, linkSensorPlantId);
-
-        await collection.UpdateOneAsync(filter, update);
-    }
-    
     public Task AddData(string userId, Guid sensorId, SoilMoistureData newData)
     {
         var collection = this._mongoRepository.GetCollection<SoilMoistureDataPointDocument>();

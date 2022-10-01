@@ -14,6 +14,14 @@ interface SensorDetailsPageProps {
 export const SensorDetailsPage = () => {
     let { sensorId } = useParams<SensorDetailsPageProps>();
 
+    return (
+        <Box mt="8">
+            <SensorDetails sensorId={sensorId} />
+        </Box>
+    );
+};
+
+export const SensorDetails = ({ sensorId }: SensorDetailsPageProps) => {
     const { isLoading: isSensorLoading, data: sensor } = useGetSensor(sensorId);
     const { isLoading: isHistoryLoading, data: sensorHistory } = useGetHistory(sensorId);
     const { isLoading: isLogsLoading, data: sensorLogs } = useGetSensorLogs(sensorId);

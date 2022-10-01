@@ -4,6 +4,7 @@ import {
     CreatePlantCommand,
     DeletePlantCommand,
     FertilizePlantCommand,
+    LinkSensorCommand,
     RepotPlantCommand,
     UpdatePlantCommand,
     UploadImageCommand,
@@ -50,4 +51,8 @@ export const fertilizePlant = (command: FertilizePlantCommand): Promise<any> => 
 
 export const repotPlant = (command: RepotPlantCommand): Promise<any> => {
     return postJsonAxios(`plants/repot`, command);
+};
+
+export const linkWithSoilMoistureSensor = (command: LinkSensorCommand): Promise<any> => {
+    return postJsonAxios(`plants/linkSoilMoistureSensor`, command);
 };

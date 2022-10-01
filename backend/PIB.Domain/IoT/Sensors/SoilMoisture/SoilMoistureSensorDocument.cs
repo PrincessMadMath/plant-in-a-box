@@ -11,7 +11,7 @@ public class SoilMoistureSensorDocument : MongoDocument
     
     public string Name { get; init;  } = String.Empty;
 
-    public Guid? PlantId { get; set; }
-
     public SensorStatus Status { get; init; }
+
+    public SoilMoistureData? LastDataPoint { get; set; }
 }

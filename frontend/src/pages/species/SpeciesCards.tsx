@@ -1,4 +1,4 @@
-import {Box, Divider, HStack, Text, VStack} from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import { SpeciesCard } from "pages/species/SpeciesCard";
 import React from "react";
 import { Species } from "shared/api/species";
@@ -12,7 +12,7 @@ export const SpeciesCards = ({ species }: SpeciesCardsProps) => {
         <Box>
             <VStack>
                 {species.map((s) => {
-                    return <SpeciesCard key={s.speciesId} species={s} />
+                    return <SpeciesCard key={s.speciesId} species={s} />;
                 })}
             </VStack>
         </Box>

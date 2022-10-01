@@ -43,7 +43,6 @@ public class SensorsController : ControllerBase
         return this.Ok();
     }
 
-    // TODO: Return last  data
     [HttpGet("")]
     public async Task<ActionResult<IReadOnlyList<ISensor>>> GetSensors()
     {
@@ -51,20 +50,11 @@ public class SensorsController : ControllerBase
         return sensors;
     }
     
-    // TODO: Return last  data
     [HttpGet("plant/{plantId}")]
     public async Task<ActionResult<IReadOnlyList<ISensor>>> GetPlantSensors(Guid plantId)
     {
         var sensors = await this._soilMoistureService.GetSensors(UserContext.CurrentUser.Id).ToListAsync();
         return sensors;
-    }
-    
-    // TODO: Return last  data
-    [HttpPost("plant/link")]
-    public async Task<ActionResult> GetPlantSensors(LinkSensor linkSensor)
-    {
-        await this._soilMoistureService.LinkSensor(UserContext.CurrentUser.Id, linkSensor.SensorId, linkSensor.PlantId);
-        return this.Ok();
     }
     
     public record LinkSensor(Guid PlantId, Guid SensorId);

@@ -20,6 +20,7 @@ public class CreateSpeciesCommandHandler: IRequestHandler<CreateSpeciesCommand, 
 
         var newSpecies = new SpeciesDocument()
         {
+            SpeciesId = Guid.NewGuid(),
             Name = command.Name,
             WateringFrequency = command.WateringFrequency,
             FertilizationFrequency = command.FertilizationFrequency,

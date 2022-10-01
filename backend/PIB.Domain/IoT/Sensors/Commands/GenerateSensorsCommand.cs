@@ -31,6 +31,21 @@ public class GenerateSensorsCommandHandler : IRequestHandler<GenerateSensorsComm
     {
         var sensorId = Guid.NewGuid();
 
+        var dataPointCollection = this._mongoRepository.GetCollection<SoilMoistureDataPointDocument>();
+        var random = new Random();
+
+        var dataPoints = Enumerable.Range(0, 200).Select(index => new SoilMoistureDataPointDocument()
+        {
+            UserId = userId,
+            SensorId = sensorId,
+            Value = index + random.Next(5),
+            Date = DateTimeOffset.UtcNow - TimeSpan.FromHours(index),
+        }).ToList();
+
+        await dataPointCollection.InsertManyAsync(dataPoints);
+
+        var lastDataPoint = dataPoints.First();
+
         var sensorCollection = this._mongoRepository.GetCollection<SoilMoistureSensorDocument>();
         await sensorCollection.InsertOneAsync(new SoilMoistureSensorDocument()
         {
@@ -38,19 +53,7 @@ public class GenerateSensorsCommandHandler : IRequestHandler<GenerateSensorsComm
             SensorId = sensorId,
             Name = $"Sensor-{sensorId.ToString().Substring(0, 3)}",
             Status = SensorStatus.Online,
+            LastDataPoint = new SoilMoistureData(lastDataPoint.Value, lastDataPoint.Date)
         });
-
-        var dataPointCollection = this._mongoRepository.GetCollection<SoilMoistureDataPointDocument>();
-        var random = new Random();
-        for (int i = 0; i < 200; i++)
-        {
-            await dataPointCollection.InsertOneAsync(new SoilMoistureDataPointDocument()
-            {
-                UserId = userId,
-                SensorId = sensorId,
-                Value = i + random.Next(5),
-                Date = DateTimeOffset.UtcNow - TimeSpan.FromHours(i),
-            });
-        }
     }
 }

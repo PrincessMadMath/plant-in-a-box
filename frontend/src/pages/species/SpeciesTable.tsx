@@ -1,14 +1,13 @@
-import {Box, Heading, Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import { Box, Heading, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import React from "react";
-import {Species} from "shared/api/species";
-import {toDuration} from "shared/utils/duration";
-
+import { Species } from "shared/api/species";
+import { toDuration } from "shared/utils/duration";
 
 interface SpeciesTableProps {
     species: Species[];
 }
 
-export const SpeciesTable = ({species}: SpeciesTableProps) => {
+export const SpeciesTable = ({ species }: SpeciesTableProps) => {
     return (
         <Box mt="8">
             <Heading as="h2" size="md">
@@ -34,4 +33,4 @@ export const SpeciesTable = ({species}: SpeciesTableProps) => {
             </Table>
         </Box>
     );
-}
+};

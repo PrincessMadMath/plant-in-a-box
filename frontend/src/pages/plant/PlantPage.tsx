@@ -1,4 +1,5 @@
 import { Box, Center, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { PlantSensors } from "pages/plant/plantDetails/PlantSensors";
 
 import React from "react";
 import { useParams } from "react-router-dom";
@@ -32,20 +33,12 @@ export const PlantPage = () => {
             Plant {plant.name}
             <Tabs>
                 <TabList>
-                    <Tab>Info2</Tab>
-                    <Tab>Species</Tab>
-                    <Tab>Activities</Tab>
+                    <Tab>Sensors</Tab>
                 </TabList>
 
                 <TabPanels>
                     <TabPanel>
-                        <p>one!</p>
-                    </TabPanel>
-                    <TabPanel>
-                        <p>two!</p>
-                    </TabPanel>
-                    <TabPanel>
-                        <p>three!</p>
+                        <PlantSensors plant={plant} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
