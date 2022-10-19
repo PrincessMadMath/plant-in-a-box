@@ -6,7 +6,7 @@ namespace Domain.Species.Queries;
 
 public record GetSpeciesQuery(Guid SpeciesId) : IRequest<SpeciesDocument?>;
 
-public class GetSpeciesQueryHandler: IRequestHandler<GetSpeciesQuery, SpeciesDocument>
+public class GetSpeciesQueryHandler: IRequestHandler<GetSpeciesQuery, SpeciesDocument?>
 {
     private readonly MongoRepository _mongoRepository;
 
