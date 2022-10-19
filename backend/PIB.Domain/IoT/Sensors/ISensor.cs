@@ -10,5 +10,5 @@ public interface ISensor
     
     public SensorStatus Status { get; }
 
-    public ISensorData LastData { get; }
+    public ISensorData? LastData { get; }
 }
