@@ -1,6 +1,6 @@
 import { Box, Button, Center, Heading, HStack, Spinner, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
-import { CreatePlantModal } from "pages/overview/plants/CreatePlantModal";
-import { PlantsTable } from "pages/overview/plants/PlantsTable";
+import { CreatePlantModal } from "pages/plant/plants/CreatePlantModal";
+import { PlantsTable } from "pages/plant/plants/PlantsTable";
 import React from "react";
 import { useGetPlants } from "shared/api";
 import { PlantCards } from "./PlantCards";
@@ -8,6 +8,8 @@ import { PlantCards } from "./PlantCards";
 export const PlantsOverview = () => {
     const { isLoading: isPlantsLoading, data: plants } = useGetPlants();
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    // Hack to force cards
     const useTable = useBreakpointValue({ base: false, lg: true }) && false;
 
     if (isPlantsLoading) {

@@ -16,7 +16,6 @@ public class CreatePlantCommandHandler : IRequestHandler<CreatePlantCommand, Pla
         this._mongoRepository = mongoRepository;
     }
 
-
     public async Task<PlantDocument> Handle(CreatePlantCommand command, CancellationToken cancellationToken)
     {
         var collection = this._mongoRepository.GetCollection<PlantDocument>();

@@ -13,7 +13,7 @@ import {
 } from "shared/api/actuators";
 import { DatePicker } from "shared/components/datePicker/datePicker";
 import { dateToTimeOnly, durationBetween, timeOnlyToDate } from "shared/utils";
-import { printDuration } from "shared/utils/duration";
+import { toTimespan } from "shared/utils/duration";
 
 interface GrowthLightControlProps {
     actuator: Actuator;
@@ -56,7 +56,7 @@ export const GrowthLightControl = ({ actuator }: GrowthLightControlProps) => {
         actuatorAutomaticSettingsMutation.mutate({
             actuatorId: actuator.id,
             data: {
-                sunriseTime: printDuration(dateToTimeOnly(newSunRise)),
+                sunriseTime: toTimespan(dateToTimeOnly(newSunRise)),
                 sunsetTime: growthLightConfigQuery.data!.automatedSettings.sunsetTime,
             },
         });
@@ -67,7 +67,7 @@ export const GrowthLightControl = ({ actuator }: GrowthLightControlProps) => {
             actuatorId: actuator.id,
             data: {
                 sunriseTime: growthLightConfigQuery.data!.automatedSettings.sunriseTime,
-                sunsetTime: printDuration(dateToTimeOnly(newSunset)),
+                sunsetTime: toTimespan(dateToTimeOnly(newSunset)),
             },
         });
     };

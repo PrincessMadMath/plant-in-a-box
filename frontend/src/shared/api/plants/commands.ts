@@ -40,3 +40,8 @@ export interface RepotPlantCommand {
     plantId: string;
     pot: string;
 }
+
+export interface LinkSensorCommand {
+    plantId: string;
+    sensorId: string;
+}

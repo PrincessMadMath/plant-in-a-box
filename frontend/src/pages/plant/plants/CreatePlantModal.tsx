@@ -12,28 +12,31 @@ import {
     ModalHeader,
     ModalOverlay,
 } from "@chakra-ui/react";
+import { Autocomplete } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
+import { Field, FieldProps, Form, Formik } from "formik";
 import React from "react";
-import { Plant, useUpdatePlant } from "shared/api";
-import { Formik, Field, Form, FieldProps } from "formik";
+import { useCreatePlant } from "shared/api";
+import { useGetAllSpecies } from "shared/api/species/species.hooks";
 
-interface UpdatePlantModalProps {
-    plant: Plant;
+interface CreatePlantModalProps {
     onClose: () => void;
     isOpen: boolean;
 }
 
-export const UpdatePlantModal = ({ plant, onClose, isOpen }: UpdatePlantModalProps) => {
-    const updatePlantCommand = useUpdatePlant();
+export const CreatePlantModal = ({ onClose, isOpen }: CreatePlantModalProps) => {
+    const createPlantCommand = useCreatePlant();
+
+    const { data: species } = useGetAllSpecies();
+    const speciesName = species?.map((x) => x.name) ?? [];
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} isCentered>
             <Formik
-                initialValues={{ ...plant, acquisitionDate: new Date(plant.acquisitionDate) }}
+                initialValues={{ name: "", species: "", room: "", pot: "", acquisitionDate: new Date() }}
                 onSubmit={async (values, actions) => {
-                    updatePlantCommand.mutate(
+                    createPlantCommand.mutate(
                         {
-                            plantId: values.plantId,
                             name: values.name,
                             species: values.species,
                             room: values.room,
@@ -55,7 +58,7 @@ export const UpdatePlantModal = ({ plant, onClose, isOpen }: UpdatePlantModalPro
                     <Form>
                         <ModalOverlay />
                         <ModalContent>
-                            <ModalHeader>Update Plant</ModalHeader>
+                            <ModalHeader>Create Plant</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
                                 <Box>
@@ -71,7 +74,14 @@ export const UpdatePlantModal = ({ plant, onClose, isOpen }: UpdatePlantModalPro
                                         {({ field }: FieldProps) => (
                                             <FormControl>
                                                 <FormLabel htmlFor="species">Species</FormLabel>
-                                                <Input id="species" type="text" {...field} />
+                                                <Autocomplete
+                                                    {...field}
+                                                    zIndex={10000}
+                                                    onChange={(data) => {
+                                                        props.setFieldValue("species", data);
+                                                    }}
+                                                    data={speciesName}
+                                                />
                                             </FormControl>
                                         )}
                                     </Field>
@@ -114,7 +124,7 @@ export const UpdatePlantModal = ({ plant, onClose, isOpen }: UpdatePlantModalPro
                                     Cancel
                                 </Button>
                                 <Button type={"submit"} isLoading={props.isSubmitting} colorScheme="teal">
-                                    Update plant
+                                    Add plant
                                 </Button>
                             </ModalFooter>
                         </ModalContent>

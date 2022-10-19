@@ -10,7 +10,7 @@ import {
     useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import { FiDroplet } from "react-icons/fi";
+import { FiTrash } from "react-icons/fi";
 import { Plant, useDeletePlant } from "shared/api";
 
 interface DeleteOperationProps {
@@ -26,8 +26,8 @@ export const DeleteOperation = ({ plant }: DeleteOperationProps) => {
     return (
         <>
             <Button
-                leftIcon={<FiDroplet />}
-                isFullWidth
+                leftIcon={<FiTrash />}
+                width="full"
                 isLoading={deleteCommand.isLoading}
                 onClick={onOpen}
                 colorScheme="red"

@@ -4,6 +4,7 @@ import {
     CreatePlantCommand,
     DeletePlantCommand,
     FertilizePlantCommand,
+    LinkSensorCommand,
     RepotPlantCommand,
     UpdatePlantCommand,
     UploadImageCommand,
@@ -18,6 +19,7 @@ import {
     getPlant,
     getPlantImage,
     getPlants,
+    linkWithSoilMoistureSensor,
     repotPlant,
     updatePlant,
     uploadPlantImage,
@@ -29,7 +31,7 @@ export function useGetPlants() {
 }
 
 export function useGetPlant(plantId: string) {
-    return useQuery<Plant[], any>(["plants", plantId], () => getPlant(plantId));
+    return useQuery<Plant, any>(["plants", plantId], () => getPlant(plantId));
 }
 
 export function useGetPlantImageSource(plantId: string, etag: string) {
@@ -69,7 +71,7 @@ export function useCreatePlant() {
 
     return useMutation<Plant, Error, CreatePlantCommand>((mutation) => createPlant(mutation), {
         onSuccess: async (data, variables, context) => {
-            queryClient.invalidateQueries(["plants"]);
+            await queryClient.invalidateQueries(["plants"]);
         },
     });
 }
@@ -166,3 +168,13 @@ const removePlantFromCache = async (client: QueryClient, plantId: string) => {
         });
     });
 };
+
+export function useLinkWithSoilMoistureSensor() {
+    const queryClient = useQueryClient();
+
+    return useMutation<void, Error, LinkSensorCommand>((mutation) => linkWithSoilMoistureSensor(mutation), {
+        onSuccess: async (data, variables, context) => {
+            await queryClient.invalidateQueries(["plants", variables.plantId]);
+        },
+    });
+}

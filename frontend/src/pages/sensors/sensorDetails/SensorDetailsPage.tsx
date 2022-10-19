@@ -1,6 +1,6 @@
 import { Box, Center, Grid, Heading, Spinner, Stat, StatHelpText, StatLabel, StatNumber } from "@chakra-ui/react";
-import { SensorHistory } from "pages/sensorDetails/SensorHistory";
-import { SensorInfo } from "pages/sensorDetails/SensorInfo";
+import { SensorHistory } from "pages/sensors/sensorDetails/SensorHistory";
+import { SensorInfo } from "pages/sensors/sensorDetails/SensorInfo";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetHistory, useGetSensor, useGetSensorLogs } from "shared/api/sensors";
@@ -14,6 +14,14 @@ interface SensorDetailsPageProps {
 export const SensorDetailsPage = () => {
     let { sensorId } = useParams<SensorDetailsPageProps>();
 
+    return (
+        <Box mt="8">
+            <SensorDetails sensorId={sensorId} />
+        </Box>
+    );
+};
+
+export const SensorDetails = ({ sensorId }: SensorDetailsPageProps) => {
     const { isLoading: isSensorLoading, data: sensor } = useGetSensor(sensorId);
     const { isLoading: isHistoryLoading, data: sensorHistory } = useGetHistory(sensorId);
     const { isLoading: isLogsLoading, data: sensorLogs } = useGetSensorLogs(sensorId);
@@ -41,8 +49,8 @@ export const SensorDetailsPage = () => {
                     <Box>
                         <Stat display="flex" justifyContent="center">
                             <StatLabel>Current Value</StatLabel>
-                            <StatNumber>{sensor!.lastData.value}</StatNumber>
-                            <StatHelpText>{formatFrom(sensor!.lastData.date)}</StatHelpText>
+                            <StatNumber>{sensor!.lastData?.value}</StatNumber>
+                            <StatHelpText>{formatFrom(sensor!.lastData?.date)}</StatHelpText>
                         </Stat>
                         <Box mt="3">
                             <SensorInfo sensor={sensor!} />

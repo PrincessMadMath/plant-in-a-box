@@ -1,7 +1,7 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { DeviceLog, SensorData } from "../index";
 import { Sensor } from "./models";
-import { getSensor, getSensorHistory, getSensorLogs, getSensorsList } from "./sensors.api";
+import { generateFakeSensors, getSensor, getSensorHistory, getSensorLogs, getSensorsList } from "./sensors.api";
 
 export function useGetSensors() {
     return useQuery<Sensor[], any>("sensors", getSensorsList);
@@ -17,4 +17,14 @@ export function useGetHistory(sensorId: string) {
 
 export function useGetSensorLogs(sensorId: string) {
     return useQuery<DeviceLog[], any>(["sensor", "logs", sensorId], () => getSensorLogs(sensorId));
+}
+
+export function useCreateSensors() {
+    const queryClient = useQueryClient();
+
+    return useMutation((mutation) => generateFakeSensors(), {
+        onSuccess: async (data, variables, context) => {
+            await queryClient.invalidateQueries(["sensor"]);
+        },
+    });
 }
