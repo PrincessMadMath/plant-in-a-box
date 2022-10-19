@@ -1,7 +1,7 @@
 // From moment.js: https://github.com/moment/moment/blob/develop/src/lib/duration/create.js
 
 import dayjs from "dayjs";
-import duration, { Duration } from "dayjs/plugin/duration";
+import duration, {Duration} from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
 
@@ -22,7 +22,7 @@ enum TimespanUnitGroup {
 // TODO: Move to ISO 8601?
 
 // From Asp Net format
-export const parseDuration = (time: string) => {
+export const toDuration = (time: string) => {
     const match = aspNetRegex.exec(time);
     if (match === null) {
         throw new Error("Unsupported duration format. Expecting asp.net format.");
@@ -43,7 +43,7 @@ export const parseDuration = (time: string) => {
 };
 
 // To Asp Net Format
-export const printDuration = (duration: Duration) => {
+export const toTimespan = (duration: Duration) => {
     return `${Math.floor(
         duration.asDays()
     )}.${duration.hours()}:${duration.minutes()}:${duration.seconds()}.${duration.milliseconds()}`;

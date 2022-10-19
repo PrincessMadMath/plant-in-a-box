@@ -167,4 +167,17 @@ public class PlantsController : ControllerBase
 
         return this.Ok();
     }
+    
+    // TODO: Return last  data
+    [HttpPost("linkSoilMoistureSensor")]
+    public async Task<ActionResult> GetPlantSensors(PlantsControllerModels.LinkSoilMoistureSensorRequest request)
+    {
+        await this._mediator.Send(new LinkPlantWithSoilMoistureSensorCommand(
+            UserContext.CurrentUser,
+            request.PlantId,
+            request.SensorId
+        ));
+
+        return this.Ok();
+    }
 }

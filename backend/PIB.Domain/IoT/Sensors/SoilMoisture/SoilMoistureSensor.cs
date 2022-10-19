@@ -2,7 +2,7 @@ namespace Domain.IoT.Sensors.SoilMoisture;
 
 public class SoilMoistureSensor: ISensor
 {
-    public SoilMoistureSensor(Guid id, string name, SensorStatus status, ISensorData lastData)
+    public SoilMoistureSensor(Guid id, string name, SensorStatus status, ISensorData? lastData)
     {
         this.Id = id;
         this.Name = name;
@@ -18,5 +18,5 @@ public class SoilMoistureSensor: ISensor
     
     public SensorStatus Status { get; }
     
-    public ISensorData LastData { get; }
+    public ISensorData? LastData { get; }
 }

@@ -13,7 +13,7 @@ export const FertilizeOperation = ({ plant }: FertilizeOperationProps) => {
     return (
         <Button
             leftIcon={<GiFertilizerBag />}
-            isFullWidth
+            width="full"
             isLoading={fertilizeCommand.isLoading}
             onClick={() => fertilizeCommand.mutate({ plantId: plant.plantId })}
             colorScheme="teal"

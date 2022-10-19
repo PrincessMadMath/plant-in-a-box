@@ -4,6 +4,7 @@ import {
     CreatePlantCommand,
     DeletePlantCommand,
     FertilizePlantCommand,
+    LinkSensorCommand,
     RepotPlantCommand,
     UpdatePlantCommand,
     UploadImageCommand,
@@ -16,8 +17,8 @@ export const getPlants = (): Promise<Plant[]> => {
     return getJsonAxios<Plant[]>(`plants`);
 };
 
-export const getPlant = (plantId: string): Promise<Plant[]> => {
-    return getJsonAxios<Plant[]>(`plants/${plantId}`);
+export const getPlant = (plantId: string): Promise<Plant> => {
+    return getJsonAxios<Plant>(`plants/${plantId}`);
 };
 
 export const createPlant = (createPlant: CreatePlantCommand): Promise<Plant> => {
@@ -50,4 +51,8 @@ export const fertilizePlant = (command: FertilizePlantCommand): Promise<any> => 
 
 export const repotPlant = (command: RepotPlantCommand): Promise<any> => {
     return postJsonAxios(`plants/repot`, command);
+};
+
+export const linkWithSoilMoistureSensor = (command: LinkSensorCommand): Promise<any> => {
+    return postJsonAxios(`plants/linkSoilMoistureSensor`, command);
 };

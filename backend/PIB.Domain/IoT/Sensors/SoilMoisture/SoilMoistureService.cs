@@ -1,60 +1,86 @@
+using MongoDB.Driver;
+using PIB.Infrastructure.Mongo;
+
 namespace Domain.IoT.Sensors.SoilMoisture;
 
 // Does not  support concurrent operations.
 public class SoilMoistureService
 {
-    private readonly Dictionary<Guid, SoilMoistureSensor> _sensors = new();
-    
-    private readonly Dictionary<Guid, List<SoilMoistureData>> _sensorsData = new();
-    
-    public void RegisterSensor(SoilMoistureSensor sensor)
-    {
-        if (this._sensorsData.ContainsKey(sensor.Id))
-        {
-            throw new ArgumentException("Sensor already exist.");
-        }
+    private readonly MongoRepository _mongoRepository;
 
-        this._sensors.Add(sensor.Id, sensor);
+    public SoilMoistureService(MongoRepository mongoRepository)
+    {
+        this._mongoRepository = mongoRepository;
+    }
+    
+    public Task RegisterSensor(SoilMoistureSensor sensor)
+    {
+        var collection = this._mongoRepository.GetCollection<SoilMoistureSensorDocument>();
+
+        return collection.InsertOneAsync(new SoilMoistureSensorDocument()
+        {
+            SensorId = sensor.Id, Name = sensor.Name, Status = sensor.Status
+        });
     }
 
-    public SoilMoistureSensor GetSensor(Guid sensorId)
+    public async Task<SoilMoistureSensor> GetSensor(string userId, Guid sensorId)
     {
-        if (this._sensors.TryGetValue(sensorId, out var sensor))
-        {
-            return sensor;
-        }
+        var collection = this._mongoRepository.GetCollection<SoilMoistureSensorDocument>();
         
-        throw new ArgumentException("Sensor does not exist.");
-    }
-    
-    public IReadOnlyList<SoilMoistureSensor> GetSensors()
-    {
-        return this._sensors.Values.ToList();
-    }
-    
-    public void AddData(Guid sensorId, SoilMoistureData newData)
-    {
-        if (this._sensorsData.TryGetValue(sensorId, out var values))
+        var sensorDocument = await collection.Find(
+                Builders<SoilMoistureSensorDocument>.Filter.Eq(x => x.UserId, userId) & 
+                Builders<SoilMoistureSensorDocument>.Filter.Eq(x => x.SensorId, sensorId)
+                )
+            .FirstOrDefaultAsync();
+        
+        if (sensorDocument == null)
         {
-            values.Add(newData);
+            throw new ArgumentException("Sensor does not exist.");
         }
-        else
+
+        // TODO: Query last data?
+        return new SoilMoistureSensor(sensorDocument.SensorId, sensorDocument.Name, sensorDocument.Status, sensorDocument.LastDataPoint);
+    }
+    
+    public async IAsyncEnumerable<SoilMoistureSensor> GetSensors(string userId)
+    {
+        var collection = this._mongoRepository.GetCollection<SoilMoistureSensorDocument>();
+
+        var query = collection.Find(
+                Builders<SoilMoistureSensorDocument>.Filter.Eq(x => x.UserId, userId)
+            )
+            .ToAsyncEnumerable();
+
+        await foreach (var sensorDocument in query)
         {
-            var data = new List<SoilMoistureData>() { newData };
-            
-            this._sensorsData.Add(sensorId, data);
+            yield return new SoilMoistureSensor(sensorDocument.SensorId, sensorDocument.Name, sensorDocument.Status, sensorDocument.LastDataPoint); 
         }
     }
 
-    public IReadOnlyList<SoilMoistureData> GetData(Guid sensorId)
+    public Task AddData(string userId, Guid sensorId, SoilMoistureData newData)
     {
-        if (this._sensorsData.TryGetValue(sensorId, out var values))
+        var collection = this._mongoRepository.GetCollection<SoilMoistureDataPointDocument>();
+
+        return collection.InsertOneAsync(new SoilMoistureDataPointDocument()
         {
-            return values;
-        }
-        else
+            UserId = userId, SensorId = sensorId, Value = newData.Value, Date = newData.Date,
+        });
+    }
+
+    public async IAsyncEnumerable<SoilMoistureData> GetData(string userId, Guid sensorId)
+    {
+        var collection = this._mongoRepository.GetCollection<SoilMoistureDataPointDocument>();
+
+        var query = collection.Find(
+                Builders<SoilMoistureDataPointDocument>.Filter.Eq(x => x.UserId, userId) &
+                Builders<SoilMoistureDataPointDocument>.Filter.Eq(x => x.SensorId, sensorId)
+            )
+            .ToAsyncEnumerable();
+
+        await foreach (var sensorData in query)
         {
-            return Array.Empty<SoilMoistureData>();
+            yield return new SoilMoistureData(sensorData.Value, sensorData.Date); 
         }
     }
+    
 }

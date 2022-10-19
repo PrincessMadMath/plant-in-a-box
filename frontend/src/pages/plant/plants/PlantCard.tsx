@@ -13,18 +13,19 @@ import {
     useDisclosure,
     VStack,
 } from "@chakra-ui/react";
-import { DeleteOperation } from "pages/overview/plants/DeleteOperation";
-import { FertilizeOperation } from "pages/overview/plants/FertilizeOperation";
-import { RepotOperation } from "pages/overview/plants/RepotOperation";
-import { UpdatePlantModal } from "pages/overview/plants/UpdatePlantModal";
-import { UploadPictureModal } from "pages/overview/plants/UploadPictureModal";
-import { WaterOperation } from "pages/overview/plants/WaterOperation";
 import React from "react";
-import { FiChevronDown, FiChevronUp, FiDroplet, FiEdit } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp, FiDroplet, FiEdit, FiFileText } from "react-icons/fi";
 import { GiBoxUnpacking, GiFertilizerBag, GiGreenhouse } from "react-icons/gi";
 import { MdCake } from "react-icons/md";
+import { useHistory } from "react-router-dom";
 import { Plant, useGetPlantImageSource2 } from "shared/api";
 import { formatFrom } from "shared/utils";
+import { DeleteOperation } from "./DeleteOperation";
+import { FertilizeOperation } from "./FertilizeOperation";
+import { RepotOperation } from "./RepotOperation";
+import { UpdatePlantModal } from "./UpdatePlantModal";
+import { UploadPictureModal } from "./UploadPictureModal";
+import { WaterOperation } from "./WaterOperation";
 
 interface PlantCardProps {
     plant: Plant;
@@ -34,6 +35,8 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
     const { isOpen: isExpanded, onToggle: onToggleExpand } = useDisclosure();
     const { isOpen: isUpdateOpen, onOpen: onOpenUpdate, onClose: onCloseUpdate } = useDisclosure();
     const { isOpen: isUploadOpen, onOpen: onOpenUpload, onClose: onCloseUpload } = useDisclosure();
+
+    const history = useHistory();
 
     const imageSource = useGetPlantImageSource2(plant.plantId, plant.image.etag);
 
@@ -52,11 +55,20 @@ export const PlantCard = ({ plant }: PlantCardProps) => {
                 <Box>
                     <Flex justify={"space-between"} direction={"row"}>
                         <Text fontSize="2xl">{plant.name}</Text>
-                        <IconButton
-                            aria-label="Expand plant information."
-                            onClick={onToggleExpand}
-                            icon={isExpanded ? <Icon as={FiChevronUp} /> : <Icon as={FiChevronDown} />}
-                        />
+                        <HStack>
+                            <IconButton
+                                icon={<FiFileText />}
+                                onClick={() => {
+                                    history.push(`/plant/${plant.plantId}`);
+                                }}
+                                aria-label="See details."
+                            />
+                            <IconButton
+                                aria-label="Expand plant information."
+                                onClick={onToggleExpand}
+                                icon={isExpanded ? <Icon as={FiChevronUp} /> : <Icon as={FiChevronDown} />}
+                            />
+                        </HStack>
                     </Flex>
                     <HStack spacing={1}>
                         <Icon as={FiDroplet} color={"gray.400"} />
@@ -145,7 +157,7 @@ const PlantOperations = ({ plant, openUpdate }: PlantOperationsProps) => {
                 <WaterOperation plant={plant} />
                 <FertilizeOperation plant={plant} />
                 <RepotOperation plant={plant} />
-                <Button leftIcon={<FiEdit />} isFullWidth onClick={openUpdate}>
+                <Button leftIcon={<FiEdit />} width="full" onClick={openUpdate}>
                     Edit
                 </Button>
                 <DeleteOperation plant={plant} />

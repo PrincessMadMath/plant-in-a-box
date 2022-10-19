@@ -1,13 +1,16 @@
-import { Box, Center, Heading, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, HStack, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useGetSensors } from "shared/api";
+import { useCreateSensors } from "shared/api/sensors";
 import { formatFrom } from "shared/utils";
 
-export const SensorsOverview = () => {
+export const SensorsOverviewPage = () => {
     const history = useHistory();
 
     const { isLoading: isSensorsLoading, data: sensors } = useGetSensors();
+
+    const generateSensors = useCreateSensors();
 
     if (isSensorsLoading) {
         return (
@@ -22,9 +25,12 @@ export const SensorsOverview = () => {
     if (!sensors || sensors.length === 0) {
         return (
             <Box mt="8">
-                <Heading as="h2" size="md">
-                    Sensors (none registered)
-                </Heading>
+                <HStack justify={"space-between"}>
+                    <Heading as="h2" size="md">
+                        Sensors (none registered)
+                    </Heading>
+                    <Button onClick={() => generateSensors.mutate()}>Generate fake sensors</Button>
+                </HStack>
             </Box>
         );
     }
@@ -54,9 +60,9 @@ export const SensorsOverview = () => {
                         >
                             <Td>{x.name}</Td>
                             <Td>{x.type}</Td>
-                            <Td isNumeric>{x.lastData.value}</Td>
+                            <Td isNumeric>{x.lastData ? x.lastData.value : "null"}</Td>
                             <Td>{x.status}</Td>
-                            <Td>{formatFrom(x.lastData.date)}</Td>
+                            <Td>{x.lastData ? formatFrom(x.lastData.date) : "null"}</Td>
                         </Tr>
                     ))}
                 </Tbody>

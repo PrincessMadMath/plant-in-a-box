@@ -1,8 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace Domain.IoT.Sensors.SoilMoisture;
 
-public class SoilMoistureData: ISensorData
-{
-    public float Value { get; set; }
-    
-    public DateTimeOffset Date { get; set; }
-}
+public record SoilMoistureData(float Value, DateTimeOffset Date) : ISensorData;

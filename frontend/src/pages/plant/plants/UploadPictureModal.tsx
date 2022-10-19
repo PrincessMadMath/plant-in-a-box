@@ -11,8 +11,8 @@ import {
     Text,
     useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
 import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
+import React, { useState } from "react";
 import { useUploadImage } from "shared/api";
 
 interface UploadPictureModalProps {
@@ -66,7 +66,7 @@ export const UploadPictureModal = ({ plantId, isOpen, onClose }: UploadPictureMo
                             maxSize={16 * 1024 ** 2}
                             accept={[MIME_TYPES.png, MIME_TYPES.jpeg, MIME_TYPES.gif]}
                         >
-                            {(status) => <Text>{file !== undefined ? `${file.name}` : "Click me"}</Text>}
+                            <Text>{file !== undefined ? `${file.name}` : "Click me"}</Text>
                         </Dropzone>
                     </Box>
                 </ModalBody>

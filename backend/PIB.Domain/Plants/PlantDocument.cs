@@ -22,6 +22,8 @@ public class PlantDocument : MongoDocument
     public CaringOperations Operations { get; set; } = new CaringOperations();
 
     public Image Image { get; set; } = new Image();
+
+    public Guid? SoilMoistureSensorId { get; set; }
 }
 
 public class CaringOperations
@@ -35,5 +37,5 @@ public class CaringOperations
 
 public class Image
 {
-    public string Etag { get; set; }
+    public string Etag { get; set; } = string.Empty;
 }

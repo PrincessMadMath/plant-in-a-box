@@ -7,6 +7,7 @@ export interface Plant {
     acquisitionDate: string;
     operations: CaringOperations;
     image: Image;
+    soilMoistureSensorId?: string;
 }
 
 export interface CaringOperations {

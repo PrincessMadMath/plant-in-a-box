@@ -15,4 +15,6 @@ public class PlantsControllerModels
     public record FertilizePlantRequest(Guid PlantId);
     
     public record RepotPlantRequest(Guid PlantId, string Pot);
+    
+    public record LinkSoilMoistureSensorRequest(Guid PlantId, Guid SensorId);
 }

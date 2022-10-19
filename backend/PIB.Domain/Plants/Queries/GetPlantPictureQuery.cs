@@ -26,7 +26,7 @@ public class GetPlantPictureQueryHandler : IRequestHandler<GetPlantPictureQuery,
         
             return new PictureResult(result.Content.ToStream() ,result.Details.ContentType);
         }
-        catch (Exception e)
+        catch (Exception)
         {
             throw new Exception("Not found");
         }
@@ -41,7 +41,7 @@ public class GetPlantPictureQueryHandler : IRequestHandler<GetPlantPictureQuery,
         
             return result;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             throw new Exception("Not found");
         }

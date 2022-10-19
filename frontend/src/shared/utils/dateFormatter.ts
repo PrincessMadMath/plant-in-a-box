@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
-import { parseDuration } from "shared/utils/duration";
+import { toDuration } from "shared/utils/duration";
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -25,7 +25,7 @@ export const durationBetween = (dateAstr: string, dateBstr: string) => {
 };
 
 export const timeOnlyToDate = (time: string) => {
-    const duration = parseDuration(time);
+    const duration = toDuration(time);
     const date = dayjs().hour(duration.hours()).minute(duration.minutes());
 
     return date.toDate();
