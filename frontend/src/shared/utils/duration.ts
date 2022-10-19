@@ -1,7 +1,7 @@
 // From moment.js: https://github.com/moment/moment/blob/develop/src/lib/duration/create.js
 
 import dayjs from "dayjs";
-import duration, {Duration} from "dayjs/plugin/duration";
+import duration, { Duration } from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
 
