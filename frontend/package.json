@@ -10,7 +10,7 @@
         "@emotion/styled": "11.10.4",
         "@mantine/core": "5.4.1",
         "@mantine/dates": "5.4.1",
-        "@mantine/dropzone": "5.4.1",
+        "@mantine/dropzone": "5.6.0",
         "@mantine/hooks": "5.4.1",
         "@nivo/core": "0.80.0",
         "@nivo/line": "0.80.0",
