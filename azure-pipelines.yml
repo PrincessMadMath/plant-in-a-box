@@ -20,12 +20,12 @@ steps:
     version: '5.0.x'
     includePreviewVersions: true # Required for preview versions
     
-- task: DotNetCoreCLI@2
+- task: DotNetCoreCLI@2.210.0
   inputs:
     command: 'restore'
     projects: 'Server/**/*.csproj'
     
-- task: DotNetCoreCLI@2
+- task: DotNetCoreCLI@2.210.0
   displayName: Build
   inputs:
     command: 'build'
