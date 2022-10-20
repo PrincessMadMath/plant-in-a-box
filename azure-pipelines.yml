@@ -32,7 +32,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     workingDirectory: Server
 
-- task: PublishBuildArtifacts@1
+- task: PublishBuildArtifacts@1.211.0
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'pib-server'
