@@ -1,6 +1,22 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "config:base"
+    "extends": ["config:base"],
+    "packageRules": [
+        {
+            "matchUpdateTypes": ["minor", "patch"],
+            "automerge": true
+        },
+        {
+            "matchPackagePatterns": ["^@mantine"],
+            "groupName": "mantine"
+        },
+        {
+            "matchPackagePatterns": ["^@nivo"],
+            "groupName": "nivo"
+        },
+        {
+            "matchPackagePatterns": ["^@emotion"],
+            "groupName": "emotion"
+        }
     ]
 }
