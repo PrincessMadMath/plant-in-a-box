@@ -37,3 +37,9 @@ By default:
 
 How package work: https://medium.com/coinmonks/everything-you-wanted-to-know-about-package-lock-json-b81911aa8ab8
 
+6. HTTPS
+
+.env HTTPS=true
+https://www.youtube.com/watch?v=neT7fmZ6sDE
+https://www.techrepublic.com/article/how-to-create-locally-signed-ssl-certificates-with-mkcert/
+

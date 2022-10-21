@@ -1,7 +1,7 @@
 using MediatR;
 using PIB.Infrastructure.BlobStorage;
 
-namespace Domain.Plants.Queries;
+namespace PIB.Domain.Plants.Queries;
 
 public record GetPlantPictureQuery(Guid PlantId) : IRequest<PictureResult>;
 

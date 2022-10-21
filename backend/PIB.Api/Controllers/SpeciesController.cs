@@ -1,10 +1,10 @@
-using Domain.Species;
-using Domain.Species.Commands;
-using Domain.Species.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIB.Api.Setup;
+using PIB.Domain.Species;
+using PIB.Domain.Species.Commands;
+using PIB.Domain.Species.Queries;
 
 namespace PIB.Api.Controllers;
 

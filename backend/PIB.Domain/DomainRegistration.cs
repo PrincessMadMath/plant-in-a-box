@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
-using Domain.IoT.Actuators.GrowthLight;
-using Domain.IoT.Sensors.SoilMoisture;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PIB.Domain.IoT.Actuators.GrowthLight;
+using PIB.Domain.IoT.Sensors.SoilMoisture;
 
-namespace Domain;
+namespace PIB.Domain;
 
 public static class DomainRegistration
 {

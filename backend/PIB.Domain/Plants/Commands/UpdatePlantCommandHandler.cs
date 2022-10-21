@@ -3,7 +3,7 @@ using MongoDB.Driver;
 using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.Plants.Commands;
+namespace PIB.Domain.Plants.Commands;
 
 public record UpdatePlantCommand
     (User User, Guid PlantId, string Name, string Species, string Room, string Pot, DateTimeOffset AcquisitionDate) : IRequest<PlantDocument>;

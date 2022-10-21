@@ -1,4 +1,4 @@
-namespace Domain.IoT.Sensors;
+namespace PIB.Domain.IoT.Sensors;
 
 public interface ISensor
 {

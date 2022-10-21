@@ -3,7 +3,7 @@ using MongoDB.Driver;
 using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.Plants.Queries;
+namespace PIB.Domain.Plants.Queries;
 
 public record GetPlantsQuery(User User) : IStreamRequest<PlantDocument>;
 

@@ -1,10 +1,10 @@
-using Domain.Plants;
-using Domain.Plants.Commands;
-using Domain.Plants.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIB.Api.Setup;
+using PIB.Domain.Plants;
+using PIB.Domain.Plants.Commands;
+using PIB.Domain.Plants.Queries;
 using PIB.Infrastructure.Auth;
 
 namespace PIB.Api.Controllers;

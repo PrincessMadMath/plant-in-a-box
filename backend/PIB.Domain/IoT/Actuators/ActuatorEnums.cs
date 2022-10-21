@@ -1,4 +1,4 @@
-namespace Domain.IoT.Actuators;
+namespace PIB.Domain.IoT.Actuators;
 
 public enum ActuatorType
 {

@@ -1,4 +1,4 @@
-namespace Domain.IoT.Device;
+namespace PIB.Domain.IoT.Device;
 
 public class DeviceLog
 {

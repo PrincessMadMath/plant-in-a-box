@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Domain.Test;
+namespace PIB.Domain.Test;
 
 public class TestDomainRequestQuery: IRequest<string>
 {

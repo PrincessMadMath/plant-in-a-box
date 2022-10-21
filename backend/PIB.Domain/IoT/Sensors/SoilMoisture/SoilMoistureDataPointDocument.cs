@@ -1,6 +1,6 @@
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.IoT.Sensors.SoilMoisture;
+namespace PIB.Domain.IoT.Sensors.SoilMoisture;
 
 // TODO: Currently this document design won't scale well
 [Collection("SoilMoistureSensorDataPoints")]

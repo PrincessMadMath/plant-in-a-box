@@ -1,10 +1,8 @@
-using Domain.Plants;
 using MediatR;
 using MongoDB.Driver;
-using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.Species.Queries;
+namespace PIB.Domain.Species.Queries;
 
 public record GetAllSpeciesQuery() : IStreamRequest<SpeciesDocument>;
 

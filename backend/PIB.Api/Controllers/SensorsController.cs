@@ -1,10 +1,10 @@
-using Domain.IoT.Sensors;
-using Domain.IoT.Sensors.Commands;
-using Domain.IoT.Sensors.SoilMoisture;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIB.Api.Setup;
+using PIB.Domain.IoT.Sensors;
+using PIB.Domain.IoT.Sensors.Commands;
+using PIB.Domain.IoT.Sensors.SoilMoisture;
 using PIB.Infrastructure.Auth;
 
 namespace PIB.Api.Controllers;

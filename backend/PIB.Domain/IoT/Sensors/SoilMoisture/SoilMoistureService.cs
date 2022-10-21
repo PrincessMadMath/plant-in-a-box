@@ -1,7 +1,7 @@
 using MongoDB.Driver;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.IoT.Sensors.SoilMoisture;
+namespace PIB.Domain.IoT.Sensors.SoilMoisture;
 
 // Does not  support concurrent operations.
 public class SoilMoistureService
