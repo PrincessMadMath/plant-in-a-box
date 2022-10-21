@@ -59,3 +59,7 @@ Quand utilser règle stylecop vs editorconfig?
 6. How configure Rider?
 
 Conflict with rule (this.)... how fix for all teams (.idea but normally ignore (TODO))
+
+7. Trust certificate
+
+https://www.hanselman.com/blog/developing-locally-with-aspnet-core-under-https-ssl-and-selfsigned-certs

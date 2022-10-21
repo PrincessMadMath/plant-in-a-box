@@ -32,3 +32,9 @@ Check spelling
 ## Quokka.js
 
 Quick prototype
+
+## Setup HTTPS 
+
+https://www.mariokandut.com/how-to-setup-https-ssl-in-localhost-react/
+https://bintzpress.com/self-signed-certificates-on-windows-23eee69fc8bd
+Check instructino for "Enable Firefox to user certificate store" (https://bintzpress.com/self-signed-certificates-on-windows-23eee69fc8bd)
