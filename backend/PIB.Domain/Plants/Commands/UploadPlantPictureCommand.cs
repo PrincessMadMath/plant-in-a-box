@@ -5,7 +5,7 @@ using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.BlobStorage;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.Plants.Commands;
+namespace PIB.Domain.Plants.Commands;
 
 public record UploadPlantPictureCommand(User User, Guid PlantId, Stream FileStream, string ContentType) : IRequest<UploadPlantPictureResponse>;
 

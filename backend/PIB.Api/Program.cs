@@ -1,5 +1,5 @@
-using Domain;
 using PIB.Api.Setup;
+using PIB.Domain;
 using PIB.Infrastructure.BlobStorage;
 using PIB.Infrastructure.MediatR;
 using PIB.Infrastructure.Mongo;

@@ -1,7 +1,6 @@
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-using Domain.Plants;
 
 namespace PIB.PlasticPlant.Faker;
 

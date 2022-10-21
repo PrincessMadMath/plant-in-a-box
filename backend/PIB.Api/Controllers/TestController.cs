@@ -1,8 +1,8 @@
-using Domain.Test;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIB.Api.Setup;
+using PIB.Domain.Test;
 using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.MediatR;
 using Serilog.Context;

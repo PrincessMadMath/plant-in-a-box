@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.Species.Queries;
+namespace PIB.Domain.Species.Queries;
 
 public record GetSpeciesQuery(Guid SpeciesId) : IRequest<SpeciesDocument?>;
 

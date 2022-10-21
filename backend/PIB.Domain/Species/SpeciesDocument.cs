@@ -1,6 +1,6 @@
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.Species;
+namespace PIB.Domain.Species;
 
 [Collection("Species")]
 public class SpeciesDocument : MongoDocument

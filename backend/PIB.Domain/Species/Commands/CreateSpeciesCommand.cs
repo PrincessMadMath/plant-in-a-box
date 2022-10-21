@@ -1,7 +1,7 @@
 using MediatR;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.Species.Commands;
+namespace PIB.Domain.Species.Commands;
 
 public record CreateSpeciesCommand(string Name, TimeSpan WateringFrequency, TimeSpan FertilizationFrequency) : IRequest<SpeciesDocument>;
 

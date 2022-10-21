@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>Domain</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

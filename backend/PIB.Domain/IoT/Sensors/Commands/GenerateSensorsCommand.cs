@@ -1,9 +1,9 @@
-using Domain.IoT.Sensors.SoilMoisture;
 using MediatR;
+using PIB.Domain.IoT.Sensors.SoilMoisture;
 using PIB.Infrastructure.Auth;
 using PIB.Infrastructure.Mongo;
 
-namespace Domain.IoT.Sensors.Commands;
+namespace PIB.Domain.IoT.Sensors.Commands;
 
 public record GenerateSensorsCommand(User User, int Count) : IRequest;
 

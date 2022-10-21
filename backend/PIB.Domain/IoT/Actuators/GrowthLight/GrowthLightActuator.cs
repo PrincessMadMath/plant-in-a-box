@@ -1,6 +1,6 @@
-using Domain.IoT.Device;
+using PIB.Domain.IoT.Device;
 
-namespace Domain.IoT.Actuators.GrowthLight;
+namespace PIB.Domain.IoT.Actuators.GrowthLight;
 
 public class GrowthLightActuator : IActuator
 {
