@@ -1,3 +1,4 @@
+using PIB.Infrastructure.AppConfiguration;
 using PIB.Infrastructure.Auth;
 using Serilog;
 
@@ -58,6 +59,8 @@ public static partial class ServiceCollectionExtensions
         app.UseMiddleware<UserContextMiddleware>();
 
         app.MapControllers();
+
+        app.UseAppConfig();
 
         app.Run();
 
