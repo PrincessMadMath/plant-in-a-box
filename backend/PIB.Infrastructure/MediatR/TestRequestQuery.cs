@@ -38,7 +38,7 @@ public class TestQueryHandler : IRequestHandler<TestRequestQuery, TestDocument>
     }
 }
 
-[Collection("test")]
+[MongoCollection("test")]
 public class TestDocument : MongoDocument
 {
     public string Name { get; set; } = String.Empty;

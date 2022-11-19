@@ -2,7 +2,7 @@ using PIB.Infrastructure.Mongo;
 
 namespace PIB.Domain.Species;
 
-[Collection("Species")]
+[MongoCollection("Species")]
 public class SpeciesDocument : MongoDocument
 {
     public Guid SpeciesId { get; set; }

@@ -2,19 +2,40 @@ using System.Collections.Immutable;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
 namespace PIB.Infrastructure.Mongo;
 
+/// <summary>
+/// Mongo Reference: https://www.mongodb.com/docs/manual/introduction/
+/// /// Driver Reference: https://mongodb.github.io/mongo-csharp-driver/2.18/reference/
+/// </summary>
 public class MongoRepository
 {
+    private readonly MongoClient _client;
     private readonly IMongoDatabase _database;
 
     public MongoRepository(IOptions<MongoSettings> mongoOption)
     {
-        var mongoSetting = MongoClientSettings.FromConnectionString(mongoOption.Value.ConnectionString);
+        var mongoSetting = this.GetMongoSettings(mongoOption);
         
+        this.ConfigureSerializer();
+        this.ConfigureConvention();
+        
+        this._client = new MongoClient(mongoSetting);
+        this._database = this._client.GetDatabase(mongoOption.Value.DatabaseName);
+    }
+
+    private MongoClientSettings GetMongoSettings(IOptions<MongoSettings> mongoOption)
+    {
+        var mongoSetting = MongoClientSettings.FromConnectionString(mongoOption.Value.ConnectionString);
+        return mongoSetting;
+    }
+
+    private void ConfigureSerializer()
+    {
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 #pragma warning disable CS0618
         // Required since guid representation is not respected in filter definition https://jira.mongodb.org/projects/CSHARP/issues/CSHARP-3179?filter=allopenissues
@@ -22,8 +43,17 @@ public class MongoRepository
         BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
 #pragma warning restore CS0618
         
-        var client = new MongoClient(mongoSetting);
-        this._database = client.GetDatabase(mongoOption.Value.DatabaseName);
+        BsonSerializer.RegisterSerializer(new DateTimeSerializer(BsonType.DateTime));
+        BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.DateTime));
+    }
+    
+    private void ConfigureConvention()
+    {
+        var pack = new ConventionPack();
+        
+        pack.Add(new IgnoreExtraElementsConvention(ignoreExtraElements: true));
+        
+        ConventionRegistry.Register("Common Convention Pack", pack, (_) => true);
     }
 
     public IMongoCollection<T> GetCollection<T>() where T : MongoDocument
@@ -32,33 +62,4 @@ public class MongoRepository
         
         return this._database.GetCollection<T>(collectionName);
     }
-    
-    public IAsyncEnumerable<TDocument> FindAsyncEnumerable<TDocument>(IMongoCollection<TDocument> collection,  FilterDefinition<TDocument> filter)
-    {
-        IAsyncEnumerable<TDocument> a=  AsyncEnumerable.Create(
-                token =>
-                {
-                    IAsyncCursor<TDocument>? cursor = null;
-
-                    async ValueTask<bool> MoveNextAsync()
-                    {
-                        cursor ??= await collection.FindAsync(filter, null, token);
-
-                        return await cursor.MoveNextAsync(token);
-                    }
-
-                    return AsyncEnumerator.Create(
-                        MoveNextAsync,
-                        () => cursor?.Current ?? ImmutableList<TDocument>.Empty,
-                        () =>
-                        {
-                            cursor?.Dispose();
-                            return default;
-                        });
-                })
-            .SelectMany(x => x.ToAsyncEnumerable());
-
-        return a;
-    }
-
 }
