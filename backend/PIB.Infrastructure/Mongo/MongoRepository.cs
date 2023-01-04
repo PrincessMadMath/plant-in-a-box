@@ -10,7 +10,8 @@ namespace PIB.Infrastructure.Mongo;
 
 /// <summary>
 /// Mongo Reference: https://www.mongodb.com/docs/manual/introduction/
-/// /// Driver Reference: https://mongodb.github.io/mongo-csharp-driver/2.18/reference/
+/// Driver Reference: https://mongodb.github.io/mongo-csharp-driver/2.18/reference/
+/// Read & Write Preference: https://www.mongodb.com/docs/manual/core/read-isolation-consistency-recency/
 /// </summary>
 public class MongoRepository
 {
@@ -31,6 +32,9 @@ public class MongoRepository
     private MongoClientSettings GetMongoSettings(IOptions<MongoSettings> mongoOption)
     {
         var mongoSetting = MongoClientSettings.FromConnectionString(mongoOption.Value.ConnectionString);
+        mongoSetting.ReadConcern = ReadConcern.Majority;
+        mongoSetting.WriteConcern = WriteConcern.WMajority.With(wTimeout: TimeSpan.FromSeconds(5));
+        
         return mongoSetting;
     }
 
