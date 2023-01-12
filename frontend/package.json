@@ -4,7 +4,7 @@
     "private": true,
     "proxy": "https://pib-server.azurewebsites.net",
     "dependencies": {
-        "@auth0/auth0-react": "1.12.0",
+        "@auth0/auth0-react": "1.12.1",
         "@chakra-ui/react": "2.4.7",
         "@emotion/react": "11.10.5",
         "@emotion/styled": "11.10.5",
