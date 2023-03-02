@@ -8,8 +8,9 @@ public static partial class ServiceCollectionExtensions
 {
     public static IServiceCollection AddAndConfigureMongoDB(this IServiceCollection services, ConfigurationManager config)
     {
-        services.Configure<MongoSettings>(
-            config.GetSection(MongoSettings.Mongo));
+        services.AddOptions<MongoSettings>()
+            .BindConfiguration(MongoSettings.Mongo)
+            .ValidateDataAnnotations();
 
         services.AddSingleton<MongoRepository>();
 

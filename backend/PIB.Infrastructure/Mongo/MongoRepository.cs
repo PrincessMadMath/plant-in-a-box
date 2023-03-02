@@ -32,33 +32,4 @@ public class MongoRepository
         
         return this._database.GetCollection<T>(collectionName);
     }
-    
-    public IAsyncEnumerable<TDocument> FindAsyncEnumerable<TDocument>(IMongoCollection<TDocument> collection,  FilterDefinition<TDocument> filter)
-    {
-        IAsyncEnumerable<TDocument> a=  AsyncEnumerable.Create(
-                token =>
-                {
-                    IAsyncCursor<TDocument>? cursor = null;
-
-                    async ValueTask<bool> MoveNextAsync()
-                    {
-                        cursor ??= await collection.FindAsync(filter, null, token);
-
-                        return await cursor.MoveNextAsync(token);
-                    }
-
-                    return AsyncEnumerator.Create(
-                        MoveNextAsync,
-                        () => cursor?.Current ?? ImmutableList<TDocument>.Empty,
-                        () =>
-                        {
-                            cursor?.Dispose();
-                            return default;
-                        });
-                })
-            .SelectMany(x => x.ToAsyncEnumerable());
-
-        return a;
-    }
-
 }

@@ -10,12 +10,12 @@ public static class MongoUtils
         
         foreach (System.Attribute attr in attrs)  
         {  
-            if (attr is CollectionAttribute collectionAttribute)
+            if (attr is MongoCollectionAttribute collectionAttribute)
             {
                 return collectionAttribute.CollectionName;
             }  
         }
 
-        throw new Exception($"Missing {nameof(CollectionAttribute)} attribute.");
+        throw new Exception($"Missing {nameof(MongoCollectionAttribute)} attribute.");
     }
 }

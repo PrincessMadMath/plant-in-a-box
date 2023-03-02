@@ -3,7 +3,7 @@ using PIB.Infrastructure.Mongo;
 namespace PIB.Domain.IoT.Sensors.SoilMoisture;
 
 // TODO: Currently this document design won't scale well
-[Collection("SoilMoistureSensorDataPoints")]
+[MongoCollection("SoilMoistureSensorDataPoints")]
 public class SoilMoistureDataPointDocument : MongoDocument
 {
     public string UserId { get; set; } = string.Empty;
