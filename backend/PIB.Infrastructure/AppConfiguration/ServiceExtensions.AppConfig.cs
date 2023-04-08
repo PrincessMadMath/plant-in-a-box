@@ -9,12 +9,12 @@ public static partial class ServiceCollectionExtensions
 {
     public static IServiceCollection AddAndConfigureAppConfig(this IServiceCollection services, ConfigurationManager config)
     {
-        // var appConfigSettings = config.GetSection(AppConfigSettings.AppConfig).Get<AppConfigSettings>();
+        var appConfigSettings = config.GetSection(AppConfigSettings.AppConfig).Get<AppConfigSettings>();
         
-        // Console.WriteLine(appConfigSettings.ConnectionString);
+        Console.WriteLine(appConfigSettings.ConnectionString);
 
         config.AddAzureAppConfiguration(
-            options => options.Connect("Endpoint=https://pib-configuration.azconfig.io;Id=QK8z-ll-s0:AP0jbdJM1yXZBZrPVlUe;Secret=lJCzoA9AUlbcstItmHe0DKYvryGCa0jxKMPf9FQ8zQg=").UseFeatureFlags());
+            options => options.Connect(appConfigSettings.ConnectionString).UseFeatureFlags());
         
         services.AddAzureAppConfiguration();
 

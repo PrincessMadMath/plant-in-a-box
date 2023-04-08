@@ -23,6 +23,9 @@ spec:
               value: "{{ .Values.environment }}"
             - name: Mongo__ConnectionString
               value: "{{ .Values.mongo.connectionString }}"
+          envFrom:
+            - secretRef:
+                name: secret-appsettings
   replicas: 3
   selector:
     matchLabels:

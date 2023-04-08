@@ -4,7 +4,7 @@ This is the final step of to containerize the application: having helm release.
 
 The goal is to be able to use those release to:
 - deploy locally
-- deploy in production
+- deploy in production (eventually)
 
 
 ## How to use
@@ -12,6 +12,11 @@ The goal is to be able to use those release to:
 ### Run locally
 
 Note: this will not build your chart!
+- `docker build -t backend:local -f Dockerfile .`
+
+Need to upload user-secrets to k8s secrets:
+- kubectl create secret generic secret-appsettings -n apps  --from-literal=BlobStorage__ConnectionString=<secrets> --from-literal=AppConfig__ConnectionString=<secrets>
+
 
 - Start the app: `helm upgrade pib .\apps\ -i --wait -n apps --create-namespace`
 - Start the dependencies: `helm upgrade pib-dependencies .\dependencies\ -i --wait -n pib-dependencies --create-namespace`
@@ -35,3 +40,5 @@ WebApp: http://localhost:30300
 -- Use bitnami chart
 
 - https://wkrzywiec.medium.com/how-to-deploy-application-on-kubernetes-with-helm-39f545ad33b8
+
+- Easier setup with secrets locally (KeyVault or Manage Identity?)
