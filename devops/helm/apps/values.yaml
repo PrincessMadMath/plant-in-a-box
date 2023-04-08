@@ -1,0 +1,7 @@
+environment: Development
+
+app:
+  tag: local
+
+mongo:
+  connectionString: mongodb://mongodb-service.pib-dependencies:27017

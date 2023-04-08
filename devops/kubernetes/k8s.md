@@ -13,7 +13,7 @@ You can target a local image by specifing the tag (otherwise if latest will try 
 
 1. Build backend and frontend  image (+ tag it to local
 2. Apply all .yaml files
-3. Api can be access at http:localhost:30080 and WebApp at http:localhost:30300
+3. Api can be access at http//localhost:30080 and WebApp at http://localhost:30300
 
 
 # Doc
