@@ -15,18 +15,20 @@ spec:
     spec:
       containers:
         - name: api-container
-          image: backend:{{ .Values.app.tag }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
-              value: "{{ .Values.environment }}"
+              value: "{{ .Values.global.environment }}"
             - name: Mongo__ConnectionString
               value: "{{ .Values.mongo.connectionString }}"
           envFrom:
+            {{- if .Values.k8sSecrets.enabled }}
             - secretRef:
-                name: secret-appsettings
-  replicas: 3
+                name: pib-secrets
+            {{- end}}
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       type: api

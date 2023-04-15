@@ -1,0 +1,14 @@
+global:
+  environment: Development  
+
+api:
+  image:
+    tag: local
+  mongo:
+    connectionString: mongodb://mongodb-service.pib:27017
+  k8sSecrets:
+    enabled: true
+
+webapp:
+  image:
+    tag: local

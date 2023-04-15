@@ -1,0 +1,11 @@
+image:
+  repository: backend
+  tag: latest
+
+replicas: 1
+
+mongo:
+  connectionString: PLACEHOLDER
+
+k8sSecrets:
+  isEnabled: false

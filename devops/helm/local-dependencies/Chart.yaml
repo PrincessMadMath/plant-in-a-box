@@ -24,11 +24,7 @@ version: 0.1.0
 appVersion: "1.16.0"
 
 dependencies:
-  - name: api
-    repository: file://charts/api
+  - name: mongo
+    repository: file://charts/mongo
     version: 0.1.0
-    condition: api.enabled
-  - name: webapp
-    repository: file://charts/webapp
-    version: 0.1.0
-    condition: webapp.enabled
+    condition: mongo.enabled

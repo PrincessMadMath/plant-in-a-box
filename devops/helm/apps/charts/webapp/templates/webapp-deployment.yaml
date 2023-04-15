@@ -15,7 +15,7 @@ spec:
     spec: 
       containers:
         - name: webapp-container
-          image: frontend:{{ .Values.app.tag }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: 80
   replicas: 2

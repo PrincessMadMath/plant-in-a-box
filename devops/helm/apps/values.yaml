@@ -1,7 +1,22 @@
-environment: Development
+### Global Values ###
+global:
+  # Options: Development | Production
+  environment: Development  
 
-app:
-  tag: local
 
-mongo:
-  connectionString: mongodb://mongodb-service.pib-dependencies:27017
+### Sub Charts Specific Values ###
+
+api:
+  enabled: true
+  image:
+    repository: backend
+    tag: latest
+  replicas: 1
+  mongo:
+    connectionString: PLACEHOLDER
+
+webapp:
+  enabled: true
+  image:
+    repository: frontend
+    tag: latest
