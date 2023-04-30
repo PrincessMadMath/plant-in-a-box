@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: pib
+    type: api
+spec:
+  template:
+    metadata:
+      name: api-pod
+      labels:
+        app: pib
+        type: api
+    spec: 
+      containers:
+        - name: api-container
+          image: backend:local
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: Mongo__ConnectionString
+              value: mongodb://mongodb-service:27017
+  replicas: 3
+  selector:
+    matchLabels:
+      type: api

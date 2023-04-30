@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-deployment
+  labels:
+{{ include "labels" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: {{ .Release.Name }}-{{ .Chart.Name }}-pod
+      labels:
+{{ include "labels" . | indent 8 }}
+        tier: frontend
+    spec: 
+      containers:
+        - name: webapp-container
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: 80
+  replicas: 2
+  selector:
+    matchLabels:
+      service: {{ .Chart.Name }}
+      tier: frontend

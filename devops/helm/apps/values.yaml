@@ -1,0 +1,22 @@
+### Global Values ###
+global:
+  # Options: Development | Production
+  environment: Development  
+
+
+### Sub Charts Specific Values ###
+
+api:
+  enabled: true
+  image:
+    repository: backend
+    tag: latest
+  replicas: 1
+  mongo:
+    connectionString: PLACEHOLDER
+
+webapp:
+  enabled: true
+  image:
+    repository: frontend
+    tag: latest

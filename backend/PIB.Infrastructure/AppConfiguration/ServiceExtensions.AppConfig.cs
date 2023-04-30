@@ -10,10 +10,12 @@ public static partial class ServiceCollectionExtensions
     public static IServiceCollection AddAndConfigureAppConfig(this IServiceCollection services, ConfigurationManager config)
     {
         var appConfigSettings = config.GetSection(AppConfigSettings.AppConfig).Get<AppConfigSettings>();
+        
+        Console.WriteLine(appConfigSettings.ConnectionString);
 
         config.AddAzureAppConfiguration(
             options => options.Connect(appConfigSettings.ConnectionString).UseFeatureFlags());
-
+        
         services.AddAzureAppConfiguration();
 
         return services;

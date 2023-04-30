@@ -1,0 +1,7 @@
+mongo:
+  enabled: true
+
+secrets:
+  enabled: true
+  blobStorageConnectionString: PLACEHOLDER
+  appConfigConnectionString: PLACEHOLDER
