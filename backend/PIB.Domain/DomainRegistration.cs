@@ -18,7 +18,7 @@ public static class DomainRegistration
         services.AddSingleton<GrowthLightService>();
         services.AddSingleton<SoilMoistureService>();
 
-        services.AddMongoIndexes<SpeciesDocumentIndexBuilder>();
+        // services.AddMongoIndexes<SpeciesDocumentIndexBuilder>();
 
         return services;
     }
