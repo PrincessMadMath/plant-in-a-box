@@ -2,7 +2,7 @@
 
 namespace PIB.Domain.Plants;
 
-[Collection("Plants")]
+[MongoCollection("Plants")]
 public class PlantDocument : MongoDocument
 {
     public string UserId { get; set; } = string.Empty;

@@ -15,4 +15,11 @@ public static partial class ServiceCollectionExtensions
 
         return services;
     }
+    
+    public static IServiceCollection AddMongoIndexes<T>(this IServiceCollection services) where T : MongoIndexBuilder<MongoDocument>
+    {
+        services.AddSingleton<MongoIndexBuilder<MongoDocument>>(x => Activator.CreateInstance<T>());
+
+        return services;
+    }
 }
