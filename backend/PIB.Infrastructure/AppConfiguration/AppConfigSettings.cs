@@ -4,5 +4,5 @@ public class AppConfigSettings
 {
     public const string AppConfig = "AppConfig";
 
-    public string ConnectionString { get; set; } = string.Empty;
+    public string Endpoint { get; set; } = string.Empty;
 }

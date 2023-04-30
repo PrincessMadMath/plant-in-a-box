@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-{{ .Chart.Name }}-api-nodeport
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - targetPort: 80
       port: 80

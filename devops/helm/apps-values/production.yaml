@@ -1,0 +1,12 @@
+global:
+  environment: prod  
+
+api:
+  image:
+    repository: pib0acr.azurecr.io/backend
+    tag: v1
+
+webapp:
+  image:
+    repository: pib0acr.azurecr.io/frontend
+    tag: v1

@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,10 +12,11 @@ public static partial class ServiceCollectionExtensions
     {
         var appConfigSettings = config.GetSection(AppConfigSettings.AppConfig).Get<AppConfigSettings>();
         
-        Console.WriteLine(appConfigSettings.ConnectionString);
+        Console.WriteLine(appConfigSettings.Endpoint);
 
+        // Why am I forbidden :( 
         config.AddAzureAppConfiguration(
-            options => options.Connect(appConfigSettings.ConnectionString).UseFeatureFlags());
+            options => options.Connect(new Uri(appConfigSettings.Endpoint), new DefaultAzureCredential(new DefaultAzureCredentialOptions(){ManagedIdentityClientId = "e4a64d9e-9ed8-47b5-ba26-1812dc06fdb2" } )).UseFeatureFlags());
         
         services.AddAzureAppConfiguration();
 
