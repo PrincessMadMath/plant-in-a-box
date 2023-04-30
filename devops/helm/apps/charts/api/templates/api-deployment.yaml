@@ -1,17 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-deployment
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-api-deployment
   labels:
-    app: pib
-    type: api
+{{ include "labels" . | indent 4 }}
 spec:
   template:
     metadata:
       name: api-pod
       labels:
-        app: pib
-        type: api
+{{ include "labels" . | indent 8 }}
+        tier: api
     spec:
       containers:
         - name: api-container
@@ -31,4 +30,5 @@ spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      type: api
+      service: {{ .Chart.Name }}
+      tier: api

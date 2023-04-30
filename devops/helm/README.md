@@ -33,6 +33,7 @@ Note: this will not build your chart!
 - To reference a services in an other namespace you must follow this naming `<serviceName>.<namespaceName>`
 - Secrets is only accessible by resources in the same namespaces
 - To pass not encoded secrets as vars: use stringData and not data
+- Deployment selector are immutable: you can't patch them
 
 
 ## Next steps

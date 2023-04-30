@@ -1,17 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-deployment
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-deployment
   labels:
-    app: pib
-    type: webapp
+{{ include "labels" . | indent 4 }}
 spec:
   template:
     metadata:
-      name: webapp-pod
+      name: {{ .Release.Name }}-{{ .Chart.Name }}-pod
       labels:
-        app: pib
-        type: webapp
+{{ include "labels" . | indent 8 }}
+        tier: frontend
     spec: 
       containers:
         - name: webapp-container
@@ -21,4 +20,5 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      type: webapp
+      service: {{ .Chart.Name }}
+      tier: frontend

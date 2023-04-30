@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapp-nodeport
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-nodeport
 spec:
   type: NodePort
   ports:
@@ -9,5 +9,5 @@ spec:
       port: 3000
       nodePort: 30300
   selector:
-    app: pib
-    type: webapp
+    service: {{ .Chart.Name }}
+    tier: frontend
