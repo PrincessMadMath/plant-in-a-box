@@ -18,7 +18,7 @@
         "auth0-js": "9.23.1",
         "axios": "1.5.1",
         "dayjs": "1.11.10",
-        "dotenv": "16.0.3",
+        "dotenv": "16.3.1",
         "env-cmd": "^10.1.0",
         "formik": "2.2.9",
         "framer-motion": "7.10.3",
