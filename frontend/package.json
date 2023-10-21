@@ -67,7 +67,7 @@
         "@types/react": "18.2.31",
         "@types/react-dom": "18.2.14",
         "@types/react-router-dom": "5.3.3",
-        "eslint": "8.40.0",
+        "eslint": "8.52.0",
         "eslint-config-prettier": "8.8.0",
         "eslint-plugin-prettier": "4.2.1",
         "eslint-plugin-react": "7.32.2",
