@@ -15,7 +15,7 @@
         "@nivo/core": "0.84.0",
         "@nivo/line": "0.84.0",
         "@types/react-datepicker": "4.19.6",
-        "auth0-js": "9.24.1",
+        "auth0-js": "9.28.0",
         "axios": "1.8.3",
         "dayjs": "1.11.13",
         "dotenv": "16.4.7",
