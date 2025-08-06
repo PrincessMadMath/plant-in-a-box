@@ -64,8 +64,8 @@
     "devDependencies": {
         "@types/jest": "29.5.14",
         "@types/node": "18.19.121",
-        "@types/react": "18.3.18",
-        "@types/react-dom": "18.3.5",
+        "@types/react": "18.3.23",
+        "@types/react-dom": "18.3.7",
         "@types/react-router-dom": "5.3.3",
         "eslint": "8.57.1",
         "eslint-config-prettier": "8.10.2",
