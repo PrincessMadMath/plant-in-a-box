@@ -11,7 +11,7 @@ COPY . .
 RUN npm run build:container
 
 # Stage 2
-FROM nginx:1.27
+FROM nginx:1.29
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=build /app/build /usr/share/nginx/html
