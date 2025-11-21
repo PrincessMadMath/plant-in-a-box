@@ -17,7 +17,7 @@
         "@types/react-datepicker": "4.19.6",
         "auth0-js": "9.29.0",
         "axios": "1.13.2",
-        "dayjs": "1.11.18",
+        "dayjs": "1.11.19",
         "dotenv": "16.6.1",
         "env-cmd": "^10.1.0",
         "formik": "2.4.6",
