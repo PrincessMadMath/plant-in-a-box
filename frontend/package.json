@@ -20,7 +20,7 @@
         "dayjs": "1.11.19",
         "dotenv": "16.6.1",
         "env-cmd": "^10.1.0",
-        "formik": "2.4.6",
+        "formik": "2.4.9",
         "framer-motion": "7.10.3",
         "lodash": "4.17.21",
         "moment": "2.30.1",
